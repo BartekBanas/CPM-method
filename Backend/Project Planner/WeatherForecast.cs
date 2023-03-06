@@ -1,4 +1,4 @@
-namespace Project_Planner_Backend;
+namespace Project_Planner;
 
 public class WeatherForecast
 {
