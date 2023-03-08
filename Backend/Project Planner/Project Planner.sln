@@ -4,11 +4,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Application"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{0CE229B8-0F9E-4F25-9B40-DBBC756483B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Errors", "ProjectPlanner.Errors\ProjectPlanner.Errors.csproj", "{68232EBC-ED11-4ADE-A0D7-2A5460A034F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Application.Errors", "ProjectPlanner.Application.Errors\ProjectPlanner.Application.Errors.csproj", "{68232EBC-ED11-4ADE-A0D7-2A5460A034F2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{A1CDF3E6-8332-40F6-837B-151FAC6BD139}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CriticalPathMethod", "CriticalPathMethod\CriticalPathMethod.csproj", "{79FB4AED-69DD-4782-97FE-199CD08987A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Business.CriticalPathMethod", "ProjectPlanner.Business.CriticalPathMethod\ProjectPlanner.Business.CriticalPathMethod.csproj", "{79FB4AED-69DD-4782-97FE-199CD08987A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
