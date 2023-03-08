@@ -1,5 +1,7 @@
 ﻿using System.Runtime.Serialization;
 
+namespace Errors.Abstractions;
+
 public abstract class ErrorException : Exception
 {
     public ErrorException()
