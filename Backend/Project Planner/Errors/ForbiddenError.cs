@@ -1,8 +1,4 @@
-﻿using Messegify.Application.Errors.Abstractions;
-
-namespace Messegify.Application.Errors;
-
-public class ForbiddenError : ErrorException
+﻿public class ForbiddenError : ErrorException
 {
     public ForbiddenError()
     {

@@ -1,7 +1,5 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Messegify.Application.Errors.Abstractions;
-
 public abstract class ErrorException : Exception
 {
     public ErrorException()
