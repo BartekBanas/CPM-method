@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "H:\\Szkoła\\Semestr VI\\Badania operacyjne i logistyka\\Project Planner\\Backend\\Project Planner\\CriticalPathMethod\\CriticalPathMethod.csproj",
-      "projectName": "CriticalPathMethod",
-      "projectPath": "H:\\Szkoła\\Semestr VI\\Badania operacyjne i logistyka\\Project Planner\\Backend\\Project Planner\\CriticalPathMethod\\CriticalPathMethod.csproj",
+      "projectUniqueName": "H:\\Szkoła\\Semestr VI\\Badania operacyjne i logistyka\\Project Planner\\Backend\\Project Planner\\ProjectPlanner.Application.Errors\\ProjectPlanner.Application.Errors.csproj",
+      "projectName": "ProjectPlanner.Application.Errors",
+      "projectPath": "H:\\Szkoła\\Semestr VI\\Badania operacyjne i logistyka\\Project Planner\\Backend\\Project Planner\\ProjectPlanner.Application.Errors\\ProjectPlanner.Application.Errors.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "H:\\Szkoła\\Semestr VI\\Badania operacyjne i logistyka\\Project Planner\\Backend\\Project Planner\\CriticalPathMethod\\obj\\",
+      "outputPath": "H:\\Szkoła\\Semestr VI\\Badania operacyjne i logistyka\\Project Planner\\Backend\\Project Planner\\ProjectPlanner.Application.Errors\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
