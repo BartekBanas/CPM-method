@@ -17,4 +17,8 @@
       <_ContentIncludedByDefault Remove="Errors\obj\project.packagespec.json" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ProjectPlanner.Application.Services\ProjectPlanner.Application.Services.csproj" />
+    </ItemGroup>
+
 </Project>
