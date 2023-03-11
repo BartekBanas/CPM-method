@@ -1,6 +1,8 @@
-﻿namespace ProjectPlanner.Application.Services.Requests;
+﻿using ProjectPlanner.Application.Services.Abstractions;
 
-public class CpmRequest
+namespace ProjectPlanner.Application.Services.Requests;
+
+public class CpmRequest : TaskRequest
 {
     
 }

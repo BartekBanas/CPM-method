@@ -1,6 +1,8 @@
-﻿namespace ProjectPlanner.Application.Services.Requests;
+﻿using ProjectPlanner.Application.Services.Abstractions;
 
-public class PertRequest
+namespace ProjectPlanner.Application.Services.Requests;
+
+public class PertRequest : TaskRequest
 {
     
 }
