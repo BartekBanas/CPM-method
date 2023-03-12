@@ -2,7 +2,7 @@
 
 namespace ProjectPlanner.Application.Services;
 
-public class PertHandler : TaskHandler
+public class PertHandler : ITaskHandler
 {
     public Task<Solution> Handle(TaskRequest taskRequest)
     {

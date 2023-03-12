@@ -2,7 +2,7 @@
 
 namespace ProjectPlanner.Application.Services;
 
-public class CpmHandler : TaskHandler
+public class CpmHandler : ITaskHandler
 {
     public Task<Solution> Handle(TaskRequest taskRequest)
     {

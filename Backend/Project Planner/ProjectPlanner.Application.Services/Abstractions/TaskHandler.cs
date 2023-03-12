@@ -1,6 +1,6 @@
 ﻿namespace ProjectPlanner.Application.Services.Abstractions;
 
-public interface TaskHandler
+public interface ITaskHandler
 {
     public Task<Solution> Handle(TaskRequest taskRequest);
 }
