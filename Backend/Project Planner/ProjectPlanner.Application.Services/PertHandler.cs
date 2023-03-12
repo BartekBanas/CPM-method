@@ -1,6 +1,6 @@
 ﻿namespace ProjectPlanner.Application.Services;
 
-public class PertTaskService
+public class PertHandler
 {
     
 }

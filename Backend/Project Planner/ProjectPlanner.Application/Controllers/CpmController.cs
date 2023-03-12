@@ -7,5 +7,5 @@ namespace Project_Planner.Controllers;
 [Microsoft.AspNetCore.Components.Route("api/CPM")]
 public class CpmController
 {
-    private readonly CpmTaskService _cpmTaskService;
+    private readonly CpmHandler _cpmHandler;
 }

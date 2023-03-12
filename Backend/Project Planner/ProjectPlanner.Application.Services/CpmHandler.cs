@@ -1,6 +1,7 @@
 ﻿namespace ProjectPlanner.Application.Services;
 
-public class CpmTaskService
+public class CpmHandler
 {
     
 }
+
