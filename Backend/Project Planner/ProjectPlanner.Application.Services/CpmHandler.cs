@@ -1,7 +1,12 @@
-﻿namespace ProjectPlanner.Application.Services;
+﻿using ProjectPlanner.Application.Services.Abstractions;
 
-public class CpmHandler
+namespace ProjectPlanner.Application.Services;
+
+public class CpmHandler : TaskHandler
 {
-    
+    public Task<Solution> Handle(TaskRequest taskRequest)
+    {
+        throw new NotImplementedException();
+    }
 }
 

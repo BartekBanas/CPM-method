@@ -2,8 +2,5 @@
 
 public interface TaskHandler
 {
-    public async void Handle(TaskRequest taskRequest)
-    {
-        
-    }
+    public Task<Solution> Handle(TaskRequest taskRequest);
 }

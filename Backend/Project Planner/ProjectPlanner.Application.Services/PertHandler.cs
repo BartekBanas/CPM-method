@@ -1,6 +1,11 @@
-﻿namespace ProjectPlanner.Application.Services;
+﻿using ProjectPlanner.Application.Services.Abstractions;
 
-public class PertHandler
+namespace ProjectPlanner.Application.Services;
+
+public class PertHandler : TaskHandler
 {
-    
+    public Task<Solution> Handle(TaskRequest taskRequest)
+    {
+        throw new NotImplementedException();
+    }
 }
