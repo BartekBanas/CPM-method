@@ -4,11 +4,10 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>CriticalPathMethod</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ProjectPlanner.Application.Services\ProjectPlanner.Application.Services.csproj" />
+      <PackageReference Include="MediatR" Version="12.0.1" />
     </ItemGroup>
 
 </Project>
