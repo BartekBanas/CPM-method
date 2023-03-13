@@ -1,5 +1,6 @@
-﻿using ProjectPlanner.Application.Services.Abstractions;
-using ProjectPlanner.Infrastructure.SolutionObjects.Abstractions;
+﻿using ProjectPlanner.Infrastructure.SolutionObjects.Abstractions;
+
+namespace ProjectPlanner.Application.Services.Abstractions;
 
 public interface ITaskHandler
 {
