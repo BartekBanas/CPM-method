@@ -1,4 +1,4 @@
-﻿using ProjectPlanner.Application.Services.Abstractions;
+using ProjectPlanner.Infrastructure.SolutionObjects.Abstractions;
 
 namespace CriticalPathMethod;
 

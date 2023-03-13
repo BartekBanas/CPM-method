@@ -1,4 +1,5 @@
-﻿namespace ProjectPlanner.Application.Services.Abstractions;
+﻿using ProjectPlanner.Application.Services.Abstractions;
+using ProjectPlanner.Infrastructure.SolutionObjects.Abstractions;
 
 public interface ITaskHandler
 {
