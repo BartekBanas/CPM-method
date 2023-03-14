@@ -16,9 +16,9 @@ public class CpmController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostCpmRequest([FromBody] CpmTask cpmTask)
+    public async Task<IActionResult> PostCpmRequest([FromBody] CpmTask task)
     {
-        var solution = await _cpmService.Solve(cpmTask);
+        var solution = await _cpmService.Solve(task);
 
         return Ok(solution);
     }
