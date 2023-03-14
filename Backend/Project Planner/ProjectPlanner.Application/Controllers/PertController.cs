@@ -5,7 +5,7 @@ namespace Project_Planner.Controllers;
 
 [ApiController]
 [Microsoft.AspNetCore.Components.Route("api/PERT")]
-public class PertController
+public class PertController : Controller
 {
-    private readonly PertHandler _pertHandler;
+    private readonly PertService _pertService;
 }

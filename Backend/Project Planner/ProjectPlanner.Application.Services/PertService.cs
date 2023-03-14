@@ -1,13 +1,13 @@
 ﻿using ProjectPlanner.Application.Services.Abstractions;
 using ProjectPlanner.Infrastructure.SolutionObjects.Abstractions;
+using ProjectPlanner.Infrastructure.TaskObjects;
 
 namespace ProjectPlanner.Application.Services;
 
-public class CpmHandler : ITaskHandler
+public class PertService
 {
-    public Task<Solution> Handle(TaskRequest taskRequest)
+    public Task<Solution> Solve(PertTask task)
     {
         throw new NotImplementedException();
     }
 }
-

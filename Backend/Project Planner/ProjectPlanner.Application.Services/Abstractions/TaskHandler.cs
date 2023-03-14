@@ -1,8 +1,9 @@
 ﻿using ProjectPlanner.Infrastructure.SolutionObjects.Abstractions;
+using ProjectPlanner.Infrastructure.TaskObjects.Abstractions;
 
 namespace ProjectPlanner.Application.Services.Abstractions;
 
-public interface ITaskHandler
+public interface IService
 {
-    public Task<Solution> Handle(TaskRequest taskRequest);
+    public Task<Solution> Solve(ProjectTask task);
 }

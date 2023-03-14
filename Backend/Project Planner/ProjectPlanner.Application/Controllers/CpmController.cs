@@ -1,26 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectPlanner.Application.Services;
-using ProjectPlanner.Application.Services.Requests;
 using ProjectPlanner.Infrastructure.TaskObjects;
 
 namespace Project_Planner.Controllers;
 
 [ApiController]
 [Microsoft.AspNetCore.Components.Route("api/CPM")]
-public class CpmController
+public class CpmController : Controller
 {
-    private readonly CpmHandler _cpmHandler;
+    private readonly CpmService _cpmService;
 
-    public CpmController(CpmHandler cpmHandler)
+    public CpmController(CpmService cpmService)
     {
-        _cpmHandler = cpmHandler;
+        _cpmService = cpmService;
     }
 
     [HttpPost]
     public async Task<IActionResult> PostCpmRequest([FromBody] CpmTask cpmTask)
     {
-        var task = new CpmRequest(cpmTask);
-        
-        var solution = await _cpmHandler.Handle(task);
+        var solution = await _cpmService.Solve(cpmTask);
+
+        return Ok(solution);
     }
 }
