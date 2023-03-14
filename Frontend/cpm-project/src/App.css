@@ -14,7 +14,6 @@
 }
 
 .App-header {
-  background-color: #e2dfd1;
   min-height: 100vh;
   min-width: 100%;
   display: inline-block;
@@ -25,9 +24,6 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
 
 @keyframes App-logo-spin {
   from {

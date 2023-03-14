@@ -1,10 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-import { Button, Layout, Space, Avatar } from 'antd';
+import { Button, Layout, Space } from 'antd';
 import backg from './images/backg.jpg';
 
 import AppHeader from './components/common/header';
+import InformationCard from './components/common/informator';
 
 function App() {
   return (
@@ -14,11 +14,8 @@ function App() {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover'
       }}>
-        <img src={logo} className="App-logo" alt="logo" />
         <AppHeader />
-        <Space wrap>
-          <Button type="primary">Primary Button</Button>
-        </Space>
+        <InformationCard />
       </header>
     </Layout>
   );
