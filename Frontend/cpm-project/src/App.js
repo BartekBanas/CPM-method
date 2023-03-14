@@ -6,9 +6,20 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <div className="App-names">
+        <span className="App-names">
           Bartłomiej Burda, Bartłomiej Banaś, Dawid Chmielowiec, Damian Błażowski
-        </div>
+        </span>
+        <ul>
+          <li className="button-1">
+            test guzik
+          </li>
+          <li className="button-1">
+            test guzik
+          </li>
+          <li className="button-1">
+            test guzik
+          </li>
+        </ul>
       </header>
     </div>
   );
