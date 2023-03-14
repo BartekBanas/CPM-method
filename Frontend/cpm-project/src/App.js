@@ -1,27 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import { Button, Layout, Space, Avatar } from 'antd';
+import backg from './images/backg.jpg';
+
+import AppHeader from './components/common/header';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <Layout className="App">
+      <header className="App-header" style={{
+        backgroundImage: `url(${backg})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover'
+      }}>
         <img src={logo} className="App-logo" alt="logo" />
-        <span className="App-names">
-          Bartłomiej Burda, Bartłomiej Banaś, Dawid Chmielowiec, Damian Błażowski
-        </span>
-        <ul>
-          <li className="button-1">
-            test guzik
-          </li>
-          <li className="button-1">
-            test guzik
-          </li>
-          <li className="button-1">
-            test guzik
-          </li>
-        </ul>
+        <AppHeader />
+        <Space wrap>
+          <Button type="primary">Primary Button</Button>
+        </Space>
       </header>
-    </div>
+    </Layout>
   );
 }
 

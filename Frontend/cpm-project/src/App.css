@@ -29,15 +29,6 @@
   color: #61dafb;
 }
 
-.App-names {
-  color: #61dafb;
-  background-color: white;
-  text-align: center;
-  font-size: large;
-  border: 2px solid #00c8ff;
-  padding: 1%;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -46,32 +37,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.button-1 {
-  background-color: #61dafb;
-  border: 2px solid #00c8ff;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  cursor: pointer;
-  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  height: 40px;
-  line-height: 20px;
-  display: inline-flex;
-  list-style: none;
-  margin: 5px;
-  padding: 10px 16px;
-  text-align: center;
-  text-decoration: none;
-  transition: color 100ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
-
-.button-1:hover,
-.button-1:focus {
-  background-color: #87dbf2;
 }
