@@ -8,4 +8,11 @@ namespace Project_Planner.Controllers;
 public class CpmController
 {
     private readonly CpmHandler _cpmHandler;
+
+    public CpmController(CpmHandler cpmHandler)
+    {
+        _cpmHandler = cpmHandler;
+    }
+    
+    
 }
