@@ -1,24 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import { Button, Layout, Space } from 'antd';
+import backg from './images/backg.jpg';
+
+import AppHeader from './components/common/header';
+import InformationCard from './components/common/informator';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <Layout className="App">
+      <header className="App-header" style={{
+        backgroundImage: `url(${backg})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover'
+      }}>
+        <AppHeader />
+        <InformationCard />
       </header>
-    </div>
+    </Layout>
   );
 }
 
