@@ -10,4 +10,9 @@
       <PackageReference Include="MediatR" Version="12.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ProjectPlanner.Infrastructure.SolutionObjects\ProjectPlanner.Infrastructure.SolutionObjects.csproj" />
+      <ProjectReference Include="..\ProjectPlanner.Infrastructure.TaskObjects\ProjectPlanner.Infrastructure.TaskObjects.csproj" />
+    </ItemGroup>
+
 </Project>
