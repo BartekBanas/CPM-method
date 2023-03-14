@@ -1,5 +1,4 @@
-﻿using ProjectPlanner.Application.Services.Abstractions;
-using ProjectPlanner.Infrastructure.SolutionObjects.Abstractions;
+﻿using ProjectPlanner.Infrastructure.SolutionObjects.Abstractions;
 using ProjectPlanner.Infrastructure.TaskObjects;
 
 namespace ProjectPlanner.Application.Services;
