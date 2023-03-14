@@ -5,7 +5,7 @@ using ProjectPlanner.Infrastructure.TaskObjects;
 namespace Project_Planner.Controllers;
 
 [ApiController]
-[Microsoft.AspNetCore.Components.Route("api/PERT")]
+[Route("api/PERT")]
 public class PertController : Controller
 {
     private readonly PertService _pertService;
