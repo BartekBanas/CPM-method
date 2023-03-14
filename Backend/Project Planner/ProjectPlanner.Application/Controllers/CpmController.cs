@@ -5,7 +5,7 @@ using ProjectPlanner.Infrastructure.TaskObjects;
 namespace Project_Planner.Controllers;
 
 [ApiController]
-[Microsoft.AspNetCore.Components.Route("api/CPM")]
+[Route("api/CPM")]
 public class CpmController : Controller
 {
     private readonly CpmService _cpmService;
