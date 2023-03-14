@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ProjectPlanner.Infrastructure.SolutionObjects\ProjectPlanner.Infrastructure.SolutionObjects.csproj" />
+      <ProjectReference Include="..\ProjectPlanner.Infrastructure.TaskObjects\ProjectPlanner.Infrastructure.TaskObjects.csproj" />
     </ItemGroup>
 
 </Project>

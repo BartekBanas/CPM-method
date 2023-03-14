@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectPlanner.Application.Services;
+using ProjectPlanner.Application.Services.Requests;
+using ProjectPlanner.Infrastructure.TaskObjects;
 
 namespace Project_Planner.Controllers;
 
@@ -13,6 +15,12 @@ public class CpmController
     {
         _cpmHandler = cpmHandler;
     }
-    
-    
+
+    [HttpPost]
+    public async Task<IActionResult> PostCpmRequest([FromBody] CpmTask cpmTask)
+    {
+        var task = new CpmRequest(cpmTask);
+        
+        var solution = await _cpmHandler.Handle(task);
+    }
 }
