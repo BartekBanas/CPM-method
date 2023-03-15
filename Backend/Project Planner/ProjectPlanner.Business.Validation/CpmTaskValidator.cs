@@ -17,6 +17,7 @@ public class CpmTaskValidator
     {
         ValidateAmountOfActivities();
         ValidateSequences();
+        ValidateStartAndEnd();
         
         return Validity;
     }
@@ -54,5 +55,46 @@ public class CpmTaskValidator
         }
     }
 
-    
+    private void ValidateStartAndEnd()
+    {
+        int startCount = 0;
+        int endCount = 0;
+
+        HashSet<int> events = new HashSet<int>();
+        
+        foreach (var activity in Task.Activities)
+        {
+            events.Add(activity.Sequence[0]);
+            events.Add(activity.Sequence[1]);
+        }
+
+        foreach (var eEvent in events)
+        {
+            int predecessors = 0;
+            int successors = 0;
+            
+            foreach (var activity in Task.Activities)
+            {
+                if (eEvent == activity.Sequence[0])
+                {
+                    successors++;
+                }
+                if (eEvent == activity.Sequence[1])
+                {
+                    predecessors++;
+                }
+            }
+
+            if (predecessors == 0)
+                startCount++;
+
+            if (successors == 0)
+                endCount++;
+        }
+
+        if (startCount != 1 || endCount != 1)
+        {
+            Validity = false;
+        }
+    }
 }
