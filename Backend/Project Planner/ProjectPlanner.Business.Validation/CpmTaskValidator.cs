@@ -15,10 +15,13 @@ public class CpmTaskValidator
 
     public bool Validate()
     {
+        ValidateAmountOfActivities();
+        ValidateSequences();
+        
         return Validity;
     }
 
-    public bool ValidateAmountOfActivities()
+    private bool ValidateAmountOfActivities()
     {
         if (Task.Activities.Count < 2)
         {
@@ -30,4 +33,26 @@ public class CpmTaskValidator
             return true;
         }
     }
+
+    private void ValidateSequences()
+    {
+        foreach (var activity in Task.Activities)
+        {
+            if (activity.Sequence.Length != 2)
+            {
+                Validity = false;
+                
+                return;
+            }
+
+            if (activity.Sequence[0] == activity.Sequence[1])
+            {
+                Validity = false;
+                
+                return;
+            }
+        }
+    }
+
+    
 }
