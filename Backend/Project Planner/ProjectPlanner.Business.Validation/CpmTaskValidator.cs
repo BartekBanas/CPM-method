@@ -52,7 +52,7 @@ public class CpmTaskValidator
             {
                 Validity = false;
 
-                ErrorMessage += "Given activity incomplete\n";
+                AddToErrorMessage("Given activity incomplete");
                 
                 return;
             }
@@ -61,7 +61,7 @@ public class CpmTaskValidator
             {
                 Validity = false;
 
-                ErrorMessage += "Activity cannot come in between one and the same event\n";
+                AddToErrorMessage("Activity cannot come in between one and the same event");
                 
                 return;
             }
