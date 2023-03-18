@@ -6,7 +6,7 @@ public class CpmTaskValidator
 {
     private CpmTask Task { get; }
     private bool Validity { get; set; }
-    public string? ErrorMessage { get; set; }
+    public string? ErrorMessage { get; private set; }
 
     public CpmTaskValidator(CpmTask task)
     {
