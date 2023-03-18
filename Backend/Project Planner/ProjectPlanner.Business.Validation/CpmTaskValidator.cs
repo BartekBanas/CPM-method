@@ -6,7 +6,6 @@ public class CpmTaskValidator
 {
     public CpmTask Task { get; }
     public bool Validity { get; set; }
-
     public String ErrorMessage { get; set; }
 
     public CpmTaskValidator(CpmTask task)
@@ -24,14 +23,19 @@ public class CpmTaskValidator
         return Validity;
     }
 
+    private void AddToErrorMessage(String errorMessage)
+    {
+        ErrorMessage += errorMessage + "\n";
+    }
+
     private bool ValidateAmountOfActivities()
     {
         if (Task.Activities.Count < 2)
         {
             Validity = false;
 
-            ErrorMessage += "Not enough given activities\n";
-            
+            AddToErrorMessage("Not enough given activities");
+
             return false;
         }
         else
@@ -47,6 +51,8 @@ public class CpmTaskValidator
             if (activity.Sequence.Length != 2)
             {
                 Validity = false;
+
+                ErrorMessage += "Given activity incomplete\n";
                 
                 return;
             }
@@ -54,6 +60,8 @@ public class CpmTaskValidator
             if (activity.Sequence[0] == activity.Sequence[1])
             {
                 Validity = false;
+
+                ErrorMessage += "Activity cannot come in between one and the same event\n";
                 
                 return;
             }
@@ -102,4 +110,6 @@ public class CpmTaskValidator
             Validity = false;
         }
     }
+    
+    
 }
