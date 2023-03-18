@@ -6,7 +6,7 @@ public class CpmTaskValidator
 {
     public CpmTask Task { get; }
     public bool Validity { get; set; }
-    public String ErrorMessage { get; set; }
+    public string ErrorMessage { get; set; }
 
     public CpmTaskValidator(CpmTask task)
     {
@@ -24,7 +24,7 @@ public class CpmTaskValidator
         return Validity;
     }
 
-    private void AddToErrorMessage(String errorMessage)
+    private void AddToErrorMessage(string errorMessage)
     {
         ErrorMessage += errorMessage + "\n";
     }
