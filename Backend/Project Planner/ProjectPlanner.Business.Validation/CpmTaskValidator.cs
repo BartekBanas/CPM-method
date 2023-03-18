@@ -105,8 +105,24 @@ public class CpmTaskValidator
                 endCount++;
         }
 
-        if (startCount != 1 || endCount != 1)
+        if (startCount == 0)
         {
+            AddToErrorMessage("Could not find starting event");
+            Validity = false;
+        }
+        if (startCount > 1)
+        {
+            AddToErrorMessage("More than one starting event found");
+            Validity = false;
+        }
+        if (endCount == 0)
+        {
+            AddToErrorMessage("Could not find ending event");
+            Validity = false;
+        }
+        if (endCount > 1)
+        {
+            AddToErrorMessage("More than one ending event found");
             Validity = false;
         }
     }
