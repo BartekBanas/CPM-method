@@ -19,6 +19,7 @@ public class CpmTaskValidator
         ValidateAmountOfActivities();
         ValidateSequences();
         ValidateStartAndEnd();
+        ValidateLooping();
         
         return Validity;
     }
@@ -129,9 +130,7 @@ public class CpmTaskValidator
 
     private void ValidateDuplicates()
     {
-        
-        Validity = false;
-        AddToErrorMessage("Cycle detected");
+        //Note sure if needed at all
     }
 
     private void ValidateLooping()
