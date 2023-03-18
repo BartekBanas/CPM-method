@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectPlanner.Application.Services;
+using ProjectPlanner.Business.Validation;
 using ProjectPlanner.Infrastructure.TaskObjects;
 
 namespace Project_Planner.Controllers;
@@ -18,6 +19,12 @@ public class CpmController : Controller
     [HttpPost]
     public async Task<IActionResult> PostCpmRequest([FromBody] CpmTask task)
     {
+        var validator = new CpmTaskValidator(task);
+        if (validator.Validate() == false)
+        {
+            BadRequest(validator.ErrorMessage);
+        }
+        
         var solution = await _cpmService.Solve(task);
 
         return Ok(solution);
