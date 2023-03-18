@@ -4,8 +4,8 @@ namespace ProjectPlanner.Business.Validation;
 
 public class CpmTaskValidator
 {
-    public CpmTask Task { get; }
-    public bool Validity { get; set; }
+    private CpmTask Task { get; }
+    private bool Validity { get; set; }
     public string? ErrorMessage { get; set; }
 
     public CpmTaskValidator(CpmTask task)
