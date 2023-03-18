@@ -7,6 +7,8 @@ public class CpmTaskValidator
     public CpmTask Task { get; }
     public bool Validity { get; set; }
 
+    public String ErrorMessage { get; set; }
+
     public CpmTaskValidator(CpmTask task)
     {
         Task = task;
@@ -27,6 +29,9 @@ public class CpmTaskValidator
         if (Task.Activities.Count < 2)
         {
             Validity = false;
+
+            ErrorMessage += "Not enough given activities\n";
+            
             return false;
         }
         else
