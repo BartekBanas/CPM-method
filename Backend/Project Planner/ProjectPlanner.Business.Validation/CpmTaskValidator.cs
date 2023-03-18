@@ -126,6 +126,9 @@ public class CpmTaskValidator
             Validity = false;
         }
     }
-    
-    
+
+    private void ValidateDuplicates()
+    {
+        
+    }
 }
