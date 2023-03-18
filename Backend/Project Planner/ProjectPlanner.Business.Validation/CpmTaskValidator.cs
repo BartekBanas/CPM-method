@@ -130,5 +130,18 @@ public class CpmTaskValidator
     private void ValidateDuplicates()
     {
         
+        Validity = false;
+        AddToErrorMessage("Cycle detected");
+    }
+
+    private void ValidateLooping()
+    {
+        var cyclicValidator = new CpmCyclicValidator(Task);
+
+        if (cyclicValidator.Validate() == false)
+        {
+            Validity = false;
+            AddToErrorMessage("Cycle detected");
+        }
     }
 }
