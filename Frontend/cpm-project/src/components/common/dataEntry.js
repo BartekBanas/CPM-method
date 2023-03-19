@@ -32,7 +32,7 @@ function DataEntryForNewTask() {
                                 Zatwierdź
                             </Button>
                             <Button htmlType="button" onClick={onReset}>
-                                Reset
+                                Resetuj
                             </Button>
                         </Form.Item>
                     </Card>
