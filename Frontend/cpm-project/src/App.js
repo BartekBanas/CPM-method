@@ -5,6 +5,7 @@ import backg from './images/backg.jpg';
 
 import AppHeader from './components/common/header';
 import InformationCard from './components/common/informator';
+import DataEntryForNewTask from './components/common/dataEntry';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       }}>
         <AppHeader />
         <InformationCard />
+        <DataEntryForNewTask />
       </header>
     </Layout>
   );
