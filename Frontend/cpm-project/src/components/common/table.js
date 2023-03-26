@@ -14,10 +14,6 @@ const EditableRow = ({ index, ...props }) => {
     );
 };
 
-const test = () => {
-    alert("Test");
-}
-
 const EditableCell = ({
     title,
     editable,
@@ -104,7 +100,14 @@ const TableWithInfo = () => {
         },
         {
             title: 'Następstwo Zdarzeń',
-            dataIndex: 'address',
+            colSpan: 2,
+            dataIndex: 'futureEvents',
+            editable: true,
+        },
+        {
+            title: 'Następstwo Zdarzeń 2',
+            colSpan: 0,
+            dataIndex: 'futureEvents2',
             editable: true,
         },
         {
@@ -112,8 +115,13 @@ const TableWithInfo = () => {
             dataIndex: 'options',
             render: (_, record) =>
                 dataSource.length >= 1 ? (
-                    <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
-                        <a>Delete</a>
+                    <Popconfirm
+                        title="Na pewno chcesz usunąć?"
+                        onConfirm={() => handleDelete(record.key)}
+                        okText="Tak"
+                        cancelText="Nie"
+                    >
+                        <a>Usuń</a>
                     </Popconfirm>
                 ) : null,
         },
@@ -123,7 +131,8 @@ const TableWithInfo = () => {
             key: count,
             name: document.getElementById('iName').value,
             time: document.getElementById('iTime').value,
-            futureEvents: null,
+            futureEvents: document.getElementById('iZd1').value,
+            futureEvents2: document.getElementById('iZd2').value,
         };
         setDataSource([...dataSource, newData]);
         setCount(count + 1);
@@ -169,7 +178,7 @@ const TableWithInfo = () => {
                         marginBottom: 16,
                     }}
                 >
-                    Add a row (test)
+                    Prześlij
                 </Button>
                 <Table
                     components={components}

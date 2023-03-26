@@ -1,6 +1,7 @@
 import { Button, Form, Input, Select, Space, Card } from 'antd';
 import React from 'react';
 import handleAdd from './table.js';
+import TableWithInfo from './table.js';
 
 function DataEntryForNewTask() {
     const [form] = Form.useForm();
@@ -49,7 +50,7 @@ function DataEntryForNewTask() {
                             </Form.Item>
                         </Form.Item>
                         <Form.Item>
-                            <Button type="primary" onClick={handleAdd} htmlType="submit" style={{ display: 'inline-block', margin: '0 5%', background: '#61dafb' }}>
+                            <Button type="primary" onClick={TableWithInfo} htmlType="submit" style={{ display: 'inline-block', margin: '0 5%' }}>
                                 Zatwierdź
                             </Button>
                             <Button htmlType="button" onClick={onReset} style={{ display: 'inline-block', margin: '0 5%' }}>
