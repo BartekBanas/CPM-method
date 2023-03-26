@@ -10,12 +10,6 @@ function DataEntryForNewTask() {
         form.resetFields();
     };
 
-    const isDataValid = (value) => {
-        if (value != String) {
-            alert("test");
-        }
-    };
-
     return (
 
         <h2>
@@ -28,7 +22,7 @@ function DataEntryForNewTask() {
                             <Input id='iName' />
                         </Form.Item>
                         <Form.Item name="time" label="Czas" rules={[{ required: true }]}>
-                            <Input id='iTime' />
+                            <Input id='iTime' type="number" min={0} />
                         </Form.Item>
                         <Form.Item name="futureEvents" label="Nastepstwo Zdarzeń">
                             <Form.Item
@@ -36,7 +30,7 @@ function DataEntryForNewTask() {
                                 rules={[{ required: true }]}
                                 style={{ display: 'inline-block', width: 'calc(50% - 3px)' }}
                             >
-                                <Input id='iZd1' />
+                                <Input id='iZd1' type="number" min={0} />
                             </Form.Item>
                             <div style={{ display: 'inline-block' }}>
                                 -
@@ -46,7 +40,7 @@ function DataEntryForNewTask() {
                                 rules={[{ required: true }]}
                                 style={{ display: 'inline-block', width: 'calc(50% - 3px)' }}
                             >
-                                <Input id='iZd2' />
+                                <Input id='iZd2' type="number" min={0} />
                             </Form.Item>
                         </Form.Item>
                         <Form.Item>

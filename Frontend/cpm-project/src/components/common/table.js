@@ -1,4 +1,4 @@
-import { Button, Form, Input, Popconfirm, Table } from 'antd';
+import { Button, Empty, Form, Input, Popconfirm, Table } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 
 
@@ -46,7 +46,7 @@ const EditableCell = ({
                 ...values,
             });
         } catch (errInfo) {
-            console.log('Save failed:', errInfo);
+            console.log('Zapis nieudany', errInfo);
         }
     };
     let childNode = children;
@@ -60,7 +60,7 @@ const EditableCell = ({
                 rules={[
                     {
                         required: true,
-                        message: `${title} is required.`,
+                        message: `${title} jest wymagane!`,
                     },
                 ]}
             >
@@ -134,6 +134,10 @@ const TableWithInfo = () => {
             futureEvents: document.getElementById('iZd1').value,
             futureEvents2: document.getElementById('iZd2').value,
         };
+        if (newData.name == '' || newData.time == '' || newData.futureEvents == '' || newData.futureEvents2 == '') {
+            alert("Puste pola!")
+            return;
+        }
         setDataSource([...dataSource, newData]);
         setCount(count + 1);
     };
