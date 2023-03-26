@@ -3,7 +3,7 @@ import React from 'react';
 
 function InformationCard() {
     return (
-        <Space direction="vertical" size={16}>
+        <Space direction="vertical" size={8}>
             <Card title="Metoda CPM" style={{ width: 400 }}>
                 <p>Program pozwalający obliczyć coś tam coś tam się dopisze</p>
             </Card>
