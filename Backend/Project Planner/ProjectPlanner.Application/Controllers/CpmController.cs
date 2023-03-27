@@ -11,9 +11,14 @@ public class CpmController : Controller
 {
     private readonly CpmService _cpmService;
 
-    public CpmController(CpmService cpmService)
+    // public CpmController(CpmService cpmService)
+    // {
+    //     _cpmService = cpmService;
+    // }
+    
+    public CpmController()
     {
-        _cpmService = cpmService;
+        _cpmService = new CpmService();
     }
 
     [HttpPost]
@@ -22,11 +27,11 @@ public class CpmController : Controller
         var validator = new CpmTaskValidator(task);
         if (validator.Validate() == false)
         {
-            BadRequest(validator.ErrorMessage);
+            return BadRequest(validator.ErrorMessage);
         }
         
-        var solution = await _cpmService.Solve(task);
+        //var solution = await _cpmService.Solve(task);
 
-        return Ok(solution);
+        return Ok();
     }
 }

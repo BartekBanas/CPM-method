@@ -16,10 +16,10 @@ public class CpmTaskValidator
 
     public bool Validate()
     {
-        ValidateAmountOfActivities();
+        //ValidateAmountOfActivities();
         ValidateSequences();
         ValidateStartAndEnd();
-        ValidateLooping();
+        //ValidateLooping();
         
         return Validity;
     }
