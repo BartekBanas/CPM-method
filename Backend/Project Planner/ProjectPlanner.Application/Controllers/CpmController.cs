@@ -30,8 +30,8 @@ public class CpmController : Controller
             BadRequest(validator.ErrorMessage);
         }
         
-        var solution = await _cpmService.Solve(task);
+        //var solution = await _cpmService.Solve(task);
 
-        return Ok(solution);
+        return Ok();
     }
 }
