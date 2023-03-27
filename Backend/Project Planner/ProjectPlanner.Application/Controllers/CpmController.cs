@@ -11,9 +11,14 @@ public class CpmController : Controller
 {
     private readonly CpmService _cpmService;
 
-    public CpmController(CpmService cpmService)
+    // public CpmController(CpmService cpmService)
+    // {
+    //     _cpmService = cpmService;
+    // }
+    
+    public CpmController()
     {
-        _cpmService = cpmService;
+        _cpmService = new CpmService();
     }
 
     [HttpPost]
