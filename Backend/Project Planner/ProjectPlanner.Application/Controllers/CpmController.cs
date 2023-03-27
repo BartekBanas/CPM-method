@@ -27,7 +27,7 @@ public class CpmController : Controller
         var validator = new CpmTaskValidator(task);
         if (validator.Validate() == false)
         {
-            BadRequest(validator.ErrorMessage);
+            return BadRequest(validator.ErrorMessage);
         }
         
         //var solution = await _cpmService.Solve(task);
