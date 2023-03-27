@@ -19,7 +19,7 @@ public class CpmTaskValidator
         //ValidateAmountOfActivities();
         ValidateSequences();
         ValidateStartAndEnd();
-        ValidateLooping();
+        //ValidateLooping();
         
         return Validity;
     }
