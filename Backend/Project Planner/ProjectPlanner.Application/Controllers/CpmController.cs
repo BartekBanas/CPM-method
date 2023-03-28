@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using ProjectPlanner.Application.Services;
 using ProjectPlanner.Business.Validation;
 using ProjectPlanner.Infrastructure.TaskObjects;
@@ -10,27 +11,31 @@ namespace Project_Planner.Controllers;
 public class CpmController : Controller
 {
     private readonly ICpmService _cpmService;
-
-    public CpmController(ICpmService cpmService)
+    private readonly IValidator<CpmTask> _validator;
+    public CpmController(ICpmService cpmService, IValidator<CpmTask> validator)
     {
         _cpmService = cpmService;
+        _validator = validator;
     }
 
     [HttpPost]
     public async Task<IActionResult> PostCpmRequest([FromBody] CpmTask task)
     {
         var validator = new CpmTaskValidator(task);
-        try
+        var validationResult = await _validator.ValidateAsync(task);
+
+        if (!validationResult.IsValid)
         {
-            if (validator.Validate() == false)
+            List<string> errors = new List<string>();
+            
+            foreach (var failure in validationResult.Errors)
             {
-                return BadRequest(validator.ErrorMessage);
+                errors.Add(failure.ErrorMessage);
             }
+            
+            return BadRequest(errors);
         }
-        catch
-        {
-            return BadRequest(validator.ErrorMessage);
-        }
+        
         
         //var solution = await _cpmService.Solve(task);
 

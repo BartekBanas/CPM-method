@@ -1,4 +1,7 @@
+using FluentValidation;
 using ProjectPlanner.Application.Services;
+using ProjectPlanner.Business.Validation;
+using ProjectPlanner.Infrastructure.TaskObjects;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +13,9 @@ services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
+services.AddScoped<IValidator<CpmTask>, CpmFluentValidator>();
 services.AddScoped<ICpmService, CpmService>();
+
 
 var app = builder.Build();
 
