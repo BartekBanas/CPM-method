@@ -20,7 +20,14 @@ public class CpmController : Controller
     public async Task<IActionResult> PostCpmRequest([FromBody] CpmTask task)
     {
         var validator = new CpmTaskValidator(task);
-        if (validator.Validate() == false)
+        try
+        {
+            if (validator.Validate() == false)
+            {
+                return BadRequest(validator.ErrorMessage);
+            }
+        }
+        catch
         {
             return BadRequest(validator.ErrorMessage);
         }
