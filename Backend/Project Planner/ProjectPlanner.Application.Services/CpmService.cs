@@ -3,7 +3,12 @@ using ProjectPlanner.Infrastructure.TaskObjects;
 
 namespace ProjectPlanner.Application.Services;
 
-public class CpmService
+public interface ICpmService
+{
+    Task<Solution> Solve(CpmTask task);
+}
+
+public class CpmService : ICpmService
 {
     public Task<Solution> Solve(CpmTask task)
     {
