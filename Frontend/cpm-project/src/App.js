@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import { useState } from 'react';
 import { Button, Layout, Space } from 'antd';
 import backg from './images/backg.jpg';
 
@@ -9,6 +9,8 @@ import DataEntryForNewTask from './components/common/dataEntry';
 import TableWithInfo from './components/common/table';
 
 function App() {
+  const [eventForm, setEventForm] = useState({});
+
   return (
     <Layout className="App">
       <header className="App-header" style={{
@@ -18,8 +20,8 @@ function App() {
       }}>
         <AppHeader />
         <InformationCard />
-        <DataEntryForNewTask />
-        <TableWithInfo />
+        <DataEntryForNewTask setEventForm={setEventForm} />
+        <TableWithInfo eventForm={eventForm} />
       </header>
     </Layout>
   );
