@@ -12,22 +12,16 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
 
     private void ValidateActivities(List<CpmActivity> activities, ValidationContext<CpmTask> context)
     {
-        foreach (var activity in activities)
+        for (int i = 0; i < activities.Count; i++)
         {
-            if (activity.Sequence.Length != 2)
+            if (activities[i].Sequence.Length != 2)
             {
-                int index = activities.IndexOf(activity) + 1;
-                context.AddFailure("Activity " + index +  " is incomplete");
-                
-                return;
+                context.AddFailure("Activity " + (i + 1) + " is incomplete");
             }
-
-            if (activity.Sequence[0] == activity.Sequence[1])
+            
+            if (activities[i].Sequence[0] == activities[i].Sequence[1])
             {
-                int index = activities.IndexOf(activity) + 1;
-                context.AddFailure("Activity " + index + " cannot come in between one and the same event");
-                
-                return;
+                context.AddFailure("Activity " + (i + 1) + " cannot come in between one and the same event");
             }
         }
     }
