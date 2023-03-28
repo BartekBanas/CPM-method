@@ -15,4 +15,10 @@
       <ProjectReference Include="..\ProjectPlanner.Infrastructure.TaskObjects\ProjectPlanner.Infrastructure.TaskObjects.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="FluentValidation">
+        <HintPath>C:\Users\Admin\.nuget\packages\fluentvalidation\11.5.1\lib\net6.0\FluentValidation.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>
