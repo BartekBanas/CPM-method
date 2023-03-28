@@ -9,6 +9,7 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
     {
         RuleFor(task => task.Activities.Count).GreaterThan(1).WithMessage("Not enough given activities");
         RuleFor(task => task.Activities).Custom(ValidateActivities);
+        RuleFor(task => task.Activities).Custom(ValidateStartAndEnd);
     }
 
     private void ValidateActivities(List<CpmActivity> activities, ValidationContext<CpmTask> context)
@@ -27,5 +28,58 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
         }
     }
     
+    private void ValidateStartAndEnd(List<CpmActivity> activities, ValidationContext<CpmTask> context)
+    {
+        int startCount = 0;
+        int endCount = 0;
 
+        HashSet<int> events = new HashSet<int>();
+        
+        foreach (var activity in activities)
+        {
+            events.Add(activity.Sequence[0]);
+            events.Add(activity.Sequence[1]);
+        }
+
+        foreach (var eEvent in events)
+        {
+            int predecessors = 0;
+            int successors = 0;
+            
+            foreach (var activity in activities)
+            {
+                if (eEvent == activity.Sequence[0])
+                {
+                    successors++;
+                }
+                if (eEvent == activity.Sequence[1])
+                {
+                    predecessors++;
+                }
+            }
+
+            if (predecessors == 0)
+                startCount++;
+
+            if (successors == 0)
+                endCount++;
+        }
+
+        if (startCount == 0)
+        {
+            context.AddFailure("Could not find starting event");
+        }
+        if (startCount > 1)
+        {
+            context.AddFailure("More than one starting event found");
+        }
+        if (endCount == 0)
+        {
+            context.AddFailure("Could not find ending event");
+        }
+        if (endCount > 1)
+        {
+            context.AddFailure("More than one ending event found");
+        }
+    }
 }
