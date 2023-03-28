@@ -27,6 +27,6 @@ public class CpmController : Controller
         
         //var solution = await _cpmService.Solve(task);
 
-        return Ok();
+        return Ok(/*solution*/);
     }
 }
