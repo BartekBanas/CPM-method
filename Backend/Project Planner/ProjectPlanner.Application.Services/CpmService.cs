@@ -11,13 +11,6 @@ public interface ICpmService
 
 public class CpmService : ICpmService
 {
-    private readonly IValidator<CpmTask> _validator;
-
-    public CpmService(IValidator<CpmTask> validator)
-    {
-        _validator = validator;
-    }
-
     public Task<Solution> Solve(CpmTask task)
     {
         throw new NotImplementedException();
