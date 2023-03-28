@@ -9,17 +9,17 @@ namespace Project_Planner.Controllers;
 [Route("api/CPM")]
 public class CpmController : Controller
 {
-    private readonly CpmService _cpmService;
+    private readonly ICpmService _cpmService;
 
-    // public CpmController(CpmService cpmService)
-    // {
-    //     _cpmService = cpmService;
-    // }
-    
-    public CpmController()
+    public CpmController(ICpmService cpmService)
     {
-        _cpmService = new CpmService();
+        _cpmService = cpmService;
     }
+    
+    // public CpmController()
+    // {
+    //     _cpmService = new CpmService();
+    // }
 
     [HttpPost]
     public async Task<IActionResult> PostCpmRequest([FromBody] CpmTask task)
