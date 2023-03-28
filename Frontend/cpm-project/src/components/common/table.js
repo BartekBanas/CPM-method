@@ -1,5 +1,6 @@
 import { Button, Empty, Form, Input, Popconfirm, Table } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { isEmpty } from 'lodash';
 
 
 const EditableContext = React.createContext(null);
@@ -80,12 +81,24 @@ const EditableCell = ({
     }
     return <td {...restProps}>{childNode}</td>;
 };
-const TableWithInfo = () => {
+const TableWithInfo = ({ eventForm }) => {
     const [dataSource, setDataSource] = useState([]);
-    const [count, setCount] = useState(2);
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        if (isEmpty(eventForm)) {
+            return;
+        }
+        setDataSource((dataSource) => {
+            return [...dataSource, { ...eventForm, key: count }];
+        });
+        setCount(count + 1);
+    }, [eventForm]);
+
     const handleDelete = (key) => {
-        const newData = dataSource.filter((item) => item.key !== key);
-        setDataSource(newData);
+        setDataSource((dataSource) => {
+            return [...dataSource.filter((item) => item.key !== key)];
+        });
     };
     const defaultColumns = [
         {
@@ -126,21 +139,7 @@ const TableWithInfo = () => {
                 ) : null,
         },
     ];
-    const handleAdd = () => {
-        const newData = {
-            key: count,
-            name: document.getElementById('iName').value,
-            time: document.getElementById('iTime').value,
-            futureEvents: document.getElementById('iZd1').value,
-            futureEvents2: document.getElementById('iZd2').value,
-        };
-        if (newData.name == '' || newData.time == '' || newData.futureEvents == '' || newData.futureEvents2 == '') {
-            alert("Puste pola!")
-            return;
-        }
-        setDataSource([...dataSource, newData]);
-        setCount(count + 1);
-    };
+
     const handleSave = (row) => {
         const newData = [...dataSource];
         const index = newData.findIndex((item) => row.key === item.key);
@@ -175,14 +174,8 @@ const TableWithInfo = () => {
     return (
         <h3>
             <div>
-                <Button
-                    onClick={handleAdd}
-                    type="primary"
-                    style={{
-                        marginBottom: 16,
-                    }}
-                >
-                    Prześlij
+                <Button type="primary" style={{ marginBottom: 16 }}>
+                    Zatwierdź
                 </Button>
                 <Table
                     components={components}
