@@ -7,6 +7,7 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
 {
     public CpmFluentValidator()
     {
+        RuleFor(task => task.Activities.Count).GreaterThan(1).WithMessage("Not enough given activities");
         RuleFor(task => task.Activities).Custom(ValidateActivities);
     }
 
@@ -25,4 +26,6 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
             }
         }
     }
+    
+
 }
