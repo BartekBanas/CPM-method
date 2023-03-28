@@ -1,3 +1,5 @@
+using ProjectPlanner.Application.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +9,8 @@ services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
+
+services.AddScoped<ICpmService, CpmService>();
 
 var app = builder.Build();
 
