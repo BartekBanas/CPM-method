@@ -53,7 +53,8 @@ public class CpmTaskValidator
             {
                 Validity = false;
 
-                AddToErrorMessage("Given activity incomplete");
+                int index = Task.Activities.IndexOf(activity) + 1;
+                AddToErrorMessage("Activity " + index +  " is incomplete");
                 
                 return;
             }
@@ -62,7 +63,8 @@ public class CpmTaskValidator
             {
                 Validity = false;
 
-                AddToErrorMessage("Activity cannot come in between one and the same event");
+                int index = Task.Activities.IndexOf(activity) + 1;
+                AddToErrorMessage("Activity " + index + " cannot come in between one and the same event");
                 
                 return;
             }
