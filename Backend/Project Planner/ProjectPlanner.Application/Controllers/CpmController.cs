@@ -15,11 +15,6 @@ public class CpmController : Controller
     {
         _cpmService = cpmService;
     }
-    
-    // public CpmController()
-    // {
-    //     _cpmService = new CpmService();
-    // }
 
     [HttpPost]
     public async Task<IActionResult> PostCpmRequest([FromBody] CpmTask task)
