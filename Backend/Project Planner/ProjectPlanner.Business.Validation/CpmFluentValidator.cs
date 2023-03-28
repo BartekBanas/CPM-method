@@ -9,38 +9,54 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
     
     public CpmFluentValidator()
     {
-        RuleFor(cpmtask => cpmtask).Must(ValidateSequences).WithMessage( $"{ErrorMessage} ErrorMessage");
+        RuleFor(task => task.Activities).Custom(ValidateActivities);
+    }
 
-    }
-    
-    private void AddToErrorMessage(string errorMessage)
+    private void ValidateActivities(List<CpmActivity> activities, ValidationContext<CpmTask> context)
     {
-        ErrorMessage += errorMessage + "\n";
-    }
-    
-    
-    private bool ValidateSequences(CpmTask task)
-    {
-        foreach (var activity in task.Activities)
+        foreach (var activity in activities)
         {
             if (activity.Sequence.Length != 2)
             {
-                int index = task.Activities.IndexOf(activity) + 1;
-                AddToErrorMessage("Activity " + index +  " is incomplete");
+                int index = activities.IndexOf(activity) + 1;
+                context.AddFailure("Activity " + index +  " is incomplete");
                 
-                return false;
+                return;
             }
 
             if (activity.Sequence[0] == activity.Sequence[1])
             {
-                int index = task.Activities.IndexOf(activity) + 1;
-                AddToErrorMessage("Activity " + index + " cannot come in between one and the same event");
+                int index = activities.IndexOf(activity) + 1;
+                context.AddFailure("Activity " + index + " cannot come in between one and the same event");
                 
-                return false;
+                return;
             }
         }
-
-        return true;
     }
+    
+    
+    // private bool ValidateSequences(CpmTask task, ValidationContext<CpmTask> validationContext)
+    // {
+    //     foreach (var activity in task.Activities)
+    //     {
+    //         if (activity.Sequence.Length != 2)
+    //         {
+    //             int index = task.Activities.IndexOf(activity) + 1;
+    //             AddToErrorMessage("Activity " + index +  " is incomplete");
+    //             
+    //             return false;
+    //         }
+    //
+    //         if (activity.Sequence[0] == activity.Sequence[1])
+    //         {
+    //             int index = task.Activities.IndexOf(activity) + 1;
+    //             AddToErrorMessage("Activity " + index + " cannot come in between one and the same event");
+    //             
+    //             return false;
+    //         }
+    //     }
+    //
+    //     return true;
+    // }
 
 }

@@ -21,19 +21,14 @@ public class CpmController : Controller
     [HttpPost]
     public async Task<IActionResult> PostCpmRequest([FromBody] CpmTask task)
     {
-        var validator = new CpmTaskValidator(task);
+        // var validator = new CpmTaskValidator(task);
         var validationResult = await _validator.ValidateAsync(task);
 
         if (!validationResult.IsValid)
         {
-            List<string> errors = new List<string>();
+           
             
-            foreach (var failure in validationResult.Errors)
-            {
-                errors.Add(failure.ErrorMessage);
-            }
-            
-            return BadRequest(errors);
+            return BadRequest(validationResult.Errors);
         }
         
         
