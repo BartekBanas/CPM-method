@@ -1,6 +1,4 @@
-﻿
-
-using ProjectPlanner.Business.CriticalPathMethod.Dtos;
+﻿using ProjectPlanner.Business.CriticalPathMethod.Dtos;
 
 namespace ProjectPlanner.Business.Validation;
 
@@ -59,5 +57,4 @@ public class CpmCyclicValidator
         stack.Pop();
         return false;
     }
-
 }
