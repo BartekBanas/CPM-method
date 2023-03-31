@@ -1,4 +1,6 @@
-﻿using ProjectPlanner.Infrastructure.TaskObjects;
+﻿
+
+using ProjectPlanner.Business.CriticalPathMethod.Dtos;
 
 namespace ProjectPlanner.Business.Validation;
 

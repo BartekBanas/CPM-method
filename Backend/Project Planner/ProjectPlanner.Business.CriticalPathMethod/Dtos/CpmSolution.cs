@@ -1,6 +1,4 @@
-﻿using ProjectPlanner.Infrastructure.TaskObjects;
-
-namespace ProjectPlanner.Infrastructure.SolutionObjects;
+﻿namespace ProjectPlanner.Business.CriticalPathMethod.Dtos;
 
 public class CpmSolution
 {

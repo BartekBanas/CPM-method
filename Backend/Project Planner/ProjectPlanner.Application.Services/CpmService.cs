@@ -1,17 +1,16 @@
 ﻿using ProjectPlanner.Business.CriticalPathMethod;
-using ProjectPlanner.Infrastructure.SolutionObjects.Abstractions;
-using ProjectPlanner.Infrastructure.TaskObjects;
+using ProjectPlanner.Business.CriticalPathMethod.Dtos;
 
 namespace ProjectPlanner.Application.Services;
 
 public interface ICpmService
 {
-    Task<Solution> Solve(CpmTask task);
+    Task<CpmSolution> Solve(CpmTask task);
 }
 
 public class CpmService : ICpmService
 {
-    public Task<Solution> Solve(CpmTask task)
+    public Task<CpmSolution> Solve(CpmTask task)
     {
         CpmProject cpmProject = new CpmProject();
         

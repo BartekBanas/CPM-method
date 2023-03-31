@@ -12,8 +12,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ProjectPlanner.Business.CriticalPathMethod\ProjectPlanner.Business.CriticalPathMethod.csproj" />
-      <ProjectReference Include="..\ProjectPlanner.Infrastructure.SolutionObjects\ProjectPlanner.Infrastructure.SolutionObjects.csproj" />
-      <ProjectReference Include="..\ProjectPlanner.Infrastructure.TaskObjects\ProjectPlanner.Infrastructure.TaskObjects.csproj" />
     </ItemGroup>
 
     <ItemGroup>

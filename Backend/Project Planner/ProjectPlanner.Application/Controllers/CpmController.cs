@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using ProjectPlanner.Application.Services;
-using ProjectPlanner.Infrastructure.TaskObjects;
+using ProjectPlanner.Business.CriticalPathMethod.Dtos;
 
 namespace Project_Planner.Controllers;
 
