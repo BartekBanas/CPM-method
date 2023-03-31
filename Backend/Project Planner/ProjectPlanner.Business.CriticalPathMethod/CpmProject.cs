@@ -1,7 +1,7 @@
-using ProjectPlanner.Infrastructure.SolutionObjects;
+﻿using ProjectPlanner.Infrastructure.SolutionObjects;
 using ProjectPlanner.Infrastructure.TaskObjects;
 
-namespace CriticalPathMethod;
+namespace ProjectPlanner.Business.CriticalPathMethod;
 
 public class CpmProject
 {

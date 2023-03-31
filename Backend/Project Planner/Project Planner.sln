@@ -8,8 +8,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Application.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{A1CDF3E6-8332-40F6-837B-151FAC6BD139}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Business.CriticalPathMethod", "ProjectPlanner.Business.CriticalPathMethod\ProjectPlanner.Business.CriticalPathMethod.csproj", "{79FB4AED-69DD-4782-97FE-199CD08987A5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Application.Services", "ProjectPlanner.Application.Services\ProjectPlanner.Application.Services.csproj", "{113C1739-4361-4A0B-B073-74537674BC49}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{18820987-B07D-4660-A938-23E33DE4A4A8}"
@@ -19,6 +17,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Infrastructure.TaskObjects", "ProjectPlanner.Infrastructure.TaskObjects\ProjectPlanner.Infrastructure.TaskObjects.csproj", "{AD08A7A9-027E-429D-8510-907DC2D692DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Business.Validation", "ProjectPlanner.Business.Validation\ProjectPlanner.Business.Validation.csproj", "{55811D46-FF5E-48FD-89AB-9DDFF1B00E57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Business.CriticalPathMethod", "ProjectPlanner.Business.CriticalPathMethod\ProjectPlanner.Business.CriticalPathMethod.csproj", "{B96AC03C-5642-4D16-A554-4793FA0A8C00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +34,6 @@ Global
 		{68232EBC-ED11-4ADE-A0D7-2A5460A034F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68232EBC-ED11-4ADE-A0D7-2A5460A034F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68232EBC-ED11-4ADE-A0D7-2A5460A034F2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{79FB4AED-69DD-4782-97FE-199CD08987A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79FB4AED-69DD-4782-97FE-199CD08987A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79FB4AED-69DD-4782-97FE-199CD08987A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79FB4AED-69DD-4782-97FE-199CD08987A5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{113C1739-4361-4A0B-B073-74537674BC49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{113C1739-4361-4A0B-B073-74537674BC49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{113C1739-4361-4A0B-B073-74537674BC49}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -54,14 +50,18 @@ Global
 		{55811D46-FF5E-48FD-89AB-9DDFF1B00E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55811D46-FF5E-48FD-89AB-9DDFF1B00E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55811D46-FF5E-48FD-89AB-9DDFF1B00E57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B96AC03C-5642-4D16-A554-4793FA0A8C00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B96AC03C-5642-4D16-A554-4793FA0A8C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B96AC03C-5642-4D16-A554-4793FA0A8C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B96AC03C-5642-4D16-A554-4793FA0A8C00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7AEC9D32-0674-4BEC-AFE7-A62622B70526} = {0CE229B8-0F9E-4F25-9B40-DBBC756483B4}
 		{68232EBC-ED11-4ADE-A0D7-2A5460A034F2} = {0CE229B8-0F9E-4F25-9B40-DBBC756483B4}
-		{79FB4AED-69DD-4782-97FE-199CD08987A5} = {A1CDF3E6-8332-40F6-837B-151FAC6BD139}
 		{113C1739-4361-4A0B-B073-74537674BC49} = {0CE229B8-0F9E-4F25-9B40-DBBC756483B4}
 		{843715F9-8122-4E65-BDA7-101A7CD53A90} = {18820987-B07D-4660-A938-23E33DE4A4A8}
 		{AD08A7A9-027E-429D-8510-907DC2D692DC} = {18820987-B07D-4660-A938-23E33DE4A4A8}
 		{55811D46-FF5E-48FD-89AB-9DDFF1B00E57} = {A1CDF3E6-8332-40F6-837B-151FAC6BD139}
+		{B96AC03C-5642-4D16-A554-4793FA0A8C00} = {A1CDF3E6-8332-40F6-837B-151FAC6BD139}
 	EndGlobalSection
 EndGlobal
