@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectPlanner.Application.Services;
-using ProjectPlanner.Infrastructure.TaskObjects;
 
 namespace Project_Planner.Controllers;
 
@@ -15,11 +14,11 @@ public class PertController : Controller
         _pertService = pertService;
     }
     
-    [HttpPost]
-    public async Task<IActionResult> PostCpmRequest([FromBody] PertTask task)
-    {
-        var solution = await _pertService.Solve(task);
-
-        return Ok(solution);
-    }
+    // [HttpPost]
+    // public async Task<IActionResult> PostCpmRequest([FromBody] PertTask task)
+    // {
+    //     var solution = await _pertService.Solve(task);
+    //
+    //     return Ok(solution);
+    // }
 }

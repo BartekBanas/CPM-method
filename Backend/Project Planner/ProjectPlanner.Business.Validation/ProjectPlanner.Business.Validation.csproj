@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ProjectPlanner.Infrastructure.TaskObjects\ProjectPlanner.Infrastructure.TaskObjects.csproj" />
+      <ProjectReference Include="..\ProjectPlanner.Business.CriticalPathMethod\ProjectPlanner.Business.CriticalPathMethod.csproj" />
     </ItemGroup>
 
     <ItemGroup>
