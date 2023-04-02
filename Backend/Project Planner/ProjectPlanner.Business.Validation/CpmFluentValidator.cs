@@ -11,6 +11,7 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
         RuleFor(task => task.Activities.Count).GreaterThan(1).WithMessage("Not enough given activities");
         RuleFor(task => task.Activities).Custom(ValidateActivities);
         RuleFor(task => task.Activities).Custom(ValidateStartAndEnd);
+        RuleFor(task => task).Custom(ValidatePeriodicity);
     }
 
     private void ValidateActivities(List<CpmActivity> activities, ValidationContext<CpmTask> context)
@@ -81,6 +82,16 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
         if (endCount > 1)
         {
             context.AddFailure("More than one ending event found");
+        }
+    }
+
+    private void ValidatePeriodicity(CpmTask task, ValidationContext<CpmTask> context)
+    {
+        CpmCyclicValidator cyclicValidator = new CpmCyclicValidator(task);
+
+        if (cyclicValidator.Validate() == false)
+        {
+            context.AddFailure("Cycle detected");
         }
     }
 }
