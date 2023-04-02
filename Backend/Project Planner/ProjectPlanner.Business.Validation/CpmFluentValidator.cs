@@ -35,6 +35,11 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
                     context.AddFailure("Activities " + (i + 1) + " and " + (j + 1) + " are duplicates");
                 }
             }
+
+            if (activities[i].Duration < 0)
+            {
+                context.AddFailure("Duration of activity " + (i + 1) + " cannot be negative");
+            }
         }
     }
     
