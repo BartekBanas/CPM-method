@@ -8,7 +8,6 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
 {
     public CpmFluentValidator()
     {
-        RuleFor(task => task.Activities.Count).GreaterThan(1).WithMessage("Not enough given activities");
         RuleFor(task => task.Activities).Custom(ValidateActivities);
         RuleFor(task => task.Activities).Custom(ValidateStartAndEnd);
         RuleFor(task => task).Custom(ValidatePeriodicity);
@@ -26,6 +25,15 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
             if (activities[i].Sequence[0] == activities[i].Sequence[1])
             {
                 context.AddFailure("Activity " + (i + 1) + " cannot come in between one and the same event");
+            }
+
+            for (int j = 0; j < activities.Count; j++)
+            {
+                if (activities[i].Sequence[0] == activities[j].Sequence[0] &&
+                    activities[i].Sequence[1] == activities[j].Sequence[1] && i < j)
+                {
+                    context.AddFailure("Activities " + (i + 1) + " and " + (j + 1) + " are duplicates");
+                }
             }
         }
     }
