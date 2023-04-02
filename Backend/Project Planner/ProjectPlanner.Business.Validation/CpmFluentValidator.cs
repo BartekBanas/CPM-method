@@ -8,9 +8,10 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
 {
     public CpmFluentValidator()
     {
+        RuleFor(task => task.Activities.Count).GreaterThan(1).WithMessage("Not enough given activities");
         RuleFor(task => task.Activities).Custom(ValidateActivities);
-        RuleFor(task => task.Activities).Custom(ValidateStartAndEnd).When(task => task.Activities.Count == 2);
-        RuleFor(task => task).Custom(ValidatePeriodicity).When(task => task.Activities.Count == 2);
+        RuleFor(task => task.Activities).Custom(ValidateStartAndEnd);
+        RuleFor(task => task).Custom(ValidatePeriodicity);
     }
 
     private void ValidateActivities(List<CpmActivity> activities, ValidationContext<CpmTask> context)
@@ -20,7 +21,6 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
             if (activities[i].Sequence.Length != 2)
             {
                 context.AddFailure("Activity " + (i + 1) + " is incomplete");
-                break;
             }
             
             if (activities[i].Sequence[0] == activities[i].Sequence[1])
