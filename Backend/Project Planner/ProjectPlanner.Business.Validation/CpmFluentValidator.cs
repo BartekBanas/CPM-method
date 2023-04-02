@@ -91,7 +91,7 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
 
         if (cyclicValidator.Validate() == false)
         {
-            context.AddFailure("Cycle detected");
+            context.AddFailure("A cyclic dependency between tasks has been detected");
         }
     }
 }
