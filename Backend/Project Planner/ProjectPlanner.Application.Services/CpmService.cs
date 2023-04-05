@@ -16,6 +16,4 @@ public class CpmService : ICpmService
 
         return Task.FromResult(cpmProject.CreateSolution(task));
     }
-
 }
-
