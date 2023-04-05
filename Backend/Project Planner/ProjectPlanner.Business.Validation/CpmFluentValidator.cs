@@ -8,12 +8,14 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
 {
     public CpmFluentValidator()
     {
-        RuleFor(task => task.Activities).Custom(ValidateActivities);
+        RuleFor(task => task.Activities).Custom(ValidateAmountOfEvents);
+        RuleFor(task => task.Activities).Custom(ValidateSequences);
+        RuleFor(task => task.Activities).Custom(ValidateDuration);
         RuleFor(task => task.Activities).Custom(ValidateStartAndEnd);
         RuleFor(task => task).Custom(ValidatePeriodicity);
     }
 
-    private void ValidateActivities(List<CpmActivity> activities, ValidationContext<CpmTask> context)
+    private void ValidateAmountOfEvents(List<CpmActivity> activities, ValidationContext<CpmTask> context)
     {
         for (int i = 0; i < activities.Count; i++)
         {
@@ -21,7 +23,13 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
             {
                 context.AddFailure("Activity " + (i + 1) + " is incomplete");
             }
-            
+        }
+    }
+
+    private void ValidateSequences(List<CpmActivity> activities, ValidationContext<CpmTask> context)
+    {
+        for (int i = 0; i < activities.Count; i++)
+        {
             if (activities[i].Sequence[0] == activities[i].Sequence[1])
             {
                 context.AddFailure("Activity " + (i + 1) + " cannot come in between one and the same event");
@@ -35,7 +43,13 @@ public class CpmFluentValidator : AbstractValidator<CpmTask>
                     context.AddFailure("Activities " + (i + 1) + " and " + (j + 1) + " are duplicates");
                 }
             }
-
+        }
+    }
+    
+    private void ValidateDuration(List<CpmActivity> activities, ValidationContext<CpmTask> context)
+    {
+        for (int i = 0; i < activities.Count; i++)
+        {
             if (activities[i].Duration < 0)
             {
                 context.AddFailure("Duration of activity " + (i + 1) + " cannot be negative");
