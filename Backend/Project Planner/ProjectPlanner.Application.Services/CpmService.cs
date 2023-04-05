@@ -15,11 +15,5 @@ public class CpmService : ICpmService
         CpmProject cpmProject = new CpmProject();
 
         return Task.FromResult(cpmProject.CreateSolution(task));
-        
-        throw new NotImplementedException();
-        
-        // Creating object from business layer
     }
-
 }
-
