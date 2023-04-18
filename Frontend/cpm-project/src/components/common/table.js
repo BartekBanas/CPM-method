@@ -1,6 +1,7 @@
 import { Button, Empty, Form, Input, Popconfirm, Table, theme, Drawer } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { isEmpty } from 'lodash';
+import axios from 'axios';
 
 
 const EditableContext = React.createContext(null);
@@ -182,9 +183,16 @@ const TableWithInfo = ({ eventForm }) => {
             }),
         };
     });
-    const sendData = () => {
+    const sendData = (event) => {
+        if (isEmpty(dataSource)) {
+            return;
+        }
         showDrawer();
         console.log(dataSource);
+        event.preventDefault();
+        axios.post('https://localhost:44363/api', { dataSource })
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
     }
 
     return (
