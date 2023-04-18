@@ -1,4 +1,4 @@
-import { Button, Empty, Form, Input, Popconfirm, Table } from 'antd';
+import { Button, Empty, Form, Input, Popconfirm, Table, theme, Drawer } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { isEmpty } from 'lodash';
 
@@ -84,6 +84,17 @@ const EditableCell = ({
 const TableWithInfo = ({ eventForm }) => {
     const [dataSource, setDataSource] = useState([]);
     const [count, setCount] = useState(0);
+
+    const { token } = theme.useToken();
+    const [open, setOpen] = useState(false);
+
+    const showDrawer = () => {
+        setOpen(true);
+    };
+
+    const onClose = () => {
+        setOpen(false);
+    };
 
     useEffect(() => {
         if (isEmpty(eventForm)) {
@@ -171,12 +182,28 @@ const TableWithInfo = ({ eventForm }) => {
             }),
         };
     });
+    const sendData = () => {
+        showDrawer();
+        console.log(dataSource);
+    }
+
     return (
         <h3>
             <div>
-                <Button type="primary" style={{ marginBottom: 16 }}>
+                <Button type="primary" onClick={sendData} style={{ marginBottom: 16 }}>
                     Zatwierdź
                 </Button>
+                <Drawer
+                    title="Graf"
+                    size="large"
+                    overflow="hidden"
+                    placement="right"
+                    closable={true}
+                    onClose={onClose}
+                    open={open}
+                >
+                    <p>Tutaj bedzie graf</p>
+                </Drawer>
                 <Table
                     components={components}
                     rowClassName={() => 'editable-row'}
