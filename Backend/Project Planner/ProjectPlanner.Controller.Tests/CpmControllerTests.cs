@@ -29,16 +29,28 @@ public class CpmControllerTests
     public async Task PostCpmRequest_ReturnsOkResult_ForValidRequest()
     {
         // Arrange
-        CpmTask task = new CpmTask
+        var json = @" {
+    ""activities"": [
         {
-            Activities = new List<CpmActivity>
-            {
-                new CpmActivity("Task 1", 3, new int[] { 0, 1 }),
-                new CpmActivity("Task 2", 5, new int[] { 1, 2 }),
-                new CpmActivity("Task 3", 2, new int[] { 2, 3 })
-            }
-        };
-        
+            ""taskName"": ""Task 1"",
+            ""duration"": 3,
+            ""sequence"": [0, 1]
+        },
+        {
+            ""taskName"": ""Task 2"",
+            ""duration"": 5,
+            ""sequence"": [1, 2]
+        },
+        {
+            ""taskName"": ""Task 3"",
+            ""duration"": 2,
+            ""sequence"": [2, 3]
+        }
+    ]
+}";
+
+        var task = JsonConvert.DeserializeObject<CpmTask>(json);
+
         _validatorMock.Setup(x => x.ValidateAsync(It.IsAny<CpmTask>(), CancellationToken.None))
             .ReturnsAsync(new FluentValidation.Results.ValidationResult());
 
@@ -52,7 +64,7 @@ public class CpmControllerTests
         // Assert
         Assert.IsType<OkObjectResult>(result);
     }
-    
+
     [Fact]
     public async Task PostCpmRequest_ReturnsBadRequest_ForInvalidRequestWithCycle()
     {
@@ -108,5 +120,4 @@ public class CpmControllerTests
         Assert.NotEmpty(errors);
         Assert.Equal("A cyclic dependency between activities has been detected", errors[0].ErrorMessage);
     }
-
 }
