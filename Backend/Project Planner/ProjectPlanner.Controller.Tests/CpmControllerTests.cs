@@ -29,25 +29,26 @@ public class CpmControllerTests
     public async Task PostCpmRequest_ReturnsOkResult_ForValidRequest()
     {
         // Arrange
-        var json = @" {
-    ""activities"": [
+        var json = @" 
         {
-            ""taskName"": ""Task 1"",
-            ""duration"": 3,
-            ""sequence"": [0, 1]
-        },
-        {
-            ""taskName"": ""Task 2"",
-            ""duration"": 5,
-            ""sequence"": [1, 2]
-        },
-        {
-            ""taskName"": ""Task 3"",
-            ""duration"": 2,
-            ""sequence"": [2, 3]
-        }
-    ]
-}";
+            ""activities"": [
+                {
+                    ""taskName"": ""Task 1"",
+                    ""duration"": 3,
+                    ""sequence"": [0, 1]
+                },
+                {
+                    ""taskName"": ""Task 2"",
+                    ""duration"": 5,
+                    ""sequence"": [1, 2]
+                },
+                {
+                    ""taskName"": ""Task 3"",
+                    ""duration"": 2,
+                    ""sequence"": [2, 3]
+                }
+            ]
+        }";
 
         var task = JsonConvert.DeserializeObject<CpmTask>(json);
 
