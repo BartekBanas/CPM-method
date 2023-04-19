@@ -59,8 +59,6 @@ public class CpmControllerTests
         // Act
         var result = await _controller.PostCpmRequest(task);
 
-        _testOutputHelper.WriteLine(result.ToString());
-
         // Assert
         Assert.IsType<OkObjectResult>(result);
     }
@@ -112,8 +110,6 @@ public class CpmControllerTests
         // Act
         var result = await _controller.PostCpmRequest(task);
 
-        _testOutputHelper.WriteLine(result.ToString());
-
         // Assert
         var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
         var errors = Assert.IsType<List<FluentValidation.Results.ValidationFailure>>(badRequestResult.Value);
@@ -160,8 +156,6 @@ public class CpmControllerTests
 
         // Act
         var result = await _controller.PostCpmRequest(task);
-
-        _testOutputHelper.WriteLine(result.ToString());
 
         // Assert
         var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
