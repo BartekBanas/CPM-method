@@ -38,8 +38,9 @@ public class CpmControllerTests
                 new CpmActivity("Task 3", 2, new int[] { 2, 3 })
             }
         };
-
-        //_validatorMock.Setup(v => v.ValidateAsync(task)).ReturnsAsync(new FluentValidation.Results.ValidationResult());
+        
+        _validatorMock.Setup(x => x.ValidateAsync(It.IsAny<CpmTask>(), CancellationToken.None))
+            .ReturnsAsync(new FluentValidation.Results.ValidationResult());
 
         _cpmServiceMock.Setup(c => c.Solve(task)).ReturnsAsync(new CpmSolution());
 
@@ -93,24 +94,19 @@ public class CpmControllerTests
 
         var task = JsonConvert.DeserializeObject<CpmTask>(json);
 
-        // _validatorMock.Setup(v => v.ValidateAsync(task)).ReturnsAsync(new FluentValidation.Results.ValidationResult
-        // {
-        //     Errors = { new FluentValidation.Results.ValidationFailure("", "A cyclic dependency between activities has been detected") }
-        // });
+        _validatorMock.Setup(x => x.ValidateAsync(It.IsAny<CpmTask>(), CancellationToken.None))
+            .ReturnsAsync(new FluentValidation.Results.ValidationResult());
 
         // Act
-        if (task != null)
-        {
-            var result = await _controller.PostCpmRequest(task);
+        var result = await _controller.PostCpmRequest(task);
 
-            _testOutputHelper.WriteLine(result.ToString());
+        _testOutputHelper.WriteLine(result.ToString());
 
-            // Assert
-            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            var errors = Assert.IsType<List<FluentValidation.Results.ValidationFailure>>(badRequestResult.Value);
-            Assert.NotEmpty(errors);
-            Assert.Equal("A cyclic dependency between activities has been detected", errors[0].ErrorMessage);
-        }
+        // Assert
+        var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+        var errors = Assert.IsType<List<FluentValidation.Results.ValidationFailure>>(badRequestResult.Value);
+        Assert.NotEmpty(errors);
+        Assert.Equal("A cyclic dependency between activities has been detected", errors[0].ErrorMessage);
     }
 
 }
