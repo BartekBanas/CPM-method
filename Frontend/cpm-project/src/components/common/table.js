@@ -83,10 +83,19 @@ const EditableCell = ({
     return <td {...restProps}>{childNode}</td>;
 };
 const TableWithInfo = ({ eventForm }) => {
+    // const [dataSource, setDataSource] = useState([{
+    //     taskName: '',
+    //     duration: '',
+    //     sequence: [2]
+    // }]);
     const [dataSource, setDataSource] = useState([]);
+    const [dataToSend, setDataToSend] = useState([{
+        taskTime: '',
+        duration: '',
+        sequence: [2]
+    }])
     const [count, setCount] = useState(0);
 
-    const { token } = theme.useToken();
     const [open, setOpen] = useState(false);
 
     const showDrawer = () => {
@@ -183,16 +192,17 @@ const TableWithInfo = ({ eventForm }) => {
             }),
         };
     });
+
     const sendData = (event) => {
         if (isEmpty(dataSource)) {
             return;
         }
-        showDrawer();
         console.log(dataSource);
         event.preventDefault();
         axios.post('https://localhost:44363/api', { dataSource })
             .then(response => console.log(response))
             .catch(error => console.log(error));
+        showDrawer();
     }
 
     return (
