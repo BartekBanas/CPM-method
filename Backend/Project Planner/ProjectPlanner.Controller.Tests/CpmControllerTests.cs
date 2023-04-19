@@ -85,17 +85,17 @@ public class CpmControllerTests
                 ""sequence"": [2, 3]
             },
             {
-                ""taskName"": ""Task 3"",
+                ""taskName"": ""Task 4"",
                 ""duration"": 2,
                 ""sequence"": [3, 4]
             },
             {
-                ""taskName"": ""Task 3"",
+                ""taskName"": ""Task 5"",
                 ""duration"": 2,
                 ""sequence"": [4, 2]
             },
             {
-                ""taskName"": ""Task 3"",
+                ""taskName"": ""Task 6"",
                 ""duration"": 2,
                 ""sequence"": [4, 5]
             }
