@@ -1,6 +1,4 @@
 import { Button, Form, Input, Space, Card } from 'antd';
-import handleAdd from './table.js';
-import TableWithInfo from './table.js';
 
 function DataEntryForNewTask({ setEventForm }) {
     const [form] = Form.useForm();
@@ -8,10 +6,6 @@ function DataEntryForNewTask({ setEventForm }) {
     const onReset = () => {
         form.resetFields();
     };
-
-    // const test = () => {
-    //     return TableWithInfo.apply(handleAdd);
-    // }
 
     const handleFinished = (values) => {
         console.log(values);
