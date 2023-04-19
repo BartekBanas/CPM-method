@@ -4,7 +4,6 @@ using Moq;
 using Newtonsoft.Json;
 using Project_Planner.Controllers;
 using ProjectPlanner.Application.Services;
-using ProjectPlanner.Business.CriticalPathMethod;
 using ProjectPlanner.Business.CriticalPathMethod.Dtos;
 using Xunit.Abstractions;
 
@@ -120,5 +119,56 @@ public class CpmControllerTests
         var errors = Assert.IsType<List<FluentValidation.Results.ValidationFailure>>(badRequestResult.Value);
         Assert.NotEmpty(errors);
         Assert.Equal("A cyclic dependency between activities has been detected", errors[0].ErrorMessage);
+    }
+    
+    [Fact]
+    public async Task PostCpmRequest_ReturnsBadRequest_ForInvalidRequestWithInvalidSequence()
+    {
+        // Arrange
+        var json = @"{
+        ""activities"": [
+            {
+                ""taskName"": ""Task 1"",
+                ""duration"": 3,
+                ""sequence"": [0, 1]
+            },
+            {
+                ""taskName"": ""Task 2"",
+                ""duration"": 5,
+                ""sequence"": [1, 1]
+            },
+            {
+                ""taskName"": ""Task 3"",
+                ""duration"": 2,
+                ""sequence"": [2, 3]
+            }
+        ]
+    }";
+
+        var task = JsonConvert.DeserializeObject<CpmTask>(json);
+
+        _validatorMock.Setup(x => x.ValidateAsync(It.IsAny<CpmTask>(), CancellationToken.None))
+            .ReturnsAsync(new FluentValidation.Results.ValidationResult
+            {
+                Errors =
+                {
+                    new FluentValidation.Results.ValidationFailure("Activities", "Activity 2 cannot come in between one and the same event"),
+                    new FluentValidation.Results.ValidationFailure("Activities", "More than one starting event found"),
+                    new FluentValidation.Results.ValidationFailure("", "A cyclic dependency between activities has been detected")
+                }
+            });
+
+        // Act
+        var result = await _controller.PostCpmRequest(task);
+
+        _testOutputHelper.WriteLine(result.ToString());
+
+        // Assert
+        var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+        var errors = Assert.IsType<List<FluentValidation.Results.ValidationFailure>>(badRequestResult.Value);
+        Assert.Equal(3, errors.Count);
+        Assert.Equal("Activity 2 cannot come in between one and the same event", errors[0].ErrorMessage);
+        Assert.Equal("More than one starting event found", errors[1].ErrorMessage);
+        Assert.Equal("A cyclic dependency between activities has been detected", errors[2].ErrorMessage);
     }
 }
