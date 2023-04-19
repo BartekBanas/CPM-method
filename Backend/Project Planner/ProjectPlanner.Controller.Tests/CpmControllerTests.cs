@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -38,16 +37,16 @@ public class CpmControllerTests
                 new CpmActivity("Task 3", 2, new int[] { 2, 3 })
             }
         };
-        
+
         //_validatorMock.Setup(v => v.ValidateAsync(task)).ReturnsAsync(new FluentValidation.Results.ValidationResult());
 
         _cpmServiceMock.Setup(c => c.Solve(task)).ReturnsAsync(new CpmSolution());
-        
+
         // Act
         var result = await _controller.PostCpmRequest(task);
 
         _testOutputHelper.WriteLine(result.ToString());
-        
+
         // Assert
         Assert.IsType<OkObjectResult>(result);
     }
