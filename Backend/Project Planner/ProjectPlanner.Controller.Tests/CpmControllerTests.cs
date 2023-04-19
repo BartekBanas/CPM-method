@@ -105,7 +105,10 @@ public class CpmControllerTests
         var task = JsonConvert.DeserializeObject<CpmTask>(json);
 
         _validatorMock.Setup(x => x.ValidateAsync(It.IsAny<CpmTask>(), CancellationToken.None))
-            .ReturnsAsync(new FluentValidation.Results.ValidationResult());
+            .ReturnsAsync(new FluentValidation.Results.ValidationResult
+            {
+                Errors = { new FluentValidation.Results.ValidationFailure("", "A cyclic dependency between activities has been detected") }
+            });
 
         // Act
         var result = await _controller.PostCpmRequest(task);
