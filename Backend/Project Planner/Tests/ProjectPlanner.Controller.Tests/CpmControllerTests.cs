@@ -9,7 +9,7 @@ public class CpmControllerTests
     private readonly IValidator<CpmTask> _validatorMock;
     private readonly CpmController _controller;
 
-    public CpmControllerTests(ITestOutputHelper testOutputHelper)
+    public CpmControllerTests()
     {
         _cpmServiceMock = new CpmService();
         _validatorMock = new CpmFluentValidator();
@@ -42,17 +42,6 @@ public class CpmControllerTests
         }";
 
         var task = JsonConvert.DeserializeObject<CpmTask>(jsonCpmTask);
-
-        // _validatorMock.Setup(x => x.ValidateAsync(It.IsAny<CpmTask>(), CancellationToken.None))
-        //     .ReturnsAsync(new FluentValidation.Results.ValidationResult());
-        //
-        // _validatorMock.Setup(x => x.ValidateAsync(It.IsAny<CpmTask>(), CancellationToken.None))
-        //     .ReturnsAsync(new FluentValidation.Results.ValidationResult
-        //     {
-        //         Errors = { new FluentValidation.Results.ValidationFailure() }
-        //     });
-        
-        //_cpmServiceMock.Setup(c => c.Solve(task)).ReturnsAsync(new CpmSolution());
 
         // Act
         var result = await _controller.PostCpmRequest(task);
@@ -103,22 +92,11 @@ public class CpmControllerTests
 
         var task = JsonConvert.DeserializeObject<CpmTask>(jsonCpmTask);
 
-        // _validatorMock.Setup(x => x.ValidateAsync(It.IsAny<CpmTask>(), CancellationToken.None))
-        //     .ReturnsAsync(new FluentValidation.Results.ValidationResult
-        //     {
-        //         Errors =
-        //         {
-        //             new FluentValidation.Results.ValidationFailure("",
-        //                 "A cyclic dependency between activities has been detected")
-        //         }
-        //     });
-
         // Act
         var result = await _controller.PostCpmRequest(task);
 
         // Assert
         var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-        //Assert.IsType<BadRequestObjectResult>(result);
     }
 
     [Fact]
@@ -146,19 +124,6 @@ public class CpmControllerTests
     }";
 
         var task = JsonConvert.DeserializeObject<CpmTask>(jsonCpmTask);
-
-        // _validatorMock.Setup(x => x.ValidateAsync(It.IsAny<CpmTask>(), CancellationToken.None))
-        //     .ReturnsAsync(new FluentValidation.Results.ValidationResult
-        //     {
-        //         Errors =
-        //         {
-        //             new FluentValidation.Results.ValidationFailure("Activities",
-        //                 "Activity 2 cannot come in between one and the same event"),
-        //             new FluentValidation.Results.ValidationFailure("Activities", "More than one starting event found"),
-        //             new FluentValidation.Results.ValidationFailure("",
-        //                 "A cyclic dependency between activities has been detected")
-        //         }
-        //     });
 
         // Act
         var result = await _controller.PostCpmRequest(task);
