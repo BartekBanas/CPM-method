@@ -19,7 +19,7 @@ public class CpmControllerTests
     public async Task PostCpmRequest_ReturnsOkResult_ForValidRequest()
     {
         // Arrange
-        var json = @" 
+        const string jsonCpmTask = @" 
         {
             ""activities"": [
                 {
@@ -40,7 +40,7 @@ public class CpmControllerTests
             ]
         }";
 
-        var task = JsonConvert.DeserializeObject<CpmTask>(json);
+        var task = JsonConvert.DeserializeObject<CpmTask>(jsonCpmTask);
 
         _validatorMock.Setup(x => x.ValidateAsync(It.IsAny<CpmTask>(), CancellationToken.None))
             .ReturnsAsync(new FluentValidation.Results.ValidationResult());
@@ -58,7 +58,7 @@ public class CpmControllerTests
     public async Task PostCpmRequest_ReturnsBadRequest_ForInvalidRequestWithCycle()
     {
         // Arrange
-        var json = @"{
+        const string jsonCpmTask = @"{
         ""activities"": [
             {
                 ""taskName"": ""Task 1"",
@@ -93,7 +93,7 @@ public class CpmControllerTests
         ]
     }";
 
-        var task = JsonConvert.DeserializeObject<CpmTask>(json);
+        var task = JsonConvert.DeserializeObject<CpmTask>(jsonCpmTask);
 
         _validatorMock.Setup(x => x.ValidateAsync(It.IsAny<CpmTask>(), CancellationToken.None))
             .ReturnsAsync(new FluentValidation.Results.ValidationResult
@@ -119,7 +119,7 @@ public class CpmControllerTests
     public async Task PostCpmRequest_ReturnsBadRequest_ForInvalidRequestWithInvalidSequence()
     {
         // Arrange
-        var json = @"{
+        const string jsonCpmTask = @"{
         ""activities"": [
             {
                 ""taskName"": ""Task 1"",
@@ -139,7 +139,7 @@ public class CpmControllerTests
         ]
     }";
 
-        var task = JsonConvert.DeserializeObject<CpmTask>(json);
+        var task = JsonConvert.DeserializeObject<CpmTask>(jsonCpmTask);
 
         _validatorMock.Setup(x => x.ValidateAsync(It.IsAny<CpmTask>(), CancellationToken.None))
             .ReturnsAsync(new FluentValidation.Results.ValidationResult
