@@ -6,6 +6,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>Project_Planner</RootNamespace>
         <PackageVersion>1.0.0</PackageVersion>
+        <Authors>Bartłomiej Banaś</Authors>
+        <PackageProjectUrl>https://github.com/BartekBanas/Project-Planner</PackageProjectUrl>
     </PropertyGroup>
 
     <ItemGroup>
