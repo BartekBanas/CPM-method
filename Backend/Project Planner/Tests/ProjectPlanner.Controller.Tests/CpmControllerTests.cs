@@ -41,11 +41,17 @@ public class CpmControllerTests
         var task = JsonConvert.DeserializeObject<CpmTask>(jsonCpmTask);
 
         // Act
-        var result = await _controller.PostCpmRequest(task);
+        if (task != null)
+        {
+            var result = await _controller.PostCpmRequest(task);
 
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<OkObjectResult>(result);
+        }
+        
         // Assert
-        Assert.NotNull(result);
-        Assert.IsType<OkObjectResult>(result);
+        Assert.NotNull(task);
     }
 
     [Fact]
