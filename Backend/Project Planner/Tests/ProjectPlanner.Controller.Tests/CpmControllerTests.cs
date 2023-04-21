@@ -1,11 +1,4 @@
-using FluentValidation;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
-using Newtonsoft.Json;
-using Project_Planner.Controllers;
-using ProjectPlanner.Application.Services;
 using ProjectPlanner.Business.CriticalPathMethod.Dtos;
-using Xunit.Abstractions;
 
 namespace ProjectPlanner.Controller.Tests;
 
