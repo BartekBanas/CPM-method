@@ -96,10 +96,16 @@ public class CpmControllerTests
         var task = JsonConvert.DeserializeObject<CpmTask>(jsonCpmTask);
 
         // Act
-        var result = await _controller.PostCpmRequest(task);
+        if (task != null)
+        {
+            var result = await _controller.PostCpmRequest(task);
 
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+        
         // Assert
-        Assert.IsType<BadRequestObjectResult>(result);
+        Assert.NotNull(task);
     }
 
     [Fact]
@@ -129,14 +135,20 @@ public class CpmControllerTests
         var task = JsonConvert.DeserializeObject<CpmTask>(jsonCpmTask);
 
         // Act
-        var result = await _controller.PostCpmRequest(task);
+        if (task != null)
+        {
+            var result = await _controller.PostCpmRequest(task);
 
+            // Assert
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            var errors = Assert.IsType<List<FluentValidation.Results.ValidationFailure>>(badRequestResult.Value);
+            Assert.Equal(3, errors.Count);
+            Assert.Equal("Activity 2 cannot come in between one and the same event", errors[0].ErrorMessage);
+            Assert.Equal("More than one starting event found", errors[1].ErrorMessage);
+            Assert.Equal("A cyclic dependency between activities has been detected", errors[2].ErrorMessage);
+        }
+        
         // Assert
-        var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-        var errors = Assert.IsType<List<FluentValidation.Results.ValidationFailure>>(badRequestResult.Value);
-        Assert.Equal(3, errors.Count);
-        Assert.Equal("Activity 2 cannot come in between one and the same event", errors[0].ErrorMessage);
-        Assert.Equal("More than one starting event found", errors[1].ErrorMessage);
-        Assert.Equal("A cyclic dependency between activities has been detected", errors[2].ErrorMessage);
+        Assert.NotNull(task);
     }
 }
