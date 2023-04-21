@@ -42,14 +42,14 @@ public class CpmCyclicValidator
         return true;
     }
 
-    private bool IsCyclic(int v)
+    private bool IsCyclic(int index)
     {
-        _visited[v] = true;
-        _recStack[v] = true;
+        _visited[index] = true;
+        _recStack[index] = true;
         
         foreach (var activity in _activities)
         {
-            if (activity.Sequence[0] == v)
+            if (activity.Sequence[0] == index)
             {
                 if (!_visited[activity.Sequence[1]])
                 {
@@ -65,7 +65,7 @@ public class CpmCyclicValidator
             }
         }
         
-        _recStack[v] = false;
+        _recStack[index] = false;
 
         return false;
     }
