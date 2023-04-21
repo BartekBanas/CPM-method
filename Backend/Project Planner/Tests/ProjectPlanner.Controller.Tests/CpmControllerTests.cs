@@ -1,19 +1,16 @@
 using ProjectPlanner.Business.CriticalPathMethod.Dtos;
-using ProjectPlanner.Business.Validation;
 
 namespace ProjectPlanner.Controller.Tests;
 
 public class CpmControllerTests
 {
-    private readonly ICpmService _cpmServiceMock;
-    private readonly IValidator<CpmTask> _validatorMock;
     private readonly CpmController _controller;
 
     public CpmControllerTests()
     {
-        _cpmServiceMock = new CpmService();
-        _validatorMock = new CpmFluentValidator();
-        _controller = new CpmController(_cpmServiceMock, _validatorMock);
+        ICpmService cpmService = new CpmService();
+        IValidator<CpmTask> validator = new CpmFluentValidator();
+        _controller = new CpmController(cpmService, validator);
     }
 
     [Fact]
@@ -96,7 +93,7 @@ public class CpmControllerTests
         var result = await _controller.PostCpmRequest(task);
 
         // Assert
-        var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+        Assert.IsType<BadRequestObjectResult>(result);
     }
 
     [Fact]
