@@ -129,7 +129,7 @@ public class CpmProject
         }
     }
 
-    void FindStartAndEnd(CpmTask task)
+    private void FindStartAndEnd(CpmTask task)
     {
         HashSet<int> events = new HashSet<int>();
         
@@ -166,5 +166,23 @@ public class CpmProject
                 EndId = scopedEvent;
             }
         }
+    }
+
+    private int CalculateEarlyStart(CpmEvent cpmEvent)
+    {
+        int earlyStart = 0;
+            
+        //foreach preceding activity
+        for (int i = 0; i < Activities.Count && Activities[i].Sequence[1] == cpmEvent.Id; i++)
+        {
+            int predecessorStart = CalculateEarlyStart(EventDictionary[Activities[i].Sequence[0]]);
+
+            if (earlyStart < predecessorStart + Activities[i].Duration)
+            {
+                earlyStart = predecessorStart;
+            }
+        }
+        
+        return earlyStart;
     }
 }
