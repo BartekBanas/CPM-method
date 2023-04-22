@@ -115,7 +115,6 @@ public class CpmProject
         
         foreach (var activity in task.Activities)
         {
-            //if (EventDictionary[activity.Sequence[0]] == null)
             if(!EventDictionary.TryGetValue(activity.Sequence[0], out var Name))
             {
                 EventDictionary.Add(eventIndex, new CpmEvent(eventIndex));
@@ -132,9 +131,6 @@ public class CpmProject
 
     void FindStartAndEnd(CpmTask task)
     {
-        int startCount = 0;
-        int endCount = 0;
-
         HashSet<int> events = new HashSet<int>();
         
         foreach (var activity in task.Activities)
@@ -163,13 +159,11 @@ public class CpmProject
             if (predecessors == 0)
             {
                 StartId = scopedEvent;
-                startCount++;
             }
 
             if (successors == 0)
             {
                 EndId = scopedEvent;
-                endCount++;
             }
         }
     }
