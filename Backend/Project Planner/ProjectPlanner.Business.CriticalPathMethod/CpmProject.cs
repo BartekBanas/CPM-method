@@ -248,6 +248,11 @@ public class CpmProject
     
     private int CalculateEarlyFinish(CpmEvent cpmEvent)
     {
+        if (cpmEvent.EarliestFinish != 0)
+        {
+            return cpmEvent.EarliestFinish;
+        }
+        
         int earlyFinish = EventDictionary[EndId].EarliestStart;
             
         //foreach preceding activity
