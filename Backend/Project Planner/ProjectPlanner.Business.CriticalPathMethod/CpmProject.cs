@@ -4,25 +4,32 @@ namespace ProjectPlanner.Business.CriticalPathMethod;
 
 public class CpmProject
 {
+    private Dictionary<int, CpmEvent> EventDictionary { get; set; }
+    private List<CpmActivity> Activities { get; set; } = null!;
+
+    public CpmProject()
+    {
+        EventDictionary = new Dictionary<int, CpmEvent>();
+    }
+
     public CpmSolution CreateSolution(CpmTask task)
     {
+        Activities = task.Activities;
         SetupActivities(task);
-        
-        var activities = task.Activities;
 
         // Calculate earliest and latest start times for each activity
         var earliestStartTimes = new Dictionary<int, int>();
         var latestStartTimes = new Dictionary<int, int>();
-        var eventDictionary = new Dictionary<int, CpmEvent>();
+        
 
         int earliestStart = 0;
-        foreach (var activity in activities)
+        foreach (var activity in Activities)
         {
             int id = activity.Id;
             earliestStartTimes[id] = earliestStart;
 
             int latestStart = int.MaxValue;
-            foreach (var otherActivity in activities)
+            foreach (var otherActivity in Activities)
             {
                 if (activity.Sequence[1] == otherActivity.Sequence[0])
                 {
@@ -33,7 +40,7 @@ public class CpmProject
             latestStartTimes[id] = latestStart;
             earliestStart = earliestStartTimes[id] + activity.Duration;
 
-            eventDictionary[id] = new CpmEvent
+            EventDictionary[id] = new CpmEvent
             {
                 Id = id,
                 EarliestStart = earliestStartTimes[id],
@@ -46,9 +53,9 @@ public class CpmProject
 
         // Find critical path and mark critical activities
         var criticalPath = new List<int>();
-        foreach (var activity in activities)
+        foreach (var activity in Activities)
         {
-            if (eventDictionary[activity.Id].Slack == 0)
+            if (EventDictionary[activity.Id].Slack == 0)
             {
                 activity.Critical = true;
                 criticalPath.Add(activity.Id);
@@ -62,8 +69,8 @@ public class CpmProject
         // Build solution object
         var solution = new CpmSolution
         {
-            Activities = activities,
-            Events = eventDictionary.Values.ToList()
+            Activities = Activities,
+            Events = EventDictionary.Values.ToList()
         };
 
         return solution;
@@ -75,5 +82,10 @@ public class CpmProject
         {
             task.Activities[i].Id = i;
         }
+    }
+
+    private void SetUpEvents(CpmTask task)
+    {
+        
     }
 }
