@@ -6,6 +6,8 @@ public class CpmProject
 {
     private Dictionary<int, CpmEvent> EventDictionary { get; set; }
     private List<CpmActivity> Activities { get; set; } = null!;
+    public int StartId { get; set; }
+    public int EndId { get; set; }
 
     public CpmProject()
     {
@@ -17,21 +19,34 @@ public class CpmProject
         Activities = task.Activities;
         SetupActivities(task);
         SetUpEvents(task);
+        FindStartAndEnd(task);
         
-        var temCpmSolution = new CpmSolution
-        {
-            Activities = Activities,
-            Events = EventDictionary.Values.ToList()
-        };
-
-        return temCpmSolution;
+        // var temCpmSolution = new CpmSolution
+        // {
+        //     Activities = Activities,
+        //     Events = EventDictionary.Values.ToList()
+        // };
+        //
+        // return temCpmSolution;
 
         
         // Calculate earliest and latest start times for each activity
         var earliestStartTimes = new Dictionary<int, int>();
         var latestStartTimes = new Dictionary<int, int>();
-        
 
+        foreach (var cpmEvent in EventDictionary)
+        {
+            int earlyStart = 0;
+            
+            for (int i = 0; i < Activities.Count && Activities[i].Sequence[1] == cpmEvent.Key; i++)
+            {
+                if (EventDictionary[Activities[i].Sequence[0]].EarliestStart + Activities[i].Duration > earlyStart)
+                {
+                    
+                }
+            }
+        }
+        
         int earliestStart = 0;
         foreach (var activity in Activities)
         {
@@ -111,6 +126,50 @@ public class CpmProject
             {
                 EventDictionary.Add(eventIndex, new CpmEvent(eventIndex));
                 eventIndex++;
+            }
+        }
+    }
+
+    void FindStartAndEnd(CpmTask task)
+    {
+        int startCount = 0;
+        int endCount = 0;
+
+        HashSet<int> events = new HashSet<int>();
+        
+        foreach (var activity in task.Activities)
+        {
+            events.Add(activity.Sequence[0]);
+            events.Add(activity.Sequence[1]);
+        }
+
+        foreach (var scopedEvent in events)
+        {
+            int predecessors = 0;
+            int successors = 0;
+            
+            foreach (var activity in task.Activities)
+            {
+                if (scopedEvent == activity.Sequence[0])
+                {
+                    successors++;
+                }
+                if (scopedEvent == activity.Sequence[1])
+                {
+                    predecessors++;
+                }
+            }
+
+            if (predecessors == 0)
+            {
+                StartId = scopedEvent;
+                startCount++;
+            }
+
+            if (successors == 0)
+            {
+                EndId = scopedEvent;
+                endCount++;
             }
         }
     }
