@@ -248,7 +248,7 @@ public class CpmProject
     
     private int CalculateEarlyFinish(CpmEvent cpmEvent)
     {
-        if (cpmEvent.EarliestFinish != 0)
+        if (cpmEvent.EarliestFinish != EventDictionary[EndId].EarliestStart)
         {
             return cpmEvent.EarliestFinish;
         }
