@@ -20,7 +20,7 @@ public class CpmProject
         SetupActivities(task);
         SetUpEvents(task);
         FindStartAndEnd(task);
-        CalculateEarlyStart(EventDictionary[EndId]);
+        CalculateLateStart(EventDictionary[EndId]);
 
         var temCpmSolution = new CpmSolution
         {
@@ -169,26 +169,26 @@ public class CpmProject
         }
     }
 
-    private int CalculateEarlyStart(CpmEvent cpmEvent)
+    private int CalculateLateStart(CpmEvent cpmEvent)
     {
-        int earlyStart = 0;
+        int lateStart = 0;
             
         //foreach preceding activity
         for (int i = 0; i < Activities.Count; i++)
         {
             if(Activities[i].Sequence[1] == cpmEvent.Id)
             {
-                int predecessorStart = CalculateEarlyStart(EventDictionary[Activities[i].Sequence[0]]);
+                int predecessorStart = CalculateLateStart(EventDictionary[Activities[i].Sequence[0]]);
 
-                if (earlyStart < predecessorStart + Activities[i].Duration)
+                if (lateStart < predecessorStart + Activities[i].Duration)
                 {
-                    earlyStart = predecessorStart + Activities[i].Duration;
+                    lateStart = predecessorStart + Activities[i].Duration;
                 }
             }
         }
 
-        cpmEvent.EarliestStart = earlyStart;
+        cpmEvent.LatestStart = lateStart;
         
-        return earlyStart;
+        return lateStart;
     }
 }
