@@ -195,6 +195,11 @@ public class CpmProject
     
     private int CalculateEarlyStart(CpmEvent cpmEvent)
     {
+        if (cpmEvent.EarliestStart != 0)
+        {
+            return cpmEvent.EarliestStart;
+        }
+        
         int earlyStart = 0;
             
         //foreach preceding activity
