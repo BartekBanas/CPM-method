@@ -31,4 +31,9 @@ public class CpmEvent
     public CpmEvent()
     {
     }
+
+    public CpmEvent(int eventId)
+    {
+        Id = eventId;
+    }
 }

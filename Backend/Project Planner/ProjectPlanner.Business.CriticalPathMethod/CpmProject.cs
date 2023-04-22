@@ -18,6 +18,14 @@ public class CpmProject
         SetupActivities(task);
         SetUpEvents(task);
         
+        var temCpmSolution = new CpmSolution
+        {
+            Activities = Activities,
+            Events = EventDictionary.Values.ToList()
+        };
+
+        return temCpmSolution;
+
         
         // Calculate earliest and latest start times for each activity
         var earliestStartTimes = new Dictionary<int, int>();
@@ -88,14 +96,20 @@ public class CpmProject
 
     private void SetUpEvents(CpmTask task)
     {
-        int eventIndex = 1;
+        int eventIndex = 0;
         
         foreach (var activity in task.Activities)
         {
             //if (EventDictionary[activity.Sequence[0]] == null)
             if(!EventDictionary.TryGetValue(activity.Sequence[0], out var Name))
             {
-                EventDictionary.Add(eventIndex, new CpmEvent());
+                EventDictionary.Add(eventIndex, new CpmEvent(eventIndex));
+                eventIndex++;
+            }
+            
+            if(!EventDictionary.TryGetValue(activity.Sequence[1], out var whatever))
+            {
+                EventDictionary.Add(eventIndex, new CpmEvent(eventIndex));
                 eventIndex++;
             }
         }
