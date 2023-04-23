@@ -23,6 +23,8 @@ public class CpmEvent
 
     public CpmEvent(int eventId)
     {
+        Predecessors = new HashSet<int>();
+        Successors = new HashSet<int>();
         Id = eventId;
     }
 }
