@@ -1,6 +1,6 @@
 import './App.css';
 import { useState } from 'react';
-import { Button, Layout, Space } from 'antd';
+import { Layout } from 'antd';
 import backg from './images/backg.jpg';
 
 import AppHeader from './components/common/header';
