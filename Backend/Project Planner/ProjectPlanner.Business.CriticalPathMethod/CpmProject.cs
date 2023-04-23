@@ -94,31 +94,33 @@ public class CpmProject
             events.Add(activity.Sequence[1]);
         }
 
-        foreach (var scopedEvent in events)
+        foreach (var eventId in events)
         {
             int predecessors = 0;
             int successors = 0;
             
             foreach (var activity in task.Activities)
             {
-                if (scopedEvent == activity.Sequence[0])
+                if (eventId == activity.Sequence[0])
                 {
+                    EventDictionary[eventId].Successors.Add(activity.Sequence[1]);
                     successors++;
                 }
-                if (scopedEvent == activity.Sequence[1])
+                if (eventId == activity.Sequence[1])
                 {
+                    EventDictionary[eventId].Predecessors.Add(activity.Sequence[0]);
                     predecessors++;
                 }
             }
 
             if (predecessors == 0)
             {
-                StartId = scopedEvent;
+                StartId = eventId;
             }
 
             if (successors == 0)
             {
-                EndId = scopedEvent;
+                EndId = eventId;
             }
         }
     }
