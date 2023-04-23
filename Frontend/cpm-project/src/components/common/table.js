@@ -189,6 +189,12 @@ const TableWithInfo = ({ eventForm }) => {
         };
     });
 
+    const [receivedData, setReceivedData] = useState({});
+
+    useEffect(() => {
+        console.log('Zmiana danych:', receivedData);
+    }, [receivedData]);
+
     const sendData = (event) => {
         event.preventDefault();
 
@@ -212,6 +218,8 @@ const TableWithInfo = ({ eventForm }) => {
             .then(response => {
                 setShowGraph(true);
                 console.log(response)
+                setReceivedData(response.data)
+                console.log(receivedData)
             })
             .catch(error => console.log(error))
             .finally(e => {
@@ -235,7 +243,7 @@ const TableWithInfo = ({ eventForm }) => {
                     onClose={onClose}
                     open={open}
                 >
-                    {showGraph && <CPMDiagram />}
+                    {showGraph && <CPMDiagram receivedData={receivedData} />}
                 </Drawer>
                 <Table
                     components={components}

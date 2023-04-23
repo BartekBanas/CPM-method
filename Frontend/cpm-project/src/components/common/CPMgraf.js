@@ -1,62 +1,112 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
+import { isEmpty, isEqual, find } from 'lodash';
 
-const CPMDiagram = () => {
+const CPMDiagram = ({ receivedData }) => {
     const svgRef = useRef(null);
+    console.log("t1", receivedData)
+    // Ustawienia dla grafu
+    const width = 1460;
+    const height = 620;
+
+    // const nodes = [
+    //     { id: 1 },
+    //     { id: 2 },
+    //     { id: 3 },
+    //     { id: 4 },
+    //     { id: 5 }
+    // ];
+
+    const nodes = [];
+    const links = [];
+
+    // receivedData.events.forEach((event) => {
+    //     nodes.push({ id: event.id });
+
+    //     if (isEmpty(event.successors)) {
+    //         return;
+    //     }
+
+    //     const source = event.id;
+    //     const target = event.successors[0];
+    //     const activities = receivedData.activities;
+    //     const activity = find(activities, { 'sequence': [source, target] });
+
+    //     const link = {
+    //         source: Number(source),
+    //         target: Number(target),
+    //         label: activity.taskName,
+    //         duration: activity.duration,
+    //         reserve: event.timeReserve,
+    //         earliestStart: event.earliestTime,
+    //         latestFinish: event.latestTime,
+    //         earliestFinish: event.earliestTime + activity.duration,
+    //         latestStart: event.latestTime - activity.duration
+    //     };
+
+    //     links.push(link)
+    // });
+
+    receivedData.events.forEach((event) => {
+        nodes.push({ id: event.id });
+    })
+
+    receivedData.activities.forEach((activity) => {
+
+        const link = {
+            source: activity.sequence[0],
+            target: activity.sequence[1],
+            label: activity.taskName,
+            duration: activity.duration,
+            reserve: activity.timeReserve,
+            earliestStart: activity.earlyStart,
+            earliestFinish: activity.earlFinish,
+            latestStart: activity.lateStart,
+            latestFinish: activity.lateFinish
+        };
+
+        links.push(link)
+    });
+
+    // const links = [
+    //     { source: 1, target: 2, label: 'A', duration: 2, earliestStart: 3, earliestFinish: 1, latestStart: 5, latestFinish: 7, reserve: 0 },
+    //     { source: 1, target: 3, label: 'B', duration: 4, earliestStart: 3, earliestFinish: 4, latestStart: 9, latestFinish: 13, reserve: 2 },
+    //     { source: 2, target: 4, label: 'C', duration: 5, earliestStart: 5, earliestFinish: 6, latestStart: 10, latestFinish: 15, reserve: 0 },
+    //     { source: 3, target: 4, label: 'D', duration: 2, earliestStart: 9, earliestFinish: 3, latestStart: 11, latestFinish: 13, reserve: 2 },
+    //     { source: 4, target: 5, label: 'E', duration: 3, earliestStart: 16, earliestFinish: 9, latestStart: 17, latestFinish: 20, reserve: 0 }
+    // ];
+
+    const simulation = d3.forceSimulation(nodes)
+        .force('link', d3.forceLink(links).id(d => d.id).distance(50))
+        .force('charge', d3.forceManyBody().strength(-1000))
+        .force('center', d3.forceCenter(width / 2, height / 2));
+
+
+    // Funkcja do obsługi rozpoczęcia przeciągania węzła
+    function dragstarted(event, d) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+
+    // Funkcja do obsługi przeciągania węzła
+    function dragged(event, d) {
+        d.fx = event.x;
+        d.fy = event.y;
+    }
+
+    // Funkcja do obsługi zakończenia przeciągania węzła
+    function dragended(event, d) {
+        if (!event.active) simulation.alphaTarget(0);
+        d.fx = d.x;
+        d.fy = d.y;
+    }
 
     useEffect(() => {
-        // Dane dla grafu
-        const nodes = [
-            { id: 1 },
-            { id: 2 },
-            { id: 3 },
-            { id: 4 },
-            { id: 5 }
-        ];
-
-        const links = [
-            { source: 1, target: 2, label: 'A', duration: 2, earliestStart: 3, earliestFinish: 1, latestStart: 5, latestFinish: 7, reserve: 0 },
-            { source: 1, target: 3, label: 'B', duration: 4, earliestStart: 3, earliestFinish: 4, latestStart: 9, latestFinish: 13, reserve: 2 },
-            { source: 2, target: 4, label: 'C', duration: 5, earliestStart: 5, earliestFinish: 6, latestStart: 10, latestFinish: 15, reserve: 0 },
-            { source: 3, target: 4, label: 'D', duration: 2, earliestStart: 9, earliestFinish: 3, latestStart: 11, latestFinish: 13, reserve: 2 },
-            { source: 4, target: 5, label: 'E', duration: 3, earliestStart: 16, earliestFinish: 9, latestStart: 17, latestFinish: 20, reserve: 0 }
-        ];
-
-        // Ustawienia dla grafu
-        const width = 1500;
-        const height = 1000;
-
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height);
-
-
-
-        const simulation = d3.forceSimulation(nodes)
-            .force('link', d3.forceLink(links).id(d => d.id).distance(50))
-            .force('charge', d3.forceManyBody().strength(-100))
-            .force('center', d3.forceCenter(width / 3, height / 3));
-
-        // Funkcja do obsługi rozpoczęcia przeciągania węzła
-        function dragstarted(event, d) {
-            if (!event.active) simulation.alphaTarget(0.3).restart();
-            d.fx = d.x;
-            d.fy = d.y;
-        }
-
-
-        // Funkcja do obsługi przeciągania węzła
-        function dragged(event, d) {
-            d.fx = event.x;
-            d.fy = event.y;
-        }
-
-        // Funkcja do obsługi zakończenia przeciągania węzła
-        function dragended(event, d) {
-            if (!event.active) simulation.alphaTarget(0);
-            d.fx = d.x;
-            d.fy = d.y;
-        }
 
         // Tworzenie linii
         const link = svg.append('g')
@@ -166,8 +216,7 @@ const CPMDiagram = () => {
     }, []);
 
     return (
-        <svg ref={svgRef}>
-        </svg>
+        <svg ref={svgRef}></svg>
     );
 };
 
