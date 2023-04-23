@@ -11,6 +11,7 @@ public class CpmActivity
     public int EarlFinish { get; set; }
     public int LateStart { get; set; }
     public int LateFinish { get; set; }
+    public int TimeReserve { get; set; }
 
     public CpmActivity(string taskName, int duration, int[] sequence)
     {
