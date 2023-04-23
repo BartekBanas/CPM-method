@@ -4,7 +4,6 @@ import * as d3 from 'd3';
 const CPMDiagram = ({ receivedData }) => {
     const svgRef = useRef(null);
     console.log("t1", receivedData)
-    // Ustawienia dla grafu
     const width = 1460;
     const height = 620;
 
@@ -38,22 +37,17 @@ const CPMDiagram = ({ receivedData }) => {
         .force('charge', d3.forceManyBody().strength(-1000))
         .force('center', d3.forceCenter(width / 2, height / 2));
 
-
-    // Funkcja do obsługi rozpoczęcia przeciągania węzła
     function dragstarted(event, d) {
         if (!event.active) simulation.alphaTarget(0.3).restart();
         d.fx = d.x;
         d.fy = d.y;
     }
 
-
-    // Funkcja do obsługi przeciągania węzła
     function dragged(event, d) {
         d.fx = event.x;
         d.fy = event.y;
     }
 
-    // Funkcja do obsługi zakończenia przeciągania węzła
     function dragended(event, d) {
         if (!event.active) simulation.alphaTarget(0);
         d.fx = d.x;
@@ -65,7 +59,6 @@ const CPMDiagram = ({ receivedData }) => {
             .attr('width', width)
             .attr('height', height);
 
-        // Tworzenie linii
         const link = svg.append('g')
             .attr('class', 'links')
             .selectAll('line')
@@ -73,11 +66,10 @@ const CPMDiagram = ({ receivedData }) => {
             .enter()
             .append('line')
             .attr('stroke', function (d) {
-                // Tutaj można ustawić warunek na podstawie wartości zmiennej d, która jest dostarczana przez dane z tablicy links
                 if (d.criticalPath === true) {
-                    return 'red'; // Jeśli spełniony jest warunek, ustaw kolor na czerwony
+                    return 'red';
                 } else {
-                    return 'black'; // W przeciwnym przypadku, ustaw kolor na niebieski
+                    return 'black';
                 }
             })
             .attr('stroke-width', 2);
@@ -94,8 +86,6 @@ const CPMDiagram = ({ receivedData }) => {
             .attr('x', d => (d.source.x + d.target.x) / 2)
             .attr('y', d => (d.source.y + d.target.y) / 2);
 
-
-        // Tworzenie węzłów
         const node = svg.append('g')
             .attr('class', 'nodes')
             .selectAll('circle')
@@ -112,7 +102,6 @@ const CPMDiagram = ({ receivedData }) => {
                     .on('end', dragended)
             );
 
-        // Dodanie etykiet do węzłów
         const labels = svg.selectAll('.labels')
             .data(nodes)
             .enter()
@@ -124,7 +113,6 @@ const CPMDiagram = ({ receivedData }) => {
             .style('font-size', '14px')
             .style('fill', 'black');
 
-        // Aktualizacja pozycji węzłów i linii na podstawie symulacji
         simulation.on('tick', () => {
             link
                 .attr('x1', d => d.source.x)
@@ -137,7 +125,6 @@ const CPMDiagram = ({ receivedData }) => {
                 .attr('y', d => (d.source.y + d.target.y) / 2)
 
                 .text('').append('svg:tspan')
-                //.attr('x', d => (d.source.x + d.target.x) / 2)
                 .attr('dy', 5)
                 .text(d => {
                     const label = d.label;
