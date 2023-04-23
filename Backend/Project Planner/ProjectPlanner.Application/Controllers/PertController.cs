@@ -4,8 +4,21 @@ using ProjectPlanner.Application.Services;
 namespace Project_Planner.Controllers;
 
 [ApiController]
-[Microsoft.AspNetCore.Components.Route("api/PERT")]
-public class PertController
+[Route("api/PERT")]
+public class PertController : Controller
 {
-    private readonly PertHandler _pertHandler;
+    private readonly PertService _pertService;
+
+    public PertController(PertService pertService)
+    {
+        _pertService = pertService;
+    }
+    
+    // [HttpPost]
+    // public async Task<IActionResult> PostCpmRequest([FromBody] PertTask task)
+    // {
+    //     var solution = await _pertService.Solve(task);
+    //
+    //     return Ok(solution);
+    // }
 }
