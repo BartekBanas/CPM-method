@@ -20,10 +20,8 @@ public class CpmProject
         SetupActivities(task);
         SetUpEvents(task);
         FindStartAndEnd(task);
-        CalculateLateStart(EventDictionary[EndId]);
-        CalculateEarlyStart(EventDictionary[EndId]);
-        CalculateLateFinish(EventDictionary[StartId]);
-        CalculateEarlyFinish(EventDictionary[StartId]);
+        CalculateEarliestTime(EventDictionary[EndId]);
+        CalculateLatestTime(EventDictionary[StartId]);
 
         var temCpmSolution = new CpmSolution
         {
@@ -32,53 +30,6 @@ public class CpmProject
         };
         
         return temCpmSolution;
-
-        
-        // Calculate earliest and latest start times for each activity
-        var earliestStartTimes = new Dictionary<int, int>();
-        var latestStartTimes = new Dictionary<int, int>();
-
-        foreach (var cpmEvent in EventDictionary)
-        {
-            int earlyStart = 0;
-            
-            for (int i = 0; i < Activities.Count && Activities[i].Sequence[1] == cpmEvent.Key; i++)
-            {
-                if (EventDictionary[Activities[i].Sequence[0]].EarliestStart + Activities[i].Duration > earlyStart)
-                {
-                    
-                }
-            }
-        }
-        
-        int earliestStart = 0;
-        foreach (var activity in Activities)
-        {
-            int id = activity.Id;
-            earliestStartTimes[id] = earliestStart;
-
-            int latestStart = int.MaxValue;
-            foreach (var otherActivity in Activities)
-            {
-                if (activity.Sequence[1] == otherActivity.Sequence[0])
-                {
-                    latestStart = Math.Min(latestStart, earliestStartTimes[otherActivity.Id] - otherActivity.Duration);
-                }
-            }
-
-            latestStartTimes[id] = latestStart;
-            earliestStart = earliestStartTimes[id] + activity.Duration;
-
-            EventDictionary[id] = new CpmEvent
-            {
-                Id = id,
-                EarliestStart = earliestStartTimes[id],
-                LatestStart = latestStartTimes[id],
-                EarliestFinish = earliestStartTimes[id] + activity.Duration,
-                LatestFinish = latestStartTimes[id] + activity.Duration,
-                Slack = latestStartTimes[id] - earliestStartTimes[id]
-            };
-        }
 
         // Find critical path and mark critical activities
         var criticalPath = new List<int>();
@@ -172,105 +123,49 @@ public class CpmProject
         }
     }
 
-    private int CalculateLateStart(CpmEvent cpmEvent)
+    private int CalculateEarliestTime(CpmEvent cpmEvent)
     {
-        int lateStart = 0;
+        int earlyTime = 0;
             
         //foreach preceding activity
         for (int i = 0; i < Activities.Count; i++)
         {
             if(Activities[i].Sequence[1] == cpmEvent.Id)
             {
-                int predecessorStart = CalculateLateStart(EventDictionary[Activities[i].Sequence[0]]);
+                int predecessorStart = CalculateEarliestTime(EventDictionary[Activities[i].Sequence[0]]);
 
-                if (lateStart < predecessorStart + Activities[i].Duration)
+                if (earlyTime < predecessorStart + Activities[i].Duration)
                 {
-                    lateStart = predecessorStart + Activities[i].Duration;
+                    earlyTime = predecessorStart + Activities[i].Duration;
                 }
             }
         }
 
-        cpmEvent.LatestStart = lateStart;
+        cpmEvent.EarliestTime = earlyTime;
         
-        return lateStart;
+        return earlyTime;
     }
-    
-    private int CalculateEarlyStart(CpmEvent cpmEvent)
-    {
-        if (cpmEvent.EarliestStart != 0)
-        {
-            return cpmEvent.EarliestStart;
-        }
-        
-        int earlyStart = 0;
-            
-        //foreach preceding activity
-        for (int i = 0; i < Activities.Count; i++)
-        {
-            if(Activities[i].Sequence[1] == cpmEvent.Id)
-            {
-                int predecessorStart = CalculateEarlyStart(EventDictionary[Activities[i].Sequence[0]]);
 
-                if (earlyStart > predecessorStart + Activities[i].Duration || cpmEvent.EarliestStart == earlyStart)
-                {
-                    earlyStart = predecessorStart + Activities[i].Duration;
-                }
-            }
-        }
-
-        cpmEvent.EarliestStart = earlyStart;
-        
-        return earlyStart;
-    }
-    
-    private int CalculateLateFinish(CpmEvent cpmEvent)
+    private int CalculateLatestTime(CpmEvent cpmEvent)
     {
-        int lateFinish = EventDictionary[EndId].LatestStart;
+        int lateTime = EventDictionary[EndId].EarliestTime;
             
         //foreach preceding activity
         for (int i = 0; i < Activities.Count; i++)
         {
             if(Activities[i].Sequence[0] == cpmEvent.Id)
             {
-                int predecessorFinish = CalculateLateFinish(EventDictionary[Activities[i].Sequence[1]]);
+                int predecessorFinish = CalculateLatestTime(EventDictionary[Activities[i].Sequence[1]]);
 
-                if (lateFinish < predecessorFinish + Activities[i].Duration)
+                if (lateTime < predecessorFinish + Activities[i].Duration)
                 {
-                    lateFinish = predecessorFinish - Activities[i].Duration;
+                    lateTime = predecessorFinish - Activities[i].Duration;
                 }
             }
         }
 
-        cpmEvent.LatestFinish = lateFinish;
+        cpmEvent.LatestTime = lateTime;
         
-        return lateFinish;
-    }
-    
-    private int CalculateEarlyFinish(CpmEvent cpmEvent)
-    {
-        if (cpmEvent.EarliestFinish != EventDictionary[EndId].EarliestStart)
-        {
-            return cpmEvent.EarliestFinish;
-        }
-        
-        int earlyFinish = EventDictionary[EndId].EarliestStart;
-            
-        //foreach preceding activity
-        for (int i = 0; i < Activities.Count; i++)
-        {
-            if(Activities[i].Sequence[0] == cpmEvent.Id)
-            {
-                int predecessorFinish = CalculateEarlyFinish(EventDictionary[Activities[i].Sequence[1]]);
-
-                if (earlyFinish < predecessorFinish + Activities[i].Duration || cpmEvent.EarliestStart == earlyFinish)
-                {
-                    earlyFinish = predecessorFinish - Activities[i].Duration;
-                }
-            }
-        }
-
-        cpmEvent.EarliestFinish = earlyFinish;
-        
-        return earlyFinish;
+        return lateTime;
     }
 }
