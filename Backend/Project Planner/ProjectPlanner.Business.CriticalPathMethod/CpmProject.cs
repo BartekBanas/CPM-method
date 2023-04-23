@@ -23,11 +23,13 @@ public class CpmProject
         CalculateEarliestTime(EventDictionary[EndId]);
         CalculateLatestTime(EventDictionary[StartId]);
 
+        CalculateTimeReserve(task);
+
         // Find critical path and mark critical activities
         // var criticalPath = new List<int>();
         // foreach (var activity in Activities)
         // {
-        //     if (EventDictionary[activity.Id].Slack == 0)
+        //     if (EventDictionary[activity.Id].TimeReserve == 0)
         //     {
         //         activity.Critical = true;
         //         criticalPath.Add(activity.Id);
@@ -157,5 +159,18 @@ public class CpmProject
         cpmEvent.LatestTime = lateTime;
         
         return lateTime;
+    }
+    
+    private void CalculateTimeReserve(CpmTask task)
+    {
+        foreach (var cpmEvent in EventDictionary.Values.ToList())
+        {
+            cpmEvent.TimeReserve = cpmEvent.LatestTime - cpmEvent.EarliestTime;
+        }
+    }
+    
+    private void FindCriticalPath(CpmTask task)
+    {
+        
     }
 }
