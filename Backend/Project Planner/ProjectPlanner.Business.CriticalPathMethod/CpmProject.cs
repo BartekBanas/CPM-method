@@ -20,28 +20,13 @@ public class CpmProject
         SetupActivities(task);
         SetUpEvents(task);
         FindStartAndEnd(task);
+        
         CalculateEarliestTime(EventDictionary[EndId]);
         CalculateLatestTime(EventDictionary[StartId]);
 
         CalculateTimeReserve(task);
         FindCriticalPath(task);
-
-        // Find critical path and mark critical activities
-        // var criticalPath = new List<int>();
-        // foreach (var activity in Activities)
-        // {
-        //     if (EventDictionary[activity.Id].TimeReserve == 0)
-        //     {
-        //         activity.Critical = true;
-        //         criticalPath.Add(activity.Id);
-        //     }
-        //     else
-        //     {
-        //         activity.Critical = false;
-        //     }
-        // }
-
-        // Build solution object
+        
         var solution = new CpmSolution
         {
             Activities = Activities,
