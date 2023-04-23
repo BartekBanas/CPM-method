@@ -23,28 +23,20 @@ public class CpmProject
         CalculateEarliestTime(EventDictionary[EndId]);
         CalculateLatestTime(EventDictionary[StartId]);
 
-        var temCpmSolution = new CpmSolution
-        {
-            Activities = Activities,
-            Events = EventDictionary.Values.ToList()
-        };
-        
-        return temCpmSolution;
-
         // Find critical path and mark critical activities
-        var criticalPath = new List<int>();
-        foreach (var activity in Activities)
-        {
-            if (EventDictionary[activity.Id].Slack == 0)
-            {
-                activity.Critical = true;
-                criticalPath.Add(activity.Id);
-            }
-            else
-            {
-                activity.Critical = false;
-            }
-        }
+        // var criticalPath = new List<int>();
+        // foreach (var activity in Activities)
+        // {
+        //     if (EventDictionary[activity.Id].Slack == 0)
+        //     {
+        //         activity.Critical = true;
+        //         criticalPath.Add(activity.Id);
+        //     }
+        //     else
+        //     {
+        //         activity.Critical = false;
+        //     }
+        // }
 
         // Build solution object
         var solution = new CpmSolution
