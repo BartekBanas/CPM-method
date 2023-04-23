@@ -181,6 +181,8 @@ public class CpmProject
             activity.LateStart = EventDictionary[activity.Sequence[1]].LatestTime - activity.Duration;
             activity.EarlyStart = EventDictionary[activity.Sequence[0]].EarliestTime;
             activity.LateFinish = EventDictionary[activity.Sequence[1]].LatestTime;
+
+            activity.TimeReserve = activity.EarlFinish - activity.EarlyStart;
         }
     }
 }
