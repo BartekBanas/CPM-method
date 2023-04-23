@@ -176,12 +176,12 @@ public class CpmProject
     {
         foreach (var activity in Activities)
         {
-            activity.EarlFinish = EventDictionary[activity.Sequence[0]].EarliestTime + activity.Duration;
+            activity.EarlyFinish = EventDictionary[activity.Sequence[0]].EarliestTime + activity.Duration;
             activity.LateStart = EventDictionary[activity.Sequence[1]].LatestTime - activity.Duration;
             activity.EarlyStart = EventDictionary[activity.Sequence[0]].EarliestTime;
             activity.LateFinish = EventDictionary[activity.Sequence[1]].LatestTime;
 
-            activity.TimeReserve = activity.LateFinish - activity.EarlFinish;
+            activity.TimeReserve = activity.LateFinish - activity.EarlyFinish;
         }
     }
 }
