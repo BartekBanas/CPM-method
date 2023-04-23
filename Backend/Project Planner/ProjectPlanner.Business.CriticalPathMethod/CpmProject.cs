@@ -6,8 +6,8 @@ public class CpmProject
 {
     private Dictionary<int, CpmEvent> EventDictionary { get; set; }
     private List<CpmActivity> Activities { get; set; } = null!;
-    public int StartId { get; set; }
-    public int EndId { get; set; }
+    private int StartId { get; set; }
+    private int EndId { get; set; }
 
     public CpmProject()
     {
