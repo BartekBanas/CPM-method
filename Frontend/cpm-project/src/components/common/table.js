@@ -1,9 +1,8 @@
-import { Button, Empty, Form, Input, Popconfirm, Table, theme, Drawer } from 'antd';
+import { Button, Empty, Form, Input, Popconfirm, Table, Modal, Drawer } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { isEmpty } from 'lodash';
 import axios from 'axios';
 import CPMDiagram from './CPMgraf';
-import test from './t';
 
 
 const EditableContext = React.createContext(null);
@@ -189,6 +188,20 @@ const TableWithInfo = ({ eventForm }) => {
         };
     });
 
+    const [receivedData, setReceivedData] = useState({});
+    const [error, setError] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const handleModalOk = () => {
+        // Zamykanie modala i resetowanie stanu błędu
+        setModalVisible(false);
+        setError(null);
+    }
+
+    useEffect(() => {
+        console.log('Zmiana danych:', receivedData);
+    }, [receivedData]);
+
     const sendData = (event) => {
         event.preventDefault();
 
@@ -212,17 +225,52 @@ const TableWithInfo = ({ eventForm }) => {
             .then(response => {
                 setShowGraph(true);
                 console.log(response)
+                setReceivedData(response.data)
+                console.log(receivedData)
+                showDrawer();
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                if (error.response) {
+                    if (error.response.status === 400) {
+                        setError(error.message);
+                        setModalVisible(true);
+                        return;
+                    } else if (error.response.status === 415) {
+                        setError(error.message);
+                        setModalVisible(true);
+                        return;
+                    }
+                } else if (error.request) {
+                    setError(error.message);
+                    setModalVisible(true);
+                    return;
+                } else {
+                    setError(error.message);
+                    setModalVisible(true);
+                    return;
+                }
+            })
             .finally(e => {
                 setShowGraph(true);
             });
-        showDrawer();
+
     }
 
     return (
         <h3>
             <div>
+                {/* Renderowanie komunikatu błędu tylko jeśli error jest ustawiony */}
+                {error !== null && (
+                    <Modal
+                        title="Błąd"
+                        visible={modalVisible}
+                        onOk={handleModalOk}
+                        onCancel={handleModalOk}
+                        okText="OK"
+                    >
+                        <p>{error}</p>
+                    </Modal>
+                )}
                 <Button type="primary" onClick={sendData} style={{ marginBottom: 16 }}>
                     Zatwierdź
                 </Button>
@@ -235,7 +283,7 @@ const TableWithInfo = ({ eventForm }) => {
                     onClose={onClose}
                     open={open}
                 >
-                    {showGraph && <CPMDiagram />}
+                    {showGraph && <CPMDiagram receivedData={receivedData} />}
                 </Drawer>
                 <Table
                     components={components}

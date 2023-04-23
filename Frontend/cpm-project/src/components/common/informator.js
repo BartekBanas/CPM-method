@@ -5,7 +5,7 @@ function InformationCard() {
     return (
         <Space direction="vertical" size={8}>
             <Card title="Metoda CPM" style={{ width: 400 }}>
-                <p>Program pozwalający obliczyć coś tam coś tam się dopisze</p>
+                <p>Program umożliwiający rozwiązywanie zadań z metody CPM w formie grafu</p>
             </Card>
         </Space>
     );
