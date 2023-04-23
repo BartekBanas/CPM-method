@@ -135,7 +135,7 @@ public class CpmProject
             {
                 int predecessorFinish = CalculateLatestTime(EventDictionary[Activities[i].Sequence[1]]);
 
-                if (lateTime < predecessorFinish + Activities[i].Duration)
+                if (lateTime > predecessorFinish - Activities[i].Duration)
                 {
                     lateTime = predecessorFinish - Activities[i].Duration;
                 }
