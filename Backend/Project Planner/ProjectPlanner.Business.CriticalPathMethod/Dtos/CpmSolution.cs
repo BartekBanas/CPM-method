@@ -2,7 +2,6 @@
 
 public class CpmSolution
 {
-    public List<CpmActivity> Activities { get; set; } = null!;
-
-    public int CriticalTime { get; set; }
+    public List<CpmActivity> Activities { get; set; } = new List<CpmActivity>();
+    public List<CpmEvent> Events { get; set; } = new List<CpmEvent>();
 }

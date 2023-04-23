@@ -2,7 +2,7 @@
 
 public class CpmActivity
 {
-    public int? Id { get; set; }
+    public int Id { get; set; }
     public string TaskName { get; set; }
     public int Duration { get; set; }
     public int[] Sequence { get; set; }
