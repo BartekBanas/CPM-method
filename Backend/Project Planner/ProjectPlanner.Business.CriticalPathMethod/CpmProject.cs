@@ -58,21 +58,17 @@ public class CpmProject
 
     private void SetUpEvents(CpmTask task)
     {
-        int eventIndex = 0;
+        HashSet<int> events = new HashSet<int>();
         
         foreach (var activity in task.Activities)
         {
-            if(!EventDictionary.TryGetValue(activity.Sequence[0], out var Name))
-            {
-                EventDictionary.Add(eventIndex, new CpmEvent(eventIndex));
-                eventIndex++;
-            }
-            
-            if(!EventDictionary.TryGetValue(activity.Sequence[1], out var whatever))
-            {
-                EventDictionary.Add(eventIndex, new CpmEvent(eventIndex));
-                eventIndex++;
-            }
+            events.Add(activity.Sequence[0]);
+            events.Add(activity.Sequence[1]);
+        }
+        
+        foreach (var eventId in events)
+        {
+            EventDictionary.Add(eventId, new CpmEvent(eventId));
         }
     }
 
