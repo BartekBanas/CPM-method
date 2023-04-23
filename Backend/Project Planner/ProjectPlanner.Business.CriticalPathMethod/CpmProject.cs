@@ -24,6 +24,7 @@ public class CpmProject
         CalculateLatestTime(EventDictionary[StartId]);
 
         CalculateTimeReserve(task);
+        FindCriticalPath(task);
 
         // Find critical path and mark critical activities
         // var criticalPath = new List<int>();
@@ -171,6 +172,17 @@ public class CpmProject
     
     private void FindCriticalPath(CpmTask task)
     {
-        
+        foreach (var activity in task.Activities)
+        {
+            if (EventDictionary[activity.Sequence[0]].TimeReserve == 0 &&
+                EventDictionary[activity.Sequence[1]].TimeReserve == 0)
+            {
+                activity.Critical = true;
+            }
+            else
+            {
+                activity.Critical = false;
+            }
+        }
     }
 }
