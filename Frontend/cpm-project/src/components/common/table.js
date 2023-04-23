@@ -2,6 +2,8 @@ import { Button, Empty, Form, Input, Popconfirm, Table, theme, Drawer } from 'an
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { isEmpty } from 'lodash';
 import axios from 'axios';
+import CPMDiagram from './CPMgraf';
+import test from './t';
 
 
 const EditableContext = React.createContext(null);
@@ -34,7 +36,7 @@ const EditableCell = ({
         }
     }, [editing]);
     const toggleEdit = () => {
-        setEditing(!editing);
+        setEditing((editing) => !editing);
         form.setFieldsValue({
             [dataIndex]: record[dataIndex],
         });
@@ -83,20 +85,14 @@ const EditableCell = ({
     return <td {...restProps}>{childNode}</td>;
 };
 const TableWithInfo = ({ eventForm }) => {
-    // const [dataSource, setDataSource] = useState([{
-    //     taskName: '',
-    //     duration: '',
-    //     sequence: [2]
-    // }]);
+
     const [dataSource, setDataSource] = useState([]);
-    const [dataToSend, setDataToSend] = useState([{
-        taskTime: '',
-        duration: '',
-        sequence: [2]
-    }])
+
     const [count, setCount] = useState(0);
 
     const [open, setOpen] = useState(false);
+
+    const [showGraph, setShowGraph] = useState(false);
 
     const showDrawer = () => {
         setOpen(true);
@@ -194,14 +190,33 @@ const TableWithInfo = ({ eventForm }) => {
     });
 
     const sendData = (event) => {
+        event.preventDefault();
+
         if (isEmpty(dataSource)) {
             return;
         }
-        console.log(dataSource);
-        event.preventDefault();
-        axios.post('https://localhost:44363/api', { dataSource })
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
+
+        const activities = dataSource.map((activity) => {
+            return {
+                taskName: activity.name,
+                duration: Number(activity.time),
+                sequence: [
+                    Number(activity.futureEvents),
+                    Number(activity.futureEvents2)
+                ]
+            };
+        });
+
+        console.log(activities)
+        axios.post('https://localhost:44363/api/CPM', { activities: activities })
+            .then(response => {
+                setShowGraph(true);
+                console.log(response)
+            })
+            .catch(error => console.log(error))
+            .finally(e => {
+                setShowGraph(true);
+            });
         showDrawer();
     }
 
@@ -215,12 +230,12 @@ const TableWithInfo = ({ eventForm }) => {
                     title="Graf"
                     size="large"
                     overflow="hidden"
-                    placement="right"
+                    placement="bottom"
                     closable={true}
                     onClose={onClose}
                     open={open}
                 >
-                    <p>Tutaj bedzie graf</p>
+                    {showGraph && <CPMDiagram />}
                 </Drawer>
                 <Table
                     components={components}
