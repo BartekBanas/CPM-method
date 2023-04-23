@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
-import { isEmpty, isEqual, find } from 'lodash';
 
 const CPMDiagram = ({ receivedData }) => {
     const svgRef = useRef(null);
@@ -9,43 +8,8 @@ const CPMDiagram = ({ receivedData }) => {
     const width = 1460;
     const height = 620;
 
-    // const nodes = [
-    //     { id: 1 },
-    //     { id: 2 },
-    //     { id: 3 },
-    //     { id: 4 },
-    //     { id: 5 }
-    // ];
-
     const nodes = [];
     const links = [];
-
-    // receivedData.events.forEach((event) => {
-    //     nodes.push({ id: event.id });
-
-    //     if (isEmpty(event.successors)) {
-    //         return;
-    //     }
-
-    //     const source = event.id;
-    //     const target = event.successors[0];
-    //     const activities = receivedData.activities;
-    //     const activity = find(activities, { 'sequence': [source, target] });
-
-    //     const link = {
-    //         source: Number(source),
-    //         target: Number(target),
-    //         label: activity.taskName,
-    //         duration: activity.duration,
-    //         reserve: event.timeReserve,
-    //         earliestStart: event.earliestTime,
-    //         latestFinish: event.latestTime,
-    //         earliestFinish: event.earliestTime + activity.duration,
-    //         latestStart: event.latestTime - activity.duration
-    //     };
-
-    //     links.push(link)
-    // });
 
     receivedData.events.forEach((event) => {
         nodes.push({ id: event.id });
@@ -62,19 +26,12 @@ const CPMDiagram = ({ receivedData }) => {
             earliestStart: activity.earlyStart,
             earliestFinish: activity.earlFinish,
             latestStart: activity.lateStart,
-            latestFinish: activity.lateFinish
+            latestFinish: activity.lateFinish,
+            criticalPath: activity.critical
         };
 
         links.push(link)
     });
-
-    // const links = [
-    //     { source: 1, target: 2, label: 'A', duration: 2, earliestStart: 3, earliestFinish: 1, latestStart: 5, latestFinish: 7, reserve: 0 },
-    //     { source: 1, target: 3, label: 'B', duration: 4, earliestStart: 3, earliestFinish: 4, latestStart: 9, latestFinish: 13, reserve: 2 },
-    //     { source: 2, target: 4, label: 'C', duration: 5, earliestStart: 5, earliestFinish: 6, latestStart: 10, latestFinish: 15, reserve: 0 },
-    //     { source: 3, target: 4, label: 'D', duration: 2, earliestStart: 9, earliestFinish: 3, latestStart: 11, latestFinish: 13, reserve: 2 },
-    //     { source: 4, target: 5, label: 'E', duration: 3, earliestStart: 16, earliestFinish: 9, latestStart: 17, latestFinish: 20, reserve: 0 }
-    // ];
 
     const simulation = d3.forceSimulation(nodes)
         .force('link', d3.forceLink(links).id(d => d.id).distance(50))
@@ -115,7 +72,14 @@ const CPMDiagram = ({ receivedData }) => {
             .data(links)
             .enter()
             .append('line')
-            .attr('stroke', 'black')
+            .attr('stroke', function (d) {
+                // Tutaj można ustawić warunek na podstawie wartości zmiennej d, która jest dostarczana przez dane z tablicy links
+                if (d.criticalPath === true) {
+                    return 'red'; // Jeśli spełniony jest warunek, ustaw kolor na czerwony
+                } else {
+                    return 'black'; // W przeciwnym przypadku, ustaw kolor na niebieski
+                }
+            })
             .attr('stroke-width', 2);
 
         const linkText = svg.append('g')
