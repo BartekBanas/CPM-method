@@ -27,6 +27,8 @@ public class CpmProject
         CalculateTimeReserve(task);
         FindCriticalPath(task);
         
+        CalculateActivities(task);
+        
         var solution = new CpmSolution
         {
             Activities = Activities,
@@ -168,6 +170,17 @@ public class CpmProject
             {
                 activity.Critical = false;
             }
+        }
+    }
+
+    private void CalculateActivities(CpmTask task)
+    {
+        foreach (var activity in Activities)
+        {
+            activity.EarlFinish = EventDictionary[activity.Sequence[0]].EarliestTime + activity.Duration;
+            activity.LateStart = EventDictionary[activity.Sequence[1]].LatestTime - activity.Duration;
+            activity.EarlyStart = EventDictionary[activity.Sequence[0]].EarliestTime;
+            activity.LateFinish = EventDictionary[activity.Sequence[1]].LatestTime;
         }
     }
 }
