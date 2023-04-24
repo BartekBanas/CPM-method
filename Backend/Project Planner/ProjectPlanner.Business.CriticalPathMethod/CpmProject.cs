@@ -10,15 +10,14 @@ public class CpmProject
     private int StartId { get; set; }
     private int EndId { get; set; }
 
-    public CpmProject()
+    public CpmProject(CpmTask cpmTask)
     {
-        Task = new CpmTask();
+        Task = cpmTask;
         EventDictionary = new Dictionary<int, CpmEvent>();
     }
 
-    public CpmSolution CreateSolution(CpmTask cpmTask)
+    public CpmSolution CreateSolution()
     {
-        Task = cpmTask;
         Activities = Task.Activities;
         SetupActivities();
         SetUpEvents();

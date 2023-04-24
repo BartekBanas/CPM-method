@@ -13,6 +13,6 @@ public class CriticalPathMethod
     
     CpmSolution SolveProject(CpmProject project)
     {
-        return project.CreateSolution(task);
+        return project.CreateSolution();
     }
 }
