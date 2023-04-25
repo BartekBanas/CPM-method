@@ -7,8 +7,8 @@ public class TpService
 {
     public Task<TpSolution> Solve(TpTask task)
     {
-        TpProject cpmProject = new TpProject(task);
+        TpProject tpProject = new TpProject(task);
 
-        return Task.FromResult(cpmProject.CreateSolution());
+        return Task.FromResult(tpProject.CreateSolution());
     }
 }
