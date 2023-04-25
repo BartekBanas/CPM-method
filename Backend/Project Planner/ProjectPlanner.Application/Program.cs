@@ -14,6 +14,7 @@ services.AddSwaggerGen();
 
 services.AddScoped<IValidator<CpmTask>, CpmFluentValidator>();
 services.AddScoped<ICpmService, CpmService>();
+services.AddScoped<ITpService, TpService>();
 
 
 var app = builder.Build();
