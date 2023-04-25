@@ -4,30 +4,32 @@ namespace ProjectPlanner.Business.CriticalPathMethod;
 
 public class CpmProject
 {
-    private Dictionary<int, CpmEvent> EventDictionary { get; set; }
+    public CpmTask Task { get; set; }
     private List<CpmActivity> Activities { get; set; } = null!;
+    private Dictionary<int, CpmEvent> EventDictionary { get; set; }
     private int StartId { get; set; }
     private int EndId { get; set; }
 
-    public CpmProject()
+    public CpmProject(CpmTask cpmTask)
     {
+        Task = cpmTask;
         EventDictionary = new Dictionary<int, CpmEvent>();
     }
 
-    public CpmSolution CreateSolution(CpmTask task)
+    public CpmSolution CreateSolution()
     {
-        Activities = task.Activities;
-        SetupActivities(task);
-        SetUpEvents(task);
-        FindStartAndEnd(task);
+        Activities = Task.Activities;
+        SetupActivities();
+        SetUpEvents();
+        FindStartAndEnd();
         
         CalculateEarliestTime(EventDictionary[EndId]);
         CalculateLatestTime(EventDictionary[StartId]);
 
-        CalculateTimeReserve(task);
-        CalculateActivities(task);
+        CalculateTimeReserve();
+        CalculateActivities();
         
-        FindCriticalPath(task);
+        FindCriticalPath();
         
         var solution = new CpmSolution
         {
@@ -38,19 +40,19 @@ public class CpmProject
         return solution;
     }
 
-    private void SetupActivities(CpmTask task)
+    private void SetupActivities()
     {
-        for (int i = 0; i < task.Activities.Count; i++)
+        for (int i = 0; i < Task.Activities.Count; i++)
         {
-            task.Activities[i].Id = i;
+            Task.Activities[i].Id = i;
         }
     }
 
-    private void SetUpEvents(CpmTask task)
+    private void SetUpEvents()
     {
         HashSet<int> events = new HashSet<int>();
         
-        foreach (var activity in task.Activities)
+        foreach (var activity in Task.Activities)
         {
             events.Add(activity.Sequence[0]);
             events.Add(activity.Sequence[1]);
@@ -62,11 +64,11 @@ public class CpmProject
         }
     }
 
-    private void FindStartAndEnd(CpmTask task)
+    private void FindStartAndEnd()
     {
         HashSet<int> events = new HashSet<int>();
         
-        foreach (var activity in task.Activities)
+        foreach (var activity in Task.Activities)
         {
             events.Add(activity.Sequence[0]);
             events.Add(activity.Sequence[1]);
@@ -77,7 +79,7 @@ public class CpmProject
             int predecessors = 0;
             int successors = 0;
             
-            foreach (var activity in task.Activities)
+            foreach (var activity in Task.Activities)
             {
                 if (eventId == activity.Sequence[0])
                 {
@@ -131,15 +133,15 @@ public class CpmProject
         int lateTime = EventDictionary[EndId].EarliestTime;
             
         //foreach preceding activity
-        for (int i = 0; i < Activities.Count; i++)
+        foreach (var activity in Activities)
         {
-            if(Activities[i].Sequence[0] == cpmEvent.Id)
+            if(activity.Sequence[0] == cpmEvent.Id)
             {
-                int predecessorFinish = CalculateLatestTime(EventDictionary[Activities[i].Sequence[1]]);
+                int predecessorFinish = CalculateLatestTime(EventDictionary[activity.Sequence[1]]);
 
-                if (lateTime > predecessorFinish - Activities[i].Duration)
+                if (lateTime > predecessorFinish - activity.Duration)
                 {
-                    lateTime = predecessorFinish - Activities[i].Duration;
+                    lateTime = predecessorFinish - activity.Duration;
                 }
             }
         }
@@ -149,7 +151,7 @@ public class CpmProject
         return lateTime;
     }
     
-    private void CalculateTimeReserve(CpmTask task)
+    private void CalculateTimeReserve()
     {
         foreach (var cpmEvent in EventDictionary.Values.ToList())
         {
@@ -157,9 +159,9 @@ public class CpmProject
         }
     }
     
-    private void FindCriticalPath(CpmTask task)
+    private void FindCriticalPath()
     {
-        foreach (var activity in task.Activities)
+        foreach (var activity in Task.Activities)
         {
             if (activity.TimeReserve == 0)
             {
@@ -172,7 +174,7 @@ public class CpmProject
         }
     }
 
-    private void CalculateActivities(CpmTask task)
+    private void CalculateActivities()
     {
         foreach (var activity in Activities)
         {
