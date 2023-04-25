@@ -15,6 +15,7 @@ public class TpController : Controller
         _tpService = tpService;
     }
     
+    [HttpPost]
     public async Task<IActionResult> PostCpmRequest([FromBody] TpTask task)
     {
         // var validationResult = await _validator.ValidateAsync(task);
