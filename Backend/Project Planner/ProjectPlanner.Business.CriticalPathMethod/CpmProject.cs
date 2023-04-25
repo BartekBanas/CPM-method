@@ -133,15 +133,15 @@ public class CpmProject
         int lateTime = EventDictionary[EndId].EarliestTime;
             
         //foreach preceding activity
-        for (int i = 0; i < Activities.Count; i++)
+        foreach (var activity in Activities)
         {
-            if(Activities[i].Sequence[0] == cpmEvent.Id)
+            if(activity.Sequence[0] == cpmEvent.Id)
             {
-                int predecessorFinish = CalculateLatestTime(EventDictionary[Activities[i].Sequence[1]]);
+                int predecessorFinish = CalculateLatestTime(EventDictionary[activity.Sequence[1]]);
 
-                if (lateTime > predecessorFinish - Activities[i].Duration)
+                if (lateTime > predecessorFinish - activity.Duration)
                 {
-                    lateTime = predecessorFinish - Activities[i].Duration;
+                    lateTime = predecessorFinish - activity.Duration;
                 }
             }
         }
