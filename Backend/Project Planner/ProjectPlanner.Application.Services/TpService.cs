@@ -3,7 +3,12 @@ using ProjectPlanner.Business.TransportationProblem.Dtos;
 
 namespace ProjectPlanner.Application.Services;
 
-public class TpService
+public interface ITpService
+{
+    Task<TpSolution> Solve(TpTask task);
+}
+
+public class TpService : ITpService
 {
     public Task<TpSolution> Solve(TpTask task)
     {
