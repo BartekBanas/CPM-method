@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Controller.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Algorithm.Tests", "Tests\ProjectPlanner.Algorithm.Tests\ProjectPlanner.Algorithm.Tests.csproj", "{049A1542-BA3B-4340-A305-93CA3B168B75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Business.TransportProblem", "ProjectPlanner.Business.TransportProblem\ProjectPlanner.Business.TransportProblem.csproj", "{A86B3D13-6A9D-4FB2-AFAF-488D799A344E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Business.TransportationProblem", "ProjectPlanner.Business.TransportationProblem\ProjectPlanner.Business.TransportationProblem.csproj", "{A86B3D13-6A9D-4FB2-AFAF-488D799A344E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

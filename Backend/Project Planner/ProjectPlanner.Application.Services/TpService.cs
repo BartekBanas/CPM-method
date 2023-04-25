@@ -1,5 +1,5 @@
-﻿using ProjectPlanner.Business.TransportProblem;
-using ProjectPlanner.Business.TransportProblem.Dtos;
+﻿using ProjectPlanner.Business.TransportationProblem;
+using ProjectPlanner.Business.TransportationProblem.Dtos;
 
 namespace ProjectPlanner.Application.Services;
 
