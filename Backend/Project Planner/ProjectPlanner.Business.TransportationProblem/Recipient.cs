@@ -2,8 +2,8 @@
 
 public class Recipient
 {
-    public int Demand { get; set; }
-    public float Cost { get; set; }
+    public int Demand { get; }
+    public float Cost { get; }
 
     public Recipient(int demand, float cost)
     {

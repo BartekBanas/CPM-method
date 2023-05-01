@@ -2,8 +2,8 @@
 
 public class Supplier
 {
-    public int Supply { get; set; }
-    public float Cost { get; set; }
+    public int Supply { get; }
+    public float Cost { get; }
     
     public Supplier(int supply, float cost)
     {
