@@ -16,8 +16,13 @@ public class TpFluentValidator : AbstractValidator<TpTask>
             .NotNull().WithMessage("Recipients cannot be null")
             .Must(recipients => recipients.Length > 0).WithMessage("There must be at least one recipient");
 
+        RuleFor(tpTask => tpTask.TransportCost)
+            .NotNull().WithMessage("Transport Cost cannot be null");
+        
+
         RuleFor(tpTask => tpTask.Suppliers).Custom(ValidateSuppliers);
         RuleFor(task => task.Recipients).Custom(ValidateRecipients);
+        RuleFor(task => task).Custom(ValidateTransportationCosts);
     }
 
     private void ValidateSuppliers(Supplier[] suppliers ,ValidationContext<TpTask> context)
@@ -48,6 +53,20 @@ public class TpFluentValidator : AbstractValidator<TpTask>
             if (recipients[i].Cost <= 0)
             {
                 context.AddFailure("Recipient " + (i + 1) + " needs to have positive buying cost");
+            }
+        }
+    }
+
+    private void ValidateTransportationCosts(TpTask task, ValidationContext<TpTask> context)
+    {
+        for (int i = 0; i < task.TransportCost.GetLength(0); i++)
+        {
+            for (int j = 0; j < task.TransportCost.GetLength(1); j++)
+            {
+                if (task.TransportCost[i, j] < 0)
+                {
+                    context.AddFailure("Transportation cost between Supplier " + (i + 1) + " and recipient " + (j + 1) + " cannot be negative");
+                }
             }
         }
     }
