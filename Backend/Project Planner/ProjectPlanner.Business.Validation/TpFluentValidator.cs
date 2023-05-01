@@ -25,7 +25,7 @@ public class TpFluentValidator : AbstractValidator<TpTask>
         RuleFor(task => task).Custom(ValidateTransportationCosts);
     }
 
-    private void ValidateSuppliers(Supplier[] suppliers ,ValidationContext<TpTask> context)
+    private void ValidateSuppliers(Supplier[] suppliers, ValidationContext<TpTask> context)
     {
         for (int i = 0; i < suppliers.Length; i++)
         {
@@ -40,8 +40,8 @@ public class TpFluentValidator : AbstractValidator<TpTask>
             }
         }
     }
-    
-    private void ValidateRecipients(Recipient[] recipients ,ValidationContext<TpTask> context)
+
+    private void ValidateRecipients(Recipient[] recipients, ValidationContext<TpTask> context)
     {
         for (int i = 0; i < recipients.Length; i++)
         {
@@ -65,7 +65,8 @@ public class TpFluentValidator : AbstractValidator<TpTask>
             {
                 if (task.TransportCost[i, j] < 0)
                 {
-                    context.AddFailure("Transportation cost between Supplier " + (i + 1) + " and recipient " + (j + 1) + " cannot be negative");
+                    context.AddFailure("Transportation cost between Supplier " + (i + 1) + " and recipient " + (j + 1) +
+                                       " cannot be negative");
                 }
             }
         }
@@ -81,7 +82,7 @@ public class TpFluentValidator : AbstractValidator<TpTask>
         {
             context.AddFailure("At least one supplier without transportation costs was found");
         }
-        
+
         if (task.TransportCost.GetLength(1) > task.Recipients.Length)
         {
             context.AddFailure("Transportation costs not assigned to any recipient were found");
