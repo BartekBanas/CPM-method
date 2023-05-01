@@ -8,9 +8,9 @@ namespace Project_Planner.Controllers;
 [Route("api/TP")]
 public class TpController : Controller
 {
-    private readonly TpService _tpService;
+    private readonly ITpService _tpService;
 
-    public TpController(TpService tpService)
+    public TpController(ITpService tpService)
     {
         _tpService = tpService;
     }
