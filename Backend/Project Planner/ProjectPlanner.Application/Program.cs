@@ -1,6 +1,7 @@
 using FluentValidation;
 using ProjectPlanner.Application.Services;
 using ProjectPlanner.Business.CriticalPathMethod.Dtos;
+using ProjectPlanner.Business.TransportationProblem.Dtos;
 using ProjectPlanner.Business.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,10 +13,10 @@ services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
-services.AddScoped<IValidator<CpmTask>, CpmFluentValidator>();
 services.AddScoped<ICpmService, CpmService>();
+services.AddScoped<IValidator<CpmTask>, CpmFluentValidator>();
 services.AddScoped<ITpService, TpService>();
-
+services.AddScoped<IValidator<TpTask>, TpFluentValidator>();
 
 var app = builder.Build();
 
