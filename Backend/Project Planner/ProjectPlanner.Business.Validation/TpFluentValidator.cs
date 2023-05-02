@@ -63,7 +63,7 @@ public class TpFluentValidator : AbstractValidator<TpTask>
         {
             for (int j = 0; j < task.TransportCost.GetLength(1); j++)
             {
-                if (task.TransportCost[i, j] < 0)
+                if (task.TransportCost[i][j] < 0)
                 {
                     context.AddFailure("Transportation cost between Supplier " + (i + 1) + " and recipient " + (j + 1) +
                                        " cannot be negative");
