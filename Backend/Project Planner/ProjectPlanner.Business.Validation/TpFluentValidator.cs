@@ -59,9 +59,9 @@ public class TpFluentValidator : AbstractValidator<TpTask>
 
     private void ValidateTransportationCosts(TpTask task, ValidationContext<TpTask> context)
     {
-        for (int i = 0; i < task.TransportCost.GetLength(0); i++)
+        for (int i = 0; i < task.TransportCost.Length; i++)
         {
-            for (int j = 0; j < task.TransportCost.GetLength(1); j++)
+            for (int j = 0; j < task.TransportCost[i].Length; j++)
             {
                 if (task.TransportCost[i][j] < 0)
                 {
