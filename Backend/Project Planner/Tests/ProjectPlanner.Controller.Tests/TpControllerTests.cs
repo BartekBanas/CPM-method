@@ -19,36 +19,39 @@ public class TpControllerTests
         // Arrange
         const string jsonTpTask = @" 
         {
+        ""Suppliers"": [
             {
-                ""Suppliers"": [
+                ""Supply"": 100,
+                ""Cost"": 5.5
+            },
             {
-                ""Supply"": 10,
+                ""Supply"": 200,
+                ""Cost"": 4.5
+            },
+            {
+                ""Supply"": 150,
+                ""Cost"": 6.0
+            }
+        ],
+        ""Recipients"": [
+            {
+                ""Demand"": 80,
                 ""Cost"": 5.0
             },
             {
-                ""Supply"": 20,
-                ""Cost"": 10.0
-            }
-            ],
-            ""Recipients"": [
-            {
-                ""Demand"": 5,
-                ""Cost"": 8.0
+                ""Demand"": 150,
+                ""Cost"": 6.0
             },
             {
-                ""Demand"": 25,
-                ""Cost"": 12.0
-            },
-            {
-                ""Demand"": 15,
-                ""Cost"": 9.0
+                ""Demand"": 120,
+                ""Cost"": 4.5
             }
-            ],
-            ""TransportCost"": [
-            [5.0, 7.0, 6.0],
-            [4.0, 2.0, 8.0]
-            ]
-        }}";
+        ],
+        ""TransportCost"": [
+            [2.5, 3.0, 2.0],
+            [3.5, 2.0, 4.0],
+            [1.5, 2.5, 3.0]
+        ]}";
 
         var task = JsonConvert.DeserializeObject<TpTask>(jsonTpTask);
 
