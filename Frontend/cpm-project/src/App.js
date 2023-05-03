@@ -6,11 +6,11 @@ import AppHeader from './components/common/header';
 import InformationCard from './components/common/informator';
 import DataEntryForNewTask from './components/common/dataEntry';
 import TableWithInfo from './components/common/table';
-import CPMDiagram from './components/common/CPMgraf';
 import Switcher from './components/common/switch';
 
 function App() {
   const [eventForm, setEventForm] = useState({});
+  const [method, setMethod] = useState('CPM'); // default is 'CPM'
 
   return (
     <Layout className="App">
@@ -20,8 +20,8 @@ function App() {
         backgroundSize: 'cover'
       }}>
         <AppHeader />
-        <Switcher />
-        <InformationCard />
+        <Switcher setMethod={setMethod} method={method} />
+        <InformationCard method={method} />
         <DataEntryForNewTask setEventForm={setEventForm} />
         <TableWithInfo eventForm={eventForm} />
       </header>
