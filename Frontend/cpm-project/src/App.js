@@ -6,6 +6,8 @@ import AppHeader from './components/common/header';
 import InformationCard from './components/common/informator';
 import DataEntryForNewTask from './components/common/dataEntry';
 import TableWithInfo from './components/common/table';
+import CPMDiagram from './components/common/CPMgraf';
+import Switcher from './components/common/switch';
 
 function App() {
   const [eventForm, setEventForm] = useState({});
@@ -18,6 +20,7 @@ function App() {
         backgroundSize: 'cover'
       }}>
         <AppHeader />
+        <Switcher />
         <InformationCard />
         <DataEntryForNewTask setEventForm={setEventForm} />
         <TableWithInfo eventForm={eventForm} />
