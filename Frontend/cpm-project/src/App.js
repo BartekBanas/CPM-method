@@ -22,7 +22,7 @@ function App() {
         <AppHeader />
         <Switcher setMethod={setMethod} method={method} />
         <InformationCard method={method} />
-        <DataEntryForNewTask setEventForm={setEventForm} />
+        <DataEntryForNewTask setEventForm={setEventForm} method={method} />
         <TableWithInfo eventForm={eventForm} />
       </header>
     </Layout>
