@@ -59,11 +59,11 @@ public class TpFluentValidator : AbstractValidator<TpTask>
 
     private void ValidateTransportationCosts(TpTask task, ValidationContext<TpTask> context)
     {
-        for (int i = 0; i < task.TransportCost.GetLength(0); i++)
+        for (int i = 0; i < task.TransportCost.Length; i++)
         {
-            for (int j = 0; j < task.TransportCost.GetLength(1); j++)
+            for (int j = 0; j < task.TransportCost[i].Length; j++)
             {
-                if (task.TransportCost[i, j] < 0)
+                if (task.TransportCost[i][j] < 0)
                 {
                     context.AddFailure("Transportation cost between Supplier " + (i + 1) + " and recipient " + (j + 1) +
                                        " cannot be negative");
@@ -74,6 +74,11 @@ public class TpFluentValidator : AbstractValidator<TpTask>
 
     private void ValidateTasksConsistency(TpTask task, ValidationContext<TpTask> context)
     {
+        if (task.TransportCost.Length == 0 || task.TransportCost.Any(row => row.Length == 0))
+        {
+            context.AddFailure("Transportation costs are not assigned to any supplier or recipient");
+        }
+    
         if (task.TransportCost.GetLength(0) > task.Suppliers.Length)
         {
             context.AddFailure("Transportation costs not assigned to any supplier were found");
@@ -83,11 +88,11 @@ public class TpFluentValidator : AbstractValidator<TpTask>
             context.AddFailure("At least one supplier without transportation costs was found");
         }
 
-        if (task.TransportCost.GetLength(1) > task.Recipients.Length)
+        if (task.TransportCost.Any(row => row.Length > task.Recipients.Length))
         {
             context.AddFailure("Transportation costs not assigned to any recipient were found");
         }
-        if (task.TransportCost.GetLength(1) < task.Recipients.Length)
+        if (task.TransportCost.Any(row => row.Length < task.Recipients.Length))
         {
             context.AddFailure("At least one recipient without transportation costs was found");
         }
