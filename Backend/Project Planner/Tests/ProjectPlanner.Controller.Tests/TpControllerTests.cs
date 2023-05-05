@@ -123,4 +123,61 @@ public class TpControllerTests
         // Assert
         Assert.NotNull(task);
     }
+    
+    [Fact]
+    public async Task PostTpRequest_ReturnsBadRequest_ForInvalidRequestWithInvalidAmountOfTransportCosts()
+    {
+        // Arrange
+        const string jsonTpTask = @" 
+        {
+            ""Suppliers"": [
+                {
+                    ""Supply"": 100,
+                    ""Cost"": 5.5
+                },
+                {
+                    ""Supply"": 200,
+                    ""Cost"": 4.5
+                },
+                {
+                    ""Supply"": 150,
+                    ""Cost"": 6.0
+                }
+            ],
+            ""Recipients"": [
+                {
+                    ""Demand"": 80,
+                    ""Cost"": 5.0
+                },
+                {
+                    ""Demand"": 150,
+                    ""Cost"": 6.0
+                },
+                {
+                    ""Demand"": 120,
+                    ""Cost"": 4.5
+                }
+            ],
+            ""TransportCost"": [
+                [2.5, 3.0, 2.0],
+                [3.5, 2.0, 4.0]
+        ]}";
+
+        var task = JsonConvert.DeserializeObject<TpTask>(jsonTpTask);
+
+        // Act
+        if (task != null)
+        {
+            var result = await _controller.PostTpRequest(task);
+
+            // Assert
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            var errors = Assert.IsType<List<FluentValidation.Results.ValidationFailure>>(badRequestResult.Value);
+            Assert.Equal(1, errors.Count);
+            Assert.Equal("At least one supplier without transportation costs was found", errors[0].ErrorMessage);
+        }
+        
+        // Assert
+        Assert.NotNull(task);
+    }
 }
