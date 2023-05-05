@@ -1,5 +1,4 @@
 ﻿using ProjectPlanner.Business.CriticalPathMethod;
-using ProjectPlanner.Business.CriticalPathMethod.Entities;
 
 namespace ProjectPlanner.Business.Validation;
 

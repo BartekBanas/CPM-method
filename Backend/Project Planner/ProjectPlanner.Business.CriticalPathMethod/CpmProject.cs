@@ -1,6 +1,4 @@
-﻿using ProjectPlanner.Business.CriticalPathMethod.Entities;
-
-namespace ProjectPlanner.Business.CriticalPathMethod;
+﻿namespace ProjectPlanner.Business.CriticalPathMethod;
 
 public class CpmProject
 {

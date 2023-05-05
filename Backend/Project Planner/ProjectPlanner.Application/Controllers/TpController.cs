@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using ProjectPlanner.Application.Services;
-using ProjectPlanner.Business.TransportationProblem.Entities;
+using ProjectPlanner.Business.TransportationProblem;
 
 namespace Project_Planner.Controllers;
 

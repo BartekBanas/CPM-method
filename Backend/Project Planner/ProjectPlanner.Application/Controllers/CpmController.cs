@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using ProjectPlanner.Application.Services;
-using ProjectPlanner.Business.CriticalPathMethod.Entities;
+using ProjectPlanner.Business.CriticalPathMethod;
 
 namespace Project_Planner.Controllers;
 

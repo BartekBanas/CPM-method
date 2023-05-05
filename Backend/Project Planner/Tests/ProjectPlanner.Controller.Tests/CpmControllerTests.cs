@@ -1,4 +1,4 @@
-using ProjectPlanner.Business.CriticalPathMethod.Entities;
+using ProjectPlanner.Business.CriticalPathMethod;
 
 namespace ProjectPlanner.Controller.Tests;
 
