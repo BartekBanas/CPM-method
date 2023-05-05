@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using ProjectPlanner.Business.TransportationProblem;
-using ProjectPlanner.Business.TransportationProblem.Dtos;
 
 namespace ProjectPlanner.Business.Validation;
 

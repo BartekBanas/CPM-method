@@ -1,7 +1,7 @@
 using FluentValidation;
 using ProjectPlanner.Application.Services;
-using ProjectPlanner.Business.CriticalPathMethod.Dtos;
-using ProjectPlanner.Business.TransportationProblem.Dtos;
+using ProjectPlanner.Business.CriticalPathMethod;
+using ProjectPlanner.Business.TransportationProblem;
 using ProjectPlanner.Business.Validation;
 
 var builder = WebApplication.CreateBuilder(args);

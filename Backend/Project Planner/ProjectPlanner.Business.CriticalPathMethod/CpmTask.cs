@@ -1,4 +1,4 @@
-﻿namespace ProjectPlanner.Business.CriticalPathMethod.Dtos;
+﻿namespace ProjectPlanner.Business.CriticalPathMethod;
 
 public class CpmTask
 {

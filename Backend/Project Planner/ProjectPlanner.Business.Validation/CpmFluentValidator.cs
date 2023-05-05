@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using ProjectPlanner.Business.CriticalPathMethod;
-using ProjectPlanner.Business.CriticalPathMethod.Dtos;
 
 namespace ProjectPlanner.Business.Validation;
 

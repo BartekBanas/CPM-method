@@ -1,6 +1,4 @@
-﻿using ProjectPlanner.Business.TransportationProblem.Dtos;
-
-namespace ProjectPlanner.Business.TransportationProblem;
+﻿namespace ProjectPlanner.Business.TransportationProblem;
 
 public class TpProject
 {
