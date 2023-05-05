@@ -1,4 +1,5 @@
 ﻿using ProjectPlanner.Business.TransportationProblem.Dtos;
+using ProjectPlanner.Business.TransportationProblem.Entities;
 
 namespace ProjectPlanner.Controller.Tests;
 

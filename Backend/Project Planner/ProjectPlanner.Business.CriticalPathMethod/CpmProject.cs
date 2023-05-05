@@ -1,4 +1,4 @@
-﻿using ProjectPlanner.Business.CriticalPathMethod.Dtos;
+﻿using ProjectPlanner.Business.CriticalPathMethod.Entities;
 
 namespace ProjectPlanner.Business.CriticalPathMethod;
 

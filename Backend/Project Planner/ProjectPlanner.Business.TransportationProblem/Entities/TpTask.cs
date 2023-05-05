@@ -1,4 +1,4 @@
-﻿namespace ProjectPlanner.Business.TransportationProblem.Dtos;
+﻿namespace ProjectPlanner.Business.TransportationProblem.Entities;
 
 public class TpTask
 {

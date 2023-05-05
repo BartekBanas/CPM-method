@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectPlanner.Application.Services;
 using ProjectPlanner.Business.TransportationProblem.Dtos;
+using ProjectPlanner.Business.TransportationProblem.Entities;
 
 namespace Project_Planner.Controllers;
 
