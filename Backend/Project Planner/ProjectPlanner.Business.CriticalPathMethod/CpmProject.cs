@@ -2,7 +2,7 @@
 
 public class CpmProject
 {
-    public CpmTask Task { get; set; }
+    private CpmTask Task { get; set; }
     private List<CpmActivity> Activities { get; set; } = null!;
     private Dictionary<int, CpmEvent> EventDictionary { get; set; }
     private int StartId { get; set; }
@@ -108,15 +108,15 @@ public class CpmProject
         int earlyTime = 0;
             
         //foreach preceding activity
-        for (int i = 0; i < Activities.Count; i++)
+        foreach (var cpmActivity in Activities)
         {
-            if(Activities[i].Sequence[1] == cpmEvent.Id)
+            if(cpmActivity.Sequence[1] == cpmEvent.Id)
             {
-                int predecessorStart = CalculateEarliestTime(EventDictionary[Activities[i].Sequence[0]]);
+                int predecessorStart = CalculateEarliestTime(EventDictionary[cpmActivity.Sequence[0]]);
 
-                if (earlyTime < predecessorStart + Activities[i].Duration)
+                if (earlyTime < predecessorStart + cpmActivity.Duration)
                 {
-                    earlyTime = predecessorStart + Activities[i].Duration;
+                    earlyTime = predecessorStart + cpmActivity.Duration;
                 }
             }
         }
