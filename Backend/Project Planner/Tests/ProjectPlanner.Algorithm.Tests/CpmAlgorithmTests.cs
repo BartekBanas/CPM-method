@@ -442,12 +442,59 @@ public class CpmAlgorithmTests
         Assert.Equal(solution.Activities.Count, 4);
 
         Assert.Equal(0, solution.Events[0].Predecessors.Count);
-        Assert.Equal(1, solution.Events[0].Successors.Count);
         Assert.Equal(1, solution.Events[1].Predecessors.Count);
-        Assert.Equal(2, solution.Events[1].Successors.Count);
         Assert.Equal(1, solution.Events[2].Predecessors.Count);
-        Assert.Equal(1, solution.Events[2].Successors.Count);
         Assert.Equal(2, solution.Events[3].Predecessors.Count);
+    }
+    
+    [Fact]
+    public void CreateSolution_ShouldIdentifySuccessors()
+    {
+        // Arrange
+        var cpmTask = new CpmTask
+        {
+            Activities = new List<CpmActivity>
+            {
+                new CpmActivity
+                {
+                    TaskName = "Task 1",
+                    Duration = 3,
+                    Sequence = new int[] { 0, 1 }
+                },
+                new CpmActivity
+                {
+                    TaskName = "Task 2",
+                    Duration = 5,
+                    Sequence = new int[] { 1, 2 }
+                },
+                new CpmActivity
+                {
+                    TaskName = "Task 3",
+                    Duration = 2,
+                    Sequence = new int[] { 2, 3 }
+                },
+                new CpmActivity
+                {
+                    TaskName = "Task 3",
+                    Duration = 1,
+                    Sequence = new int[] { 1, 3 }
+                }
+            }
+        };
+        
+        var project = new CpmProject(cpmTask);
+
+        // Act
+        var solution = project.CreateSolution();
+
+        // Assert
+        Assert.NotNull(solution);
+        Assert.NotNull(solution.Activities);
+        Assert.Equal(solution.Activities.Count, 4);
+        
+        Assert.Equal(1, solution.Events[0].Successors.Count);
+        Assert.Equal(2, solution.Events[1].Successors.Count);
+        Assert.Equal(1, solution.Events[2].Successors.Count);
         Assert.Equal(0, solution.Events[3].Successors.Count);
     }
 }
