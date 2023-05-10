@@ -19,4 +19,8 @@ public class CpmActivity
         Duration = duration;
         Sequence = sequence;
     }
+
+    public CpmActivity()
+    {
+    }
 }
