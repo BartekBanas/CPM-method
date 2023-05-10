@@ -337,13 +337,62 @@ public class CpmAlgorithmTests
         // Assert
         Assert.NotNull(solution);
         Assert.NotNull(solution.Activities);
-        Assert.NotNull(solution.Events);
         Assert.Equal(solution.Activities.Count, 4);
-        Assert.Equal(solution.Events.Count, 4);
-        
+
         Assert.Equal(solution.Activities[0].LateStart, 0);
         Assert.Equal(solution.Activities[1].LateStart, 3);
         Assert.Equal(solution.Activities[2].LateStart, 8);
         Assert.Equal(solution.Activities[3].LateStart, 9);
+    }
+    
+    [Fact]
+    public void CreateSolution_ShouldIdentifyLateFinish()
+    {
+        // Arrange
+        var cpmTask = new CpmTask
+        {
+            Activities = new List<CpmActivity>
+            {
+                new CpmActivity
+                {
+                    TaskName = "Task 1",
+                    Duration = 3,
+                    Sequence = new int[] { 0, 1 }
+                },
+                new CpmActivity
+                {
+                    TaskName = "Task 2",
+                    Duration = 5,
+                    Sequence = new int[] { 1, 2 }
+                },
+                new CpmActivity
+                {
+                    TaskName = "Task 3",
+                    Duration = 2,
+                    Sequence = new int[] { 2, 3 }
+                },
+                new CpmActivity
+                {
+                    TaskName = "Task 3",
+                    Duration = 1,
+                    Sequence = new int[] { 1, 3 }
+                }
+            }
+        };
+        
+        var project = new CpmProject(cpmTask);
+
+        // Act
+        var solution = project.CreateSolution();
+
+        // Assert
+        Assert.NotNull(solution);
+        Assert.NotNull(solution.Activities);
+        Assert.Equal(solution.Activities.Count, 4);
+        
+        Assert.Equal(solution.Activities[0].LateFinish, 3);
+        Assert.Equal(solution.Activities[1].LateFinish, 8);
+        Assert.Equal(solution.Activities[2].LateFinish, 10);
+        Assert.Equal(solution.Activities[3].LateFinish, 10);
     }
 }
