@@ -12,29 +12,29 @@ public class CpmAlgorithmTests
         {
             Activities = new List<CpmActivity>
             {
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 1",
                     Duration = 3,
-                    Sequence = new int[] { 0, 1 }
+                    Sequence = new[] { 0, 1 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 2",
                     Duration = 5,
-                    Sequence = new int[] { 1, 2 }
+                    Sequence = new[] { 1, 2 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 2,
-                    Sequence = new int[] { 2, 3 }
+                    Sequence = new[] { 2, 3 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 1,
-                    Sequence = new int[] { 1, 3 }
+                    Sequence = new[] { 1, 3 }
                 }
             }
         };
@@ -63,29 +63,29 @@ public class CpmAlgorithmTests
         {
             Activities = new List<CpmActivity>
             {
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 1",
                     Duration = 3,
-                    Sequence = new int[] { 0, 1 }
+                    Sequence = new[] { 0, 1 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 2",
                     Duration = 5,
-                    Sequence = new int[] { 1, 2 }
+                    Sequence = new[] { 1, 2 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 2,
-                    Sequence = new int[] { 2, 3 }
+                    Sequence = new[] { 2, 3 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 1,
-                    Sequence = new int[] { 1, 3 }
+                    Sequence = new[] { 1, 3 }
                 }
             }
         };
@@ -114,29 +114,29 @@ public class CpmAlgorithmTests
         {
             Activities = new List<CpmActivity>
             {
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 1",
                     Duration = 3,
-                    Sequence = new int[] { 0, 1 }
+                    Sequence = new[] { 0, 1 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 2",
                     Duration = 5,
-                    Sequence = new int[] { 1, 2 }
+                    Sequence = new[] { 1, 2 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 2,
-                    Sequence = new int[] { 2, 3 }
+                    Sequence = new[] { 2, 3 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 1,
-                    Sequence = new int[] { 1, 3 }
+                    Sequence = new[] { 1, 3 }
                 }
             }
         };
@@ -165,29 +165,29 @@ public class CpmAlgorithmTests
         {
             Activities = new List<CpmActivity>
             {
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 1",
                     Duration = 3,
-                    Sequence = new int[] { 0, 1 }
+                    Sequence = new[] { 0, 1 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 2",
                     Duration = 5,
-                    Sequence = new int[] { 1, 2 }
+                    Sequence = new[] { 1, 2 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 2,
-                    Sequence = new int[] { 2, 3 }
+                    Sequence = new[] { 2, 3 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 1,
-                    Sequence = new int[] { 1, 3 }
+                    Sequence = new[] { 1, 3 }
                 }
             }
         };
@@ -216,29 +216,29 @@ public class CpmAlgorithmTests
         {
             Activities = new List<CpmActivity>
             {
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 1",
                     Duration = 3,
-                    Sequence = new int[] { 0, 1 }
+                    Sequence = new[] { 0, 1 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 2",
                     Duration = 5,
-                    Sequence = new int[] { 1, 2 }
+                    Sequence = new[] { 1, 2 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 2,
-                    Sequence = new int[] { 2, 3 }
+                    Sequence = new[] { 2, 3 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 1,
-                    Sequence = new int[] { 1, 3 }
+                    Sequence = new[] { 1, 3 }
                 }
             }
         };
@@ -267,29 +267,29 @@ public class CpmAlgorithmTests
         {
             Activities = new List<CpmActivity>
             {
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 1",
                     Duration = 3,
-                    Sequence = new int[] { 0, 1 }
+                    Sequence = new[] { 0, 1 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 2",
                     Duration = 5,
-                    Sequence = new int[] { 1, 2 }
+                    Sequence = new[] { 1, 2 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 2,
-                    Sequence = new int[] { 2, 3 }
+                    Sequence = new[] { 2, 3 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 1,
-                    Sequence = new int[] { 1, 3 }
+                    Sequence = new[] { 1, 3 }
                 }
             }
         };
@@ -318,29 +318,29 @@ public class CpmAlgorithmTests
         {
             Activities = new List<CpmActivity>
             {
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 1",
                     Duration = 3,
-                    Sequence = new int[] { 0, 1 }
+                    Sequence = new[] { 0, 1 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 2",
                     Duration = 5,
-                    Sequence = new int[] { 1, 2 }
+                    Sequence = new[] { 1, 2 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 2,
-                    Sequence = new int[] { 2, 3 }
+                    Sequence = new[] { 2, 3 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 1,
-                    Sequence = new int[] { 1, 3 }
+                    Sequence = new[] { 1, 3 }
                 }
             }
         };
@@ -369,29 +369,29 @@ public class CpmAlgorithmTests
         {
             Activities = new List<CpmActivity>
             {
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 1",
                     Duration = 3,
-                    Sequence = new int[] { 0, 1 }
+                    Sequence = new[] { 0, 1 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 2",
                     Duration = 5,
-                    Sequence = new int[] { 1, 2 }
+                    Sequence = new[] { 1, 2 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 2,
-                    Sequence = new int[] { 2, 3 }
+                    Sequence = new[] { 2, 3 }
                 },
-                new CpmActivity
+                new()
                 {
                     TaskName = "Task 3",
                     Duration = 1,
-                    Sequence = new int[] { 1, 3 }
+                    Sequence = new[] { 1, 3 }
                 }
             }
         };
