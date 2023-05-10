@@ -2,7 +2,7 @@
 
 public class CpmProject
 {
-    private CpmTask Task { get; set; }
+    private CpmTask Task { get; }
     private List<CpmActivity> Activities { get; set; } = null!;
     private Dictionary<int, CpmEvent> EventDictionary { get; set; }
     private int StartId { get; set; }
@@ -64,15 +64,15 @@ public class CpmProject
 
     private void FindStartAndEnd()
     {
-        HashSet<int> events = new HashSet<int>();
+        HashSet<int> eventIds = new HashSet<int>();
         
         foreach (var activity in Task.Activities)
         {
-            events.Add(activity.Sequence[0]);
-            events.Add(activity.Sequence[1]);
+            eventIds.Add(activity.Sequence[0]);
+            eventIds.Add(activity.Sequence[1]);
         }
 
-        foreach (var eventId in events)
+        foreach (var eventId in eventIds)
         {
             int predecessors = 0;
             int successors = 0;
