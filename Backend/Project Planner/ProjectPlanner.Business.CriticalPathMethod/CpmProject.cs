@@ -25,7 +25,7 @@ public class CpmProject
         CalculateLatestTime(EventDictionary[StartId]);
 
         CalculateTimeReserve();
-        CalculateActivities();
+        CalculateActivitiesProperties();
         
         FindCriticalPath();
         
@@ -172,7 +172,7 @@ public class CpmProject
         }
     }
 
-    private void CalculateActivities()
+    private void CalculateActivitiesProperties()
     {
         foreach (var activity in Activities)
         {
