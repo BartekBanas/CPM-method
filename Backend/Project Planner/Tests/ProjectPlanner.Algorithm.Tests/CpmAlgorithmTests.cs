@@ -87,4 +87,52 @@ public class CpmAlgorithmTests
         Assert.Equal(2, solution.Events[3].Predecessors.Count);
         Assert.Equal(0, solution.Events[3].Successors.Count);
     }
+    
+    [Fact]
+    public void CreateSolution_ShouldIdentifyCriticalActivities()
+    {
+        // Arrange
+        var cpmTask = new CpmTask
+        {
+            Activities = new List<CpmActivity>
+            {
+                new CpmActivity
+                {
+                    TaskName = "Task 1",
+                    Duration = 3,
+                    Sequence = new int[] { 0, 1 }
+                },
+                new CpmActivity
+                {
+                    TaskName = "Task 2",
+                    Duration = 5,
+                    Sequence = new int[] { 1, 2 }
+                },
+                new CpmActivity
+                {
+                    TaskName = "Task 3",
+                    Duration = 2,
+                    Sequence = new int[] { 2, 3 }
+                },
+                new CpmActivity
+                {
+                    TaskName = "Task 3",
+                    Duration = 1,
+                    Sequence = new int[] { 1, 3 }
+                }
+            }
+        };
+        
+        var project = new CpmProject(cpmTask);
+
+        // Act
+        var solution = project.CreateSolution();
+
+        // Assert
+
+        Assert.True(solution.Activities[0].Critical);
+        Assert.True(solution.Activities[1].Critical);
+        Assert.True(solution.Activities[2].Critical);
+        Assert.False(solution.Activities[3].Critical);
+    }
 }
