@@ -188,4 +188,57 @@ public class CpmAlgorithmTests
         Assert.Equal(solution.Activities[2].TimeReserve, 0);
         Assert.Equal(solution.Activities[3].TimeReserve, 6);
     }
+    
+    [Fact]
+    public void CreateSolution_ShouldIdentifyEarlyStart()
+    {
+        // Arrange
+        var cpmTask = new CpmTask
+        {
+            Activities = new List<CpmActivity>
+            {
+                new CpmActivity
+                {
+                    TaskName = "Task 1",
+                    Duration = 3,
+                    Sequence = new int[] { 0, 1 }
+                },
+                new CpmActivity
+                {
+                    TaskName = "Task 2",
+                    Duration = 5,
+                    Sequence = new int[] { 1, 2 }
+                },
+                new CpmActivity
+                {
+                    TaskName = "Task 3",
+                    Duration = 2,
+                    Sequence = new int[] { 2, 3 }
+                },
+                new CpmActivity
+                {
+                    TaskName = "Task 3",
+                    Duration = 1,
+                    Sequence = new int[] { 1, 3 }
+                }
+            }
+        };
+        
+        var project = new CpmProject(cpmTask);
+
+        // Act
+        var solution = project.CreateSolution();
+
+        // Assert
+        Assert.NotNull(solution);
+        Assert.NotNull(solution.Activities);
+        Assert.NotNull(solution.Events);
+        Assert.Equal(solution.Activities.Count, 4);
+        Assert.Equal(solution.Events.Count, 4);
+        
+        Assert.Equal(solution.Activities[0].EarlyStart, 0);
+        Assert.Equal(solution.Activities[1].EarlyStart, 3);
+        Assert.Equal(solution.Activities[2].EarlyStart, 8);
+        Assert.Equal(solution.Activities[3].EarlyStart, 3);
+    }
 }
