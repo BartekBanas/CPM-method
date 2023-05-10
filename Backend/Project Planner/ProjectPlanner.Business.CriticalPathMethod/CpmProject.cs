@@ -48,15 +48,15 @@ public class CpmProject
 
     private void SetUpEvents()
     {
-        HashSet<int> events = new HashSet<int>();
+        HashSet<int> eventIds = new HashSet<int>();
         
         foreach (var activity in Task.Activities)
         {
-            events.Add(activity.Sequence[0]);
-            events.Add(activity.Sequence[1]);
+            eventIds.Add(activity.Sequence[0]);
+            eventIds.Add(activity.Sequence[1]);
         }
         
-        foreach (var eventId in events)
+        foreach (var eventId in eventIds)
         {
             EventDictionary.Add(eventId, new CpmEvent(eventId));
         }
