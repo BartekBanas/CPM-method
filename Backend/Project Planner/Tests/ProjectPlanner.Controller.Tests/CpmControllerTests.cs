@@ -8,9 +8,8 @@ public class CpmControllerTests
 
     public CpmControllerTests()
     {
-        ICpmService cpmService = new CpmService();
-        IValidator<CpmTask> validator = new CpmFluentValidator();
-        _controller = new CpmController(cpmService, validator);
+        ICpmService cpmService = new CpmService(new CpmFluentValidator());
+        _controller = new CpmController(cpmService);
     }
 
     [Fact]
