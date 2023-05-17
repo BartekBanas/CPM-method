@@ -17,11 +17,11 @@ public class TpController : Controller
         _tpService = tpService;
         _validator = validator;
     }
-    
+     
     [HttpPost]
     public async Task<IActionResult> PostTpRequest([FromBody] TpTask task)
     {
-        var validationResult = await _validator.ValidateAsync(task);
+        var validationResult = await _tpService.Validate(task);
         
         if (!validationResult.IsValid)
         {
