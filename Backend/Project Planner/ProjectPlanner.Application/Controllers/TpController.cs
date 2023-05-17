@@ -10,12 +10,10 @@ namespace Project_Planner.Controllers;
 public class TpController : Controller
 {
     private readonly ITpService _tpService;
-    private readonly IValidator<TpTask> _validator;
 
-    public TpController(ITpService tpService, IValidator<TpTask> validator)
+    public TpController(ITpService tpService)
     {
         _tpService = tpService;
-        _validator = validator;
     }
      
     [HttpPost]
