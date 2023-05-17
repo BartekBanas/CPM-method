@@ -8,9 +8,8 @@ public class TpControllerTests
 
     public TpControllerTests()
     {
-        ITpService tpService = new TpService();
-        IValidator<TpTask> validator = new TpFluentValidator();
-        _controller = new TpController(tpService, validator);
+        ITpService tpService = new TpService(new TpFluentValidator());
+        _controller = new TpController(tpService);
     }
 
     [Fact]

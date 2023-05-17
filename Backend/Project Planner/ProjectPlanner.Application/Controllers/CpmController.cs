@@ -10,18 +10,15 @@ namespace Project_Planner.Controllers;
 public class CpmController : Controller
 {
     private readonly ICpmService _cpmService;
-    private readonly IValidator<CpmTask> _validator;
-    
-    public CpmController(ICpmService cpmService, IValidator<CpmTask> validator)
+    public CpmController(ICpmService cpmService)
     {
         _cpmService = cpmService;
-        _validator = validator;
     }
 
     [HttpPost]
     public async Task<IActionResult> PostCpmRequest([FromBody] CpmTask task)
     {
-        var validationResult = await _validator.ValidateAsync(task);
+        var validationResult = await _cpmService.Validate(task);
 
         if (!validationResult.IsValid)
         {
