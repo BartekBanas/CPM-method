@@ -26,11 +26,10 @@ public class CpmService : ICpmService
         return validationResult;
     }
 
-
-    public Task<CpmSolution> Solve(CpmTask task)
+    public async Task<CpmSolution> Solve(CpmTask task)
     {
         CpmProject cpmProject = new CpmProject(task);
 
-        return Task.FromResult(cpmProject.CreateSolution());
+        return await Task.FromResult(cpmProject.CreateSolution());
     }
 }

@@ -26,10 +26,10 @@ public class TpService : ITpService
         return validationResult;
     }
 
-    public Task<TpSolution> Solve(TpTask task)
+    public async Task<TpSolution> Solve(TpTask task)
     {
         TpProject tpProject = new TpProject(task);
 
-        return Task.FromResult(tpProject.CreateSolution());
+        return await Task.FromResult(tpProject.CreateSolution());
     }
 }
