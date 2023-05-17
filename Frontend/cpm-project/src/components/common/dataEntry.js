@@ -1,7 +1,7 @@
 import { Button, Form, Input, Space, Card, Radio } from 'antd';
 import { useState } from 'react';
 
-function DataEntryForNewTask({ setEventForm, method }) {
+function DataEntryForNewTask({ setEventForm, setEventFormMP, method }) {
     const [form] = Form.useForm();
 
     const onReset = () => {
@@ -9,8 +9,10 @@ function DataEntryForNewTask({ setEventForm, method }) {
     };
 
     const handleFinished = (values) => {
-        console.log(values);
-        setEventForm(values);
+        if (method === "CPM") {
+            setEventForm(values);
+        }
+        else setEventFormMP(values);
     }
 
     const [entryType, setEnrtyType] = useState('Dostawca');
@@ -72,15 +74,13 @@ function DataEntryForNewTask({ setEventForm, method }) {
             >
                 <Space direction="vertical" size={16}>
                     <Card title="Dodaj" style={{ width: 400 }}>
-                        <h1>
-                            <Space>
-                                <Radio.Group value={entryType} onChange={(e) => setEnrtyType(e.target.value)}>
-                                    <Radio.Button type="primary" value={'Dostawca'}>Dostawca</Radio.Button>
-                                    <Radio.Button type="primary" value={'Odbiorca'}>Odbiorca</Radio.Button>
-                                </Radio.Group>
-                            </Space>
-                        </h1>
-                        <Form.Item name="name" label={entryType === 'Dostawca' ? 'Podaż' : 'Popyt'} rules={[{ required: true }]}>
+                        <Form.Item>
+                            <Radio.Group value={entryType} onChange={(e) => setEnrtyType(e.target.value)}>
+                                <Radio.Button type="primary" value={'Dostawca'}>Dostawca</Radio.Button>
+                                <Radio.Button type="primary" value={'Odbiorca'}>Odbiorca</Radio.Button>
+                            </Radio.Group>
+                        </Form.Item>
+                        <Form.Item name={entryType === 'Dostawca' ? 'supply' : 'demand'} label={entryType === 'Dostawca' ? 'Podaż' : 'Popyt'} rules={[{ required: true }]}>
                             <Input id={entryType === 'Dostawca' ? 'iSupply' : 'iDemand'} />
                         </Form.Item>
                         <Form.Item name="cost" label="Cena" rules={[{ required: true }]}>

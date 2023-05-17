@@ -83,7 +83,7 @@ const EditableCell = ({
     }
     return <td {...restProps}>{childNode}</td>;
 };
-const TableWithInfo = ({ eventForm }) => {
+const TableWithInfo = ({ eventForm, method }) => {
 
     const [dataSource, setDataSource] = useState([]);
 
