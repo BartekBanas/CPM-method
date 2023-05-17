@@ -1,178 +1,56 @@
-import { Button, Form, Input, Popconfirm, Table } from 'antd';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { isEmpty } from 'lodash';
+import React, { useState } from 'react';
+import { Table, Button, Input } from 'antd';
 
+const DynamicTable = (eventFormMP) => {
+    const [columns, setColumns] = useState([]); // stan kolumn
+    const [data, setData] = useState([]); // stan danych
+    console.log(eventFormMP)
 
-const EditableContext = React.createContext(null);
-const EditableRow = ({ index, ...props }) => {
-    const [form] = Form.useForm();
-    return (
-        <Form form={form} component={false}>
-            <EditableContext.Provider value={form}>
-                <tr {...props} />
-            </EditableContext.Provider>
-        </Form>
-    );
-};
-
-const EditableCell = ({
-    title,
-    editable,
-    children,
-    dataIndex,
-    record,
-    handleSave,
-    ...restProps
-}) => {
-    const [editing, setEditing] = useState(false);
-    const inputRef = useRef(null);
-    const form = useContext(EditableContext);
-    useEffect(() => {
-        if (editing) {
-            inputRef.current.focus();
-        }
-    }, [editing]);
-    const toggleEdit = () => {
-        setEditing((editing) => !editing);
-        form.setFieldsValue({
-            [dataIndex]: record[dataIndex],
-        });
-    };
-    const save = async () => {
-        try {
-            const values = await form.validateFields();
-            toggleEdit();
-            handleSave({
-                ...record,
-                ...values,
-            });
-        } catch (errInfo) {
-            console.log('Zapis nieudany', errInfo);
-        }
-    };
-    let childNode = children;
-    if (editable) {
-        childNode = editing ? (
-            <Form.Item
-                style={{
-                    margin: 0,
-                }}
-                name={dataIndex}
-                rules={[
-                    {
-                        required: true,
-                        message: `${title} jest wymagane!`,
-                    },
-                ]}
-            >
-                <Input ref={inputRef} onPressEnter={save} onBlur={save} />
-            </Form.Item>
-        ) : (
-            <div
-                className="editable-cell-value-wrap"
-                style={{
-                    paddingRight: 24,
-                }}
-                onClick={toggleEdit}
-            >
-                {children}
-            </div>
-        );
-    }
-    return <td {...restProps}>{childNode}</td>;
-};
-const TableWithInfo = ({ eventFormMP, method }) => {
-
-    const [dataSource, setDataSource] = useState([]);
-
-    const [count, setCount] = useState(0);
-
-    useEffect(() => {
-        if (isEmpty(eventFormMP)) {
-            return;
-        }
-        setDataSource((dataSource) => {
-            return [...dataSource, { ...eventFormMP, key: count }];
-        });
-        setCount(count + 1);
-    }, [eventFormMP]);
-
-    const handleDelete = (key) => {
-        setDataSource((dataSource) => {
-            return [...dataSource.filter((item) => item.key !== key)];
-        });
-    };
-    const defaultColumns = [
-        {
-            title: 'Nazwa',
-            dataIndex: 'supply',
-            editable: true,
-        },
-        {
-            title: 'Opcje',
-            dataIndex: 'options',
-            render: (_, record) =>
-                dataSource.length >= 1 ? (
-                    <Popconfirm
-                        title="Na pewno chcesz usunąć?"
-                        onConfirm={() => handleDelete(record.key)}
-                        okText="Tak"
-                        cancelText="Nie"
-                    >
-                        <a>Usuń</a>
-                    </Popconfirm>
-                ) : null,
-        },
-    ];
-
-    const handleSave = (row) => {
-        const newData = [...dataSource];
-        const index = newData.findIndex((item) => row.key === item.key);
-        const item = newData[index];
-        newData.splice(index, 1, {
-            ...item,
-            ...row,
-        });
-        setDataSource(newData);
-    };
-    const components = {
-        body: {
-            row: EditableRow,
-            cell: EditableCell,
-        },
-    };
-    const columns = defaultColumns.map((col) => {
-        if (!col.editable) {
-            return col;
-        }
-        return {
-            ...col,
-            onCell: (record) => ({
-                record,
-                editable: col.editable,
-                dataIndex: col.dataIndex,
-                title: col.title,
-                handleSave,
-            }),
-        };
-    });
-
-    return (
-        <h3>
-            <div>
-                <Button type="primary" style={{ marginBottom: 16 }}>
-                    Zatwierdź
-                </Button>
-                <Table
-                    components={components}
-                    rowClassName={() => 'editable-row'}
-                    bordered
-                    dataSource={dataSource}
-                    columns={columns}
-                    size="small"
+    // Dodawanie nowej kolumny
+    const addColumn = () => {
+        const newColumn = {
+            title: `Odbiorca ${columns.length + 1} `,
+            dataIndex: `column${columns.length + 1}`,
+            key: `column${columns.length + 1}`,
+            render: (_, record) => (
+                <Input
+                    value={record[`column${eventFormMP}`]}
+                    onChange={(e) => handleValueChange(e.target.value, record.key, `column${columns.length + 1}`)}
                 />
-            </div>
-        </h3 >
+            ),
+        };
+        setColumns((prevColumns) => [...prevColumns, newColumn]);
+        setData((prevData) => prevData.map((row) => ({ ...row, eventFormMP: '' })));
+    };
+
+    // Dodawanie nowego wiersza
+    const addRow = () => {
+        const newRow = {
+            key: `row${data.length + 1}`,
+            ...columns.reduce((acc, column) => ({ ...acc, [column.dataIndex]: '' }), {}),
+        };
+        setData((prevData) => [...prevData, newRow]);
+    };
+
+    // Aktualizacja wartości w tabeli
+    const handleValueChange = (value, rowIndex, columnKey) => {
+        setData((prevData) =>
+            prevData.map((row) => {
+                if (row.key === rowIndex) {
+                    return { ...row, [columnKey]: value };
+                }
+                return row;
+            })
+        );
+    };
+
+    return (
+        <div>
+            <Button onClick={addColumn}>Dodaj kolumnę</Button>
+            <Button onClick={addRow}>Dodaj wiersz</Button>
+            <Table dataSource={data} columns={columns} bordered />
+        </div>
     );
 };
-export default TableWithInfo;
+
+export default DynamicTable;
