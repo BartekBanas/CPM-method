@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProjectPlanner.Application.Services;
 using ProjectPlanner.Business.CriticalPathMethod;
 
