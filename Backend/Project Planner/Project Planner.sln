@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Algorithm.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Business.TransportationProblem", "ProjectPlanner.Business.TransportationProblem\ProjectPlanner.Business.TransportationProblem.csproj", "{A86B3D13-6A9D-4FB2-AFAF-488D799A344E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectPlanner.Application.Controllers", "ProjectPlanner.Application.Controllers\ProjectPlanner.Application.Controllers.csproj", "{56E86BC3-79F1-495D-BE8C-B8FA93BD17CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{A86B3D13-6A9D-4FB2-AFAF-488D799A344E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A86B3D13-6A9D-4FB2-AFAF-488D799A344E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A86B3D13-6A9D-4FB2-AFAF-488D799A344E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56E86BC3-79F1-495D-BE8C-B8FA93BD17CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56E86BC3-79F1-495D-BE8C-B8FA93BD17CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56E86BC3-79F1-495D-BE8C-B8FA93BD17CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56E86BC3-79F1-495D-BE8C-B8FA93BD17CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7AEC9D32-0674-4BEC-AFE7-A62622B70526} = {0CE229B8-0F9E-4F25-9B40-DBBC756483B4}
@@ -63,5 +69,6 @@ Global
 		{32639E33-0008-4E18-B6F1-4D4B9902577A} = {F503F92F-E4B3-4360-9254-D45895453BBF}
 		{049A1542-BA3B-4340-A305-93CA3B168B75} = {F503F92F-E4B3-4360-9254-D45895453BBF}
 		{A86B3D13-6A9D-4FB2-AFAF-488D799A344E} = {A1CDF3E6-8332-40F6-837B-151FAC6BD139}
+		{56E86BC3-79F1-495D-BE8C-B8FA93BD17CD} = {0CE229B8-0F9E-4F25-9B40-DBBC756483B4}
 	EndGlobalSection
 EndGlobal

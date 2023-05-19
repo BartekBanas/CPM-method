@@ -9,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var services = builder.Services;
 
-services.AddControllers();
+services.AddControllers().AddApplicationPart(typeof(ProjectPlanner.Application.Controllers.CpmController).Assembly);
+services.AddControllers().AddApplicationPart(typeof(ProjectPlanner.Application.Controllers.TpController).Assembly);
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 

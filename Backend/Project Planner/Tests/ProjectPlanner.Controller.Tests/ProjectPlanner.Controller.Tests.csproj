@@ -26,6 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\ProjectPlanner.Application.Controllers\ProjectPlanner.Application.Controllers.csproj" />
       <ProjectReference Include="..\..\ProjectPlanner.Application.Services\ProjectPlanner.Application.Services.csproj" />
       <ProjectReference Include="..\..\ProjectPlanner.Application\ProjectPlanner.Application.csproj" />
       <ProjectReference Include="..\..\ProjectPlanner.Business.CriticalPathMethod\ProjectPlanner.Business.CriticalPathMethod.csproj" />

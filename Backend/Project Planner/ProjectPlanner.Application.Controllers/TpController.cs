@@ -2,7 +2,7 @@
 using ProjectPlanner.Application.Services;
 using ProjectPlanner.Business.TransportationProblem;
 
-namespace Project_Planner.Controllers;
+namespace ProjectPlanner.Application.Controllers;
 
 [ApiController]
 [Route("api/TP")]

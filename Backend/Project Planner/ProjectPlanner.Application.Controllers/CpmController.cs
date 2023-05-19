@@ -2,7 +2,7 @@
 using ProjectPlanner.Application.Services;
 using ProjectPlanner.Business.CriticalPathMethod;
 
-namespace Project_Planner.Controllers;
+namespace ProjectPlanner.Application.Controllers;
 
 [ApiController]
 [Route("api/CPM")]
