@@ -22,6 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ProjectPlanner.Application.Controllers\ProjectPlanner.Application.Controllers.csproj" />
       <ProjectReference Include="..\ProjectPlanner.Application.Services\ProjectPlanner.Application.Services.csproj" />
       <ProjectReference Include="..\ProjectPlanner.Business.TransportationProblem\ProjectPlanner.Business.TransportationProblem.csproj" />
       <ProjectReference Include="..\ProjectPlanner.Business.Validation\ProjectPlanner.Business.Validation.csproj" />
