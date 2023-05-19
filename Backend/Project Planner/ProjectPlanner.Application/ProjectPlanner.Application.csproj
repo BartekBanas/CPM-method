@@ -28,4 +28,8 @@
       <ProjectReference Include="..\ProjectPlanner.Business.Validation\ProjectPlanner.Business.Validation.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\swagger-ui" />
+    </ItemGroup>
+
 </Project>
