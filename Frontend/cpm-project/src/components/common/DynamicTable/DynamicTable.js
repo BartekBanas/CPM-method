@@ -67,6 +67,8 @@ const DynamicTableContent = ({ dataSource, columns, handleCellSave, handleAddRow
 
 const DynamicTable = ({ eventFormMP }) => {
   const [dataSource, setDataSource] = useState([]);
+  const [dataSourceS, setDataSourceS] = useState([]);
+  const [dataSourceD, setDataSourceD] = useState([]);
   const [count, setCount] = useState(null);
 
   useEffect(() => {
@@ -74,9 +76,15 @@ const DynamicTable = ({ eventFormMP }) => {
       return;
     }
     if (!isEmpty(eventFormMP.demand)) {
+      setDataSourceD((dataSourceD) => {
+        return [...dataSourceD, { ...eventFormMP, key: count }];
+      });
       handleAddCol();
     }
     else {
+      setDataSourceS((dataSourceS) => {
+        return [...dataSourceS, { ...eventFormMP, key: count }];
+      });
       handleAddRow();
     }
     setCount(count + 1);
@@ -175,12 +183,96 @@ const DynamicTable = ({ eventFormMP }) => {
     });
   };
 
-  return <DynamicTableContent
-    dataSource={dataSource}
-    columns={columns}
-    handleCellSave={handleCellSave}
-    handleAddRow={handleAddRow}
-    handleAddCol={handleAddCol}
-  />;
+  console.log(dataSource)
+
+  const sendData = (event) => {
+    event.preventDefault();
+
+    if (isEmpty(dataSource || eventFormMP)) {
+      return;
+    }
+
+    const Suppliers = dataSourceS.map((supp) => {
+      return {
+        Supply: supp.supply,
+        Cost: supp.cost,
+      };
+    });
+
+    const Recipients = dataSourceD.map((reci) => {
+      return {
+        Demand: reci.demand,
+        Cost: reci.cost,
+      };
+    });
+
+    const TransportCost = dataSource.map((tranc) => {
+      return {
+        TransportCost: columns.slice(1, -1).map((column) => {
+          const dataIndex = column.dataIndex;
+          return tranc[dataIndex];
+        })
+      };
+    });
+
+
+    const FinalData = {
+      Suppliers,
+      Recipients,
+      TransportCost
+    }
+
+    console.log(FinalData)
+    // axios.post('https://localhost:44363/api/CPM', { activities: activities })
+    //     .then(response => {
+    //         setShowGraph(true);
+    //         console.log(response)
+    //         setReceivedData(response.data)
+    //         console.log(receivedData)
+    //         showDrawer();
+    //     })
+    //     .catch(error => {
+    //         if (error.response) {
+    //             if (error.response.status === 400) {
+    //                 setError(error.message);
+    //                 setModalVisible(true);
+    //                 return;
+    //             } else if (error.response.status === 415) {
+    //                 setError(error.message);
+    //                 setModalVisible(true);
+    //                 return;
+    //             }
+    //         } else if (error.request) {
+    //             setError(error.message);
+    //             setModalVisible(true);
+    //             return;
+    //         } else {
+    //             setError(error.message);
+    //             setModalVisible(true);
+    //             return;
+    //         }
+    //     })
+    //     .finally(e => {
+    //         setShowGraph(true);
+    //     });
+
+  }
+
+
+
+  return (
+    <h1>
+      <Button type="primary" onClick={sendData} style={{ marginBottom: 16 }}>
+        Zatwierdź
+      </Button>
+      <DynamicTableContent
+        dataSource={dataSource}
+        columns={columns}
+        handleCellSave={handleCellSave}
+        handleAddRow={handleAddRow}
+        handleAddCol={handleAddCol}
+      />
+    </h1>
+  );
 };
 export { DynamicTable as default };
