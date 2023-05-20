@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Empty, Table, Space } from 'antd';
 import { DeleteTwoTone } from '@ant-design/icons';
 import EditableCell from './EditableCell';
 import EditableRow from './EditableRow';
+import { isEmpty } from 'lodash';
 
 import './DynamicTable.css';
 
 const newColumnProps = {
   title: '',
   dataIndex: "new",
-  width: 120,
+  width: 170,
   editable: true
 };
 
@@ -47,26 +48,6 @@ const DynamicTableContent = ({ dataSource, columns, handleCellSave, handleAddRow
 
   return (
     <div>
-      <Space>
-        <Button
-          onClick={handleAddRow}
-          type="primary"
-          style={{
-            marginBottom: 16
-          }}
-        >
-          Add a row
-        </Button>
-        <Button
-          onClick={handleAddCol}
-          type="primary"
-          style={{
-            marginBottom: 16
-          }}
-        >
-          Add a column
-        </Button>
-      </Space>
       <Table
         locale={{ emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Wypełnij formularz" /> }}
         components={components}
@@ -75,16 +56,33 @@ const DynamicTableContent = ({ dataSource, columns, handleCellSave, handleAddRow
         sticky
         dataSource={dataSource}
         columns={mappedCols}
-        style={{ maxWidth: '80%', margin: 'auto'}}
+        style={{ maxWidth: '80%', margin: 'auto' }}
         pagination={false}
-        scroll={{x: true}}
+        scroll={{ x: true }}
       />
     </div>
   );
 };
 
-const DynamicTable = () => {
+
+const DynamicTable = ({ eventFormMP }) => {
   const [dataSource, setDataSource] = useState([]);
+  const [count, setCount] = useState(null);
+  console.log(eventFormMP)
+
+  useEffect(() => {
+    if (isEmpty(eventFormMP)) {
+      return;
+    }
+    if (!isEmpty(eventFormMP.demand)) {
+      handleAddCol();
+    }
+    else {
+      handleAddRow();
+    }
+    setCount(count + 1);
+  }, [eventFormMP]);
+
   const [columns, setColumns] = useState([
     {
       title: "",
@@ -93,7 +91,7 @@ const DynamicTable = () => {
       align: "center",
       width: 80,
       fixed: 'left',
-      render: (text, record) => {
+      render: (text, record,) => {
         return (
           <Space>
             Dostawca {text}
@@ -107,6 +105,19 @@ const DynamicTable = () => {
       dataIndex: "padding"
     }
   ]);
+
+  // useEffect(() => {
+  //   if (isEmpty(eventFormMP)) {
+  //     return;
+  //   }
+  //   setDataSource((dataSource) => {
+  //     return [...dataSource, { ...eventFormMP, key: count }];
+  //   });
+  //   // setColumns((columns) => {
+  //   //   return [...columns, { ...eventFormMP, key: count }];
+  //   // });
+  //   setCount(count + 1);
+  // }, [eventFormMP]);
 
   const handleAddRow = () => {
     setDataSource((dataSource) => {
@@ -124,6 +135,7 @@ const DynamicTable = () => {
       const keepLast = newColumns.pop();
       const last = newColumns.slice(-1);
       const id = ((last[0]?.key || 0) + 1);
+      const demand = eventFormMP.demand;
       const dataIndex = `dynamic${id}`;
 
       return [
@@ -133,7 +145,7 @@ const DynamicTable = () => {
           title: () => {
             return (
               <Space>
-                Odbiorca {id}
+                Odbiorca {id} ({demand})
                 <DeleteTwoTone onClick={() => handleDeleteCol(dataIndex)} />
               </Space>
             );
@@ -172,7 +184,7 @@ const DynamicTable = () => {
       return [...columns].filter((item) => item.dataIndex !== dataIndex);
     });
     setDataSource((dataSource) => {
-      return [...dataSource].map((row) => { delete row[dataIndex]; return row;})
+      return [...dataSource].map((row) => { delete row[dataIndex]; return row; })
     });
   };
 
