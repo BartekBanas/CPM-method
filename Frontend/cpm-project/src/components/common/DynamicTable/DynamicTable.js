@@ -68,7 +68,6 @@ const DynamicTableContent = ({ dataSource, columns, handleCellSave, handleAddRow
 const DynamicTable = ({ eventFormMP }) => {
   const [dataSource, setDataSource] = useState([]);
   const [count, setCount] = useState(null);
-  console.log(eventFormMP)
 
   useEffect(() => {
     if (isEmpty(eventFormMP)) {
@@ -86,15 +85,15 @@ const DynamicTable = ({ eventFormMP }) => {
   const [columns, setColumns] = useState([
     {
       title: "",
-      dataIndex: "key",
+      dataIndex: "supply",
       rowScope: "row",
       align: "center",
       width: 80,
       fixed: 'left',
-      render: (text, record,) => {
+      render: (text, record) => {
         return (
           <Space>
-            Dostawca {text}
+            Dostawca {record.key} ({text})
             <DeleteTwoTone onClick={() => handleDeleteRow(record.key)} />
           </Space>
         )
@@ -106,24 +105,12 @@ const DynamicTable = ({ eventFormMP }) => {
     }
   ]);
 
-  // useEffect(() => {
-  //   if (isEmpty(eventFormMP)) {
-  //     return;
-  //   }
-  //   setDataSource((dataSource) => {
-  //     return [...dataSource, { ...eventFormMP, key: count }];
-  //   });
-  //   // setColumns((columns) => {
-  //   //   return [...columns, { ...eventFormMP, key: count }];
-  //   // });
-  //   setCount(count + 1);
-  // }, [eventFormMP]);
-
   const handleAddRow = () => {
     setDataSource((dataSource) => {
       const last = dataSource.slice(-1);
       const newData = {
         key: ((last[0]?.key || 0) + 1),
+        supply: eventFormMP.supply
       };
       return [...dataSource, newData]
     });
