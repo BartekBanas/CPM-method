@@ -4,6 +4,7 @@ import { DeleteTwoTone } from '@ant-design/icons';
 import EditableCell from './EditableCell';
 import EditableRow from './EditableRow';
 import { isEmpty } from 'lodash';
+import axios from 'axios';
 
 import './DynamicTable.css';
 
@@ -183,7 +184,6 @@ const DynamicTable = ({ eventFormMP }) => {
     });
   };
 
-  console.log(dataSource)
 
   const sendData = (event) => {
     event.preventDefault();
@@ -207,55 +207,31 @@ const DynamicTable = ({ eventFormMP }) => {
     });
 
     const TransportCost = dataSource.map((tranc) => {
-      return {
-        TransportCost: columns.slice(1, -1).map((column) => {
+      return (
+        columns.slice(1, -1).map((column) => {
           const dataIndex = column.dataIndex;
           return tranc[dataIndex];
         })
-      };
+      );
     });
 
 
-    const FinalData = {
-      Suppliers,
-      Recipients,
-      TransportCost
-    }
+    // const FinalData = {
+    //   Suppliers,
+    //   Recipients,
+    //   TransportCost
+    // }
 
-    console.log(FinalData)
-    // axios.post('https://localhost:44363/api/CPM', { activities: activities })
-    //     .then(response => {
-    //         setShowGraph(true);
-    //         console.log(response)
-    //         setReceivedData(response.data)
-    //         console.log(receivedData)
-    //         showDrawer();
-    //     })
-    //     .catch(error => {
-    //         if (error.response) {
-    //             if (error.response.status === 400) {
-    //                 setError(error.message);
-    //                 setModalVisible(true);
-    //                 return;
-    //             } else if (error.response.status === 415) {
-    //                 setError(error.message);
-    //                 setModalVisible(true);
-    //                 return;
-    //             }
-    //         } else if (error.request) {
-    //             setError(error.message);
-    //             setModalVisible(true);
-    //             return;
-    //         } else {
-    //             setError(error.message);
-    //             setModalVisible(true);
-    //             return;
-    //         }
-    //     })
-    //     .finally(e => {
-    //         setShowGraph(true);
-    //     });
-
+    // console.log(FinalData)
+    axios.post('https://localhost:44363/api/TP', { Suppliers, Recipients, TransportCost })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        if (error.response) {
+          console.log(error.response)
+        }
+      })
   }
 
 
