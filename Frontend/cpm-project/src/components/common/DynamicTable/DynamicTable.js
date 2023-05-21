@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Empty, Table, Space } from 'antd';
+import { Button, Empty, Table, Space, Drawer } from 'antd';
 import { DeleteTwoTone } from '@ant-design/icons';
 import EditableCell from './EditableCell';
 import EditableRow from './EditableRow';
@@ -71,6 +71,15 @@ const DynamicTable = ({ eventFormMP }) => {
   const [dataSourceS, setDataSourceS] = useState([]);
   const [dataSourceD, setDataSourceD] = useState([]);
   const [count, setCount] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     if (isEmpty(eventFormMP)) {
@@ -215,17 +224,10 @@ const DynamicTable = ({ eventFormMP }) => {
       );
     });
 
-
-    // const FinalData = {
-    //   Suppliers,
-    //   Recipients,
-    //   TransportCost
-    // }
-
-    // console.log(FinalData)
     axios.post('https://localhost:44363/api/TP', { Suppliers, Recipients, TransportCost })
       .then(response => {
         console.log(response)
+        showDrawer();
       })
       .catch(error => {
         if (error.response) {
@@ -241,6 +243,17 @@ const DynamicTable = ({ eventFormMP }) => {
       <Button type="primary" onClick={sendData} style={{ marginBottom: 16 }}>
         Zatwierdź
       </Button>
+      <Drawer
+        title="Wyniki"
+        size="large"
+        overflow="hidden"
+        placement="bottom"
+        closable={true}
+        onClose={onClose}
+        open={open}
+      >
+        Responce
+      </Drawer>
       <DynamicTableContent
         dataSource={dataSource}
         columns={columns}
