@@ -7,6 +7,7 @@ import { isEmpty } from 'lodash';
 import axios from 'axios';
 
 import './DynamicTable.css';
+import FinalTable from '../finalTable';
 
 const newColumnProps = {
   title: '',
@@ -193,6 +194,7 @@ const DynamicTable = ({ eventFormMP }) => {
     });
   };
 
+  const [receivedData, setReceivedData] = useState({});
 
   const sendData = (event) => {
     event.preventDefault();
@@ -227,11 +229,13 @@ const DynamicTable = ({ eventFormMP }) => {
     axios.post('https://localhost:44363/api/TP', { Suppliers, Recipients, TransportCost })
       .then(response => {
         console.log(response)
+        setReceivedData(response.data)
         showDrawer();
       })
       .catch(error => {
         if (error.response) {
           console.log(error.response)
+          showDrawer();
         }
       })
   }
@@ -252,7 +256,7 @@ const DynamicTable = ({ eventFormMP }) => {
         onClose={onClose}
         open={open}
       >
-        Responce
+        <FinalTable receivedData={receivedData} />
       </Drawer>
       <DynamicTableContent
         dataSource={dataSource}
