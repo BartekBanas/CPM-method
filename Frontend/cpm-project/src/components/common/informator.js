@@ -1,8 +1,6 @@
 import { Space, Card } from 'antd';
-import React from 'react';
 
 function InformationCard({ method }) {
-
     return (
         <Space direction="vertical" size={8}>
             <Card title={method === 'CPM' ? 'Metoda CPM' : 'Metoda Pośrednika'} style={{ width: 400 }}>
