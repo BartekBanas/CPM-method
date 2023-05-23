@@ -16,7 +16,7 @@ const newColumnProps = {
   editable: true
 };
 
-const DynamicTableContent = ({ dataSource, columns, handleCellSave, handleAddRow, handleAddCol }) => {
+const DynamicTableContent = ({ dataSource, columns, handleCellSave }) => {
   const components = {
     body: {
       row: EditableRow,
