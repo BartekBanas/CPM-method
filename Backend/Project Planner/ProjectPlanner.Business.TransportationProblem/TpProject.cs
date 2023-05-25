@@ -2,13 +2,23 @@
 
 public class TpProject
 {
+    private TpTask _task;
+
+    public float[][] TransportationTable { get; set; }
+    
     public TpProject(TpTask task)
     {
-        throw new NotImplementedException();
+        _task = task;
+        InitializeTpProject();
     }
 
     public TpSolution CreateSolution()
     {
         throw new NotImplementedException();
+    }
+
+    private void InitializeTpProject()
+    {
+        
     }
 }
