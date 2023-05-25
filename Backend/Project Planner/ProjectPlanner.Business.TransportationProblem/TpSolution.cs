@@ -16,4 +16,8 @@ public class TpSolution
         OptimalTransportationTable = optimalTransportationTable ??
                                      throw new ArgumentNullException(nameof(optimalTransportationTable));
     }
+
+    public TpSolution()
+    {
+    }
 }
