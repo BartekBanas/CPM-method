@@ -78,9 +78,9 @@ const EditableCell = ({
       {childNode}
     </th>
   ) : (
-    <td {...restProps}>
-		{childNode}
-	</td>
+    <td {...restProps} style={{ textAlign: 'center' }}>
+      {childNode}
+    </td>
   );
 };
 
