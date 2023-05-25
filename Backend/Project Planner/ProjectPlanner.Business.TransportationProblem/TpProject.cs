@@ -16,9 +16,9 @@ public class TpProject
 
     public TpSolution CreateSolution()
     {
-        var JaggedTransportationTable = ConvertToJaggedArray(TransportationTable);
+        var jaggedTransportationTable = ConvertToJaggedArray(TransportationTable);
         
-        return new TpSolution(0, 0, 0, JaggedTransportationTable);
+        return new TpSolution(0, 0, 0, jaggedTransportationTable);
     }
 
     private void InitializeTpProject()
@@ -89,11 +89,9 @@ public class TpProject
             int recipientId = indexes.Item2;
             
             int amountOfCargo = Math.Min(supplyToDistribute[supplierId], demandToDistribute[recipientId]);
-
-            // Przypisz wartość z _profitTable do TransportationTable
+            
             TransportationTable[supplierId, recipientId] = amountOfCargo;
-
-            // Zaktualizuj dostępność dostaw i zapotrzebowania
+            
             supplyToDistribute[supplierId] -= amountOfCargo;
             demandToDistribute[recipientId] -= amountOfCargo;
         }
@@ -101,11 +99,9 @@ public class TpProject
     
     private IOrderedEnumerable<(int, int)> CreateSortedIndicesArray(float[,] array)
     {
-        // Tworzenie tablicy par indeksów
         (int, int)[] indexPairs = new (int, int)[array.Length];
         int index = 0;
-
-        // Przechodzenie przez wszystkie indeksy tablicy _profitTable i przypisanie ich do tablicy par indeksów
+        
         for (int i = 0; i < array.GetLength(0); i++)
         {
             for (int j = 0; j < array.GetLength(1); j++)
@@ -114,11 +110,9 @@ public class TpProject
                 index++;
             }
         }
-
-        // Sortowanie tablicy par indeksów według wartości elementów w tablicy _profitTable w kolejności malejącej
+        
         var sortedIndexPairs = indexPairs.OrderByDescending(pair => array[pair.Item1, pair.Item2]);
-
-
+        
         return sortedIndexPairs;
     }
     
