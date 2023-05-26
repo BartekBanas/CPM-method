@@ -2,12 +2,12 @@
 
 public class TpTask
 {
-    public Supplier[] Suppliers { get; set; }
-    public Recipient[] Recipients { get; set; }
+    public List<Supplier> Suppliers { get; set; }
+    public List<Recipient> Recipients { get; set; }
 
     public float[][] TransportCost { get; set; }
 
-    public TpTask(Supplier[] suppliers, Recipient[] recipients, float[][] transportCost)
+    public TpTask(List<Supplier> suppliers, List<Recipient> recipients, float[][] transportCost)
     {
         Suppliers = suppliers;
         Recipients = recipients;

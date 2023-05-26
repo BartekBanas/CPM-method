@@ -9,11 +9,11 @@ public class TpFluentValidator : AbstractValidator<TpTask>
     {
         RuleFor(tpTask => tpTask.Suppliers)
             .NotNull().WithMessage("Suppliers cannot be null")
-            .Must(suppliers => suppliers.Length > 0).WithMessage("There must be at least one supplier");
+            .Must(suppliers => suppliers.Count > 0).WithMessage("There must be at least one supplier");
 
         RuleFor(tpTask => tpTask.Recipients)
             .NotNull().WithMessage("Recipients cannot be null")
-            .Must(recipients => recipients.Length > 0).WithMessage("There must be at least one recipient");
+            .Must(recipients => recipients.Count > 0).WithMessage("There must be at least one recipient");
 
         RuleFor(tpTask => tpTask.TransportCost)
             .NotNull().WithMessage("Transport Cost cannot be null");
@@ -24,9 +24,9 @@ public class TpFluentValidator : AbstractValidator<TpTask>
         RuleFor(task => task).Custom(ValidateTransportationCosts);
     }
 
-    private void ValidateSuppliers(Supplier[] suppliers, ValidationContext<TpTask> context)
+    private void ValidateSuppliers(List<Supplier> suppliers, ValidationContext<TpTask> context)
     {
-        for (int i = 0; i < suppliers.Length; i++)
+        for (int i = 0; i < suppliers.Count; i++)
         {
             if (suppliers[i].Supply <= 0)
             {
@@ -40,9 +40,9 @@ public class TpFluentValidator : AbstractValidator<TpTask>
         }
     }
 
-    private void ValidateRecipients(Recipient[] recipients, ValidationContext<TpTask> context)
+    private void ValidateRecipients(List<Recipient> recipients, ValidationContext<TpTask> context)
     {
-        for (int i = 0; i < recipients.Length; i++)
+        for (int i = 0; i < recipients.Count; i++)
         {
             if (recipients[i].Demand <= 0)
             {
@@ -78,20 +78,20 @@ public class TpFluentValidator : AbstractValidator<TpTask>
             context.AddFailure("Transportation costs are not assigned to any supplier or recipient");
         }
     
-        if (task.TransportCost.GetLength(0) > task.Suppliers.Length)
+        if (task.TransportCost.GetLength(0) > task.Suppliers.Count)
         {
             context.AddFailure("Transportation costs not assigned to any supplier were found");
         }
-        if (task.TransportCost.GetLength(0) < task.Suppliers.Length)
+        if (task.TransportCost.GetLength(0) < task.Suppliers.Count)
         {
             context.AddFailure("At least one supplier without transportation costs was found");
         }
 
-        if (task.TransportCost.Any(row => row.Length > task.Recipients.Length))
+        if (task.TransportCost.Any(row => row.Length > task.Recipients.Count))
         {
             context.AddFailure("Transportation costs not assigned to any recipient were found");
         }
-        if (task.TransportCost.Any(row => row.Length < task.Recipients.Length))
+        if (task.TransportCost.Any(row => row.Length < task.Recipients.Count))
         {
             context.AddFailure("At least one recipient without transportation costs was found");
         }

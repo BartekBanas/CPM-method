@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\ProjectPlanner.Business.CriticalPathMethod\ProjectPlanner.Business.CriticalPathMethod.csproj" />
+      <ProjectReference Include="..\..\ProjectPlanner.Business.TransportationProblem\ProjectPlanner.Business.TransportationProblem.csproj" />
     </ItemGroup>
 
 </Project>
