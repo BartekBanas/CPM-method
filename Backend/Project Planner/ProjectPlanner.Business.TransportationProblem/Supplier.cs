@@ -4,9 +4,13 @@ namespace ProjectPlanner.Business.TransportationProblem;
 
 public class Supplier
 {
-    public int Supply { get; }
-    public float Cost { get; }
+    public int Supply { get; set; }
+    public float Cost { get; set; }
     public bool IsFictional { get; set; }
+    
+    public Supplier()
+    {
+    }
     
     [JsonConstructor]
     public Supplier(int supply, float cost)

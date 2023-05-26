@@ -4,10 +4,14 @@ namespace ProjectPlanner.Business.TransportationProblem;
 
 public class Recipient
 {
-    public int Demand { get; }
-    public float Cost { get; }
+    public int Demand { get; set; }
+    public float Cost { get; set; }
     public bool IsFictional { get; set; }
 
+    public Recipient()
+    {
+    }
+    
     [JsonConstructor]
     public Recipient(int demand, float cost)
     {
