@@ -15,7 +15,9 @@ public class TpProject
 
     public TpSolution CreateSolution()
     {
-        var jaggedTransportationTable = ConvertToJaggedArray(TransportationTable);
+        //Tables size is reduced to the original one to exclude fictional actors
+        var jaggedTransportationTable = ConvertToJaggedArray(TransportationTable, _task.TransportCost.Length,
+            _task.TransportCost[0].Length);
         
         return new TpSolution(0, 0, 0, jaggedTransportationTable);
     }
@@ -115,11 +117,8 @@ public class TpProject
         return sortedIndexPairs;
     }
 
-    private static float[][] ConvertToJaggedArray(float[,] array)
+    private static float[][] ConvertToJaggedArray(float[,] array, int rows, int columns)
     {
-        int rows = array.GetLength(0);
-        int columns = array.GetLength(1);
-
         var jaggedArray = new float[rows][];
 
         for (int i = 0; i < rows; i++)
