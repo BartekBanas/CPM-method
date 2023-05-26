@@ -3,10 +3,9 @@
 public class TpProject
 {
     private TpTask _task;
+    private float[,] TransportationTable { get; set; } = null!;
 
-    public float[,] TransportationTable { get; set; }
-    
-    private float[,] _profitTable;
+    private float[,] _profitTable = null!;
     
     public TpProject(TpTask task)
     {
@@ -81,7 +80,7 @@ public class TpProject
             demandToDistribute[i] = _task.Recipients[i].Demand;
         }
         
-        IOrderedEnumerable<(int, int)> sortedIndicesArray = CreateSortedIndicesArray(_profitTable);
+        IEnumerable<(int, int)> sortedIndicesArray = CreateSortedIndicesArray(_profitTable);
 
         foreach (var indexes in sortedIndicesArray)
         {
@@ -97,7 +96,7 @@ public class TpProject
         }
     }
     
-    private IOrderedEnumerable<(int, int)> CreateSortedIndicesArray(float[,] array)
+    private static IEnumerable<(int, int)> CreateSortedIndicesArray(float[,] array)
     {
         (int, int)[] indexPairs = new (int, int)[array.Length];
         int index = 0;
@@ -115,13 +114,13 @@ public class TpProject
         
         return sortedIndexPairs;
     }
-    
-    public static float[][] ConvertToJaggedArray(float[,] array)
+
+    private static float[][] ConvertToJaggedArray(float[,] array)
     {
         int rows = array.GetLength(0);
         int columns = array.GetLength(1);
 
-        float[][] jaggedArray = new float[rows][];
+        var jaggedArray = new float[rows][];
 
         for (int i = 0; i < rows; i++)
         {
