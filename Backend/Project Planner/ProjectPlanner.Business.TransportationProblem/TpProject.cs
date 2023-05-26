@@ -20,12 +20,14 @@ public class TpProject
         var totalCost = CalculateTotalCost();
         var totalRevenue = CalculateTotalRevenue();
         var totalProfit = CalculateTotalProfit();
+
+        var profitTable = CreateProfitTable();
         
         //Tables size is reduced to the original one to exclude fictional actors
         var jaggedTransportationTable = ConvertToJaggedArray(TransportationTable,
             _task.TransportCost.Length, _task.TransportCost[0].Length);
         
-        return new TpSolution(totalCost, totalRevenue, totalProfit, jaggedTransportationTable);
+        return new TpSolution(totalCost, totalRevenue, totalProfit, jaggedTransportationTable, profitTable);
     }
 
     private void InitializeTpProject()
@@ -177,6 +179,26 @@ public class TpProject
         }
 
         return profit;
+    }
+
+    private float[][] CreateProfitTable()
+    {
+        int rows = _task.TransportCost.Length;
+        int columns = _task.TransportCost[0].Length;
+        
+        var profitTable = new float[rows][];
+        
+        for (int i = 0; i < rows; i++)
+        {
+            profitTable[i] = new float[columns];
+
+            for (int j = 0; j < columns; j++)
+            {
+                profitTable[i][j] = TransportationTable[i, j] * _profitTable[i, j];
+            }
+        }
+
+        return profitTable;
     }
 
     private static IEnumerable<(int, int)> CreateSortedIndicesArray(float[,] array)
