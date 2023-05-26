@@ -16,8 +16,8 @@ public class TpProject
     public TpSolution CreateSolution()
     {
         //Tables size is reduced to the original one to exclude fictional actors
-        var jaggedTransportationTable = ConvertToJaggedArray(TransportationTable, _task.TransportCost.Length,
-            _task.TransportCost[0].Length);
+        var jaggedTransportationTable = ConvertToJaggedArray(TransportationTable,
+            _task.TransportCost.Length, _task.TransportCost[0].Length);
         
         return new TpSolution(0, 0, 0, jaggedTransportationTable);
     }
@@ -29,11 +29,11 @@ public class TpProject
 
         if (totalSupply > totalDemand)
         {
-            _task.Recipients.Add(new Recipient(totalSupply - totalDemand, 0));
+            _task.Recipients.Add(new Recipient(totalSupply - totalDemand, 0, false));
         }
         if (totalSupply < totalDemand)
         {
-            _task.Suppliers.Add(new Supplier(totalSupply - totalDemand, 0));
+            _task.Suppliers.Add(new Supplier(totalSupply - totalDemand, 0, false));
         }
 
         InitializeProfitTable();
