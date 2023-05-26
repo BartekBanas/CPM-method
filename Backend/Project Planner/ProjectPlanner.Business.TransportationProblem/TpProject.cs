@@ -15,11 +15,11 @@ public class TpProject
     public TpSolution CreateSolution()
     {
         InitializeTpProject();
-        EliminateUnprofitableDeliveries();
+        OptimizeTransportation();
 
-        float totalCost = CalculateTotalCost();
-        float totalRevenue = CalculateTotalRevenue();
-        float totalProfit = CalculateTotalProfit();
+        var totalCost = CalculateTotalCost();
+        var totalRevenue = CalculateTotalRevenue();
+        var totalProfit = CalculateTotalProfit();
         
         //Tables size is reduced to the original one to exclude fictional actors
         var jaggedTransportationTable = ConvertToJaggedArray(TransportationTable,
@@ -30,8 +30,8 @@ public class TpProject
 
     private void InitializeTpProject()
     {
-        int totalSupply = _task.Suppliers.Sum(supplier => supplier.Supply);
-        int totalDemand = _task.Recipients.Sum(recipient => recipient.Demand);
+        var totalSupply = _task.Suppliers.Sum(supplier => supplier.Supply);
+        var totalDemand = _task.Recipients.Sum(recipient => recipient.Demand);
 
         if (totalSupply > totalDemand)
         {
@@ -104,6 +104,11 @@ public class TpProject
             supplyToDistribute[supplierId] -= amountOfCargo;
             demandToDistribute[recipientId] -= amountOfCargo;
         }
+    }
+
+    private void OptimizeTransportation()
+    {
+        EliminateUnprofitableDeliveries();
     }
     
     private void EliminateUnprofitableDeliveries()
