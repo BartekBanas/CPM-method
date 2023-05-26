@@ -1,4 +1,6 @@
-﻿namespace ProjectPlanner.Business.TransportationProblem;
+﻿using System.Text.Json.Serialization;
+
+namespace ProjectPlanner.Business.TransportationProblem;
 
 public class Supplier
 {
@@ -6,6 +8,7 @@ public class Supplier
     public float Cost { get; }
     public bool IsFictional { get; set; }
     
+    [JsonConstructor]
     public Supplier(int supply, float cost)
     {
         Supply = supply;

@@ -1,4 +1,6 @@
-﻿namespace ProjectPlanner.Business.TransportationProblem;
+﻿using System.Text.Json.Serialization;
+
+namespace ProjectPlanner.Business.TransportationProblem;
 
 public class Recipient
 {
@@ -6,6 +8,7 @@ public class Recipient
     public float Cost { get; }
     public bool IsFictional { get; set; }
 
+    [JsonConstructor]
     public Recipient(int demand, float cost)
     {
         Demand = demand;
