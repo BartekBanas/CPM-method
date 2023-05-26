@@ -10,11 +10,13 @@ public class TpProject
     public TpProject(TpTask task)
     {
         _task = task;
-        InitializeTpProject();
     }
 
     public TpSolution CreateSolution()
     {
+        InitializeTpProject();
+        EliminateUnprofitableDeliveries();
+        
         //Tables size is reduced to the original one to exclude fictional actors
         var jaggedTransportationTable = ConvertToJaggedArray(TransportationTable,
             _task.TransportCost.Length, _task.TransportCost[0].Length);
@@ -29,11 +31,11 @@ public class TpProject
 
         if (totalSupply > totalDemand)
         {
-            _task.Recipients.Add(new Recipient(totalSupply - totalDemand, 0, false));
+            _task.Recipients.Add(new Recipient(totalSupply - totalDemand, 0, true));
         }
         if (totalSupply < totalDemand)
         {
-            _task.Suppliers.Add(new Supplier(totalSupply - totalDemand, 0, false));
+            _task.Suppliers.Add(new Supplier(totalSupply - totalDemand, 0, true));
         }
 
         InitializeProfitTable();
@@ -51,6 +53,7 @@ public class TpProject
         {
             for (int j = 0; j < _task.Recipients.Count; j++)
             {
+                if(!_task.Suppliers[i].IsFictional && !_task.Recipients[j].IsFictional)
                 //Profit equals to selling cost to recipients - buying cost from suppliers
                 _profitTable[i, j] = _task.Recipients[j].Cost - _task.Suppliers[i].Cost;
             }
@@ -60,7 +63,8 @@ public class TpProject
         {
             for (int j = 0; j < transportationCostsArrayWidth; j++)
             {
-                _profitTable[i, j] -= _task.TransportCost[i][j];
+                if(!_task.Suppliers[i].IsFictional && !_task.Recipients[j].IsFictional)
+                    _profitTable[i, j] -= _task.TransportCost[i][j];
             }
         }
     }
@@ -98,6 +102,20 @@ public class TpProject
         }
     }
     
+    private void EliminateUnprofitableDeliveries()
+    {
+        for (int i = 0; i < TransportationTable.GetLength(0); i++)
+        {
+            for (int j = 0; j < TransportationTable.GetLength(1); j++)
+            {
+                if (_profitTable[i, j] < 0)
+                {
+                    TransportationTable[i, j] = 0;
+                }
+            }
+        }
+    }
+
     private static IEnumerable<(int, int)> CreateSortedIndicesArray(float[,] array)
     {
         (int, int)[] indexPairs = new (int, int)[array.Length];
