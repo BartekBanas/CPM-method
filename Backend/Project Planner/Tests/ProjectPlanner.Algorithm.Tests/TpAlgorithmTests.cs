@@ -35,9 +35,20 @@ public class TpAlgorithmTests
         var solution = project.CreateSolution();
         
         // Assert
+        float[][] expectedTable = new float[][]
+        {
+            new float[] { 10, 0, 10 },
+            new float[] { 0, 28, 0 }
+        };
+        
         Assert.NotNull(solution);
         Assert.NotNull(solution.TransportationTable);
         Assert.Equal(2, solution.TransportationTable.Length);
         Assert.Equal(3, solution.TransportationTable[0].Length);
+        
+        for (int i = 0; i < expectedTable.Length; i++)
+        {
+            Assert.True(expectedTable[i].SequenceEqual(solution.TransportationTable[i]));
+        }
     }
 }
