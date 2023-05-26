@@ -28,6 +28,12 @@ public class TpAlgorithmTests
         };
 
         TpTask tpTask = new TpTask(suppliers, recipients, transportCost);
+        
+        float[][] expectedTable = new float[][]
+        {
+            new float[] { 10, 0, 10 },
+            new float[] { 0, 28, 0 }
+        };
 
         var project = new TpProject(tpTask);
         
@@ -35,12 +41,6 @@ public class TpAlgorithmTests
         var solution = project.CreateSolution();
         
         // Assert
-        float[][] expectedTable = new float[][]
-        {
-            new float[] { 10, 0, 10 },
-            new float[] { 0, 28, 0 }
-        };
-        
         Assert.NotNull(solution);
         Assert.NotNull(solution.TransportationTable);
         Assert.Equal(2, solution.TransportationTable.Length);
