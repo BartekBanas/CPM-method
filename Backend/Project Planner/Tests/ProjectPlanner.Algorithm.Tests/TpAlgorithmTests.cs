@@ -53,6 +53,54 @@ public class TpAlgorithmTests
     }
     
     [Fact]
+    public void CreateSolution_ShouldIdentifyProfitTable()
+    {
+        // Arrange
+        List<Supplier> suppliers = new List<Supplier>
+        {
+            new Supplier(20, 10),
+            new Supplier(30, 12)
+        };
+
+        List<Recipient> recipients = new List<Recipient>
+        {
+            new Recipient(10, 30),
+            new Recipient(28, 25),
+            new Recipient(27, 30)
+        };
+
+        float[][] transportCost = new float[][]
+        {
+            new float[] { 8, 14, 17 },
+            new float[] { 12, 9, 19 }
+        };
+
+        TpTask tpTask = new TpTask(suppliers, recipients, transportCost);
+        
+        float[][] expectedTable = new float[][]
+        {
+            new float[] { 120, 0, 30 },
+            new float[] { 0, 112, 0 }
+        };
+
+        var project = new TpProject(tpTask);
+        
+        // Act
+        var solution = project.CreateSolution();
+        
+        // Assert
+        Assert.NotNull(solution);
+        Assert.NotNull(solution.ProfitTable);
+        Assert.Equal(2, solution.ProfitTable.Length);
+        Assert.Equal(3, solution.ProfitTable[0].Length);
+        
+        for (int i = 0; i < expectedTable.Length; i++)
+        {
+            Assert.True(expectedTable[i].SequenceEqual(solution.ProfitTable[i]));
+        }
+    }
+    
+    [Fact]
     public void CreateSolution_ShouldIdentifyTotalCost()
     {
         // Arrange
