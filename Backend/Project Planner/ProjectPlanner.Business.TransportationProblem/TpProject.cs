@@ -16,12 +16,16 @@ public class TpProject
     {
         InitializeTpProject();
         EliminateUnprofitableDeliveries();
+
+        float totalCost = CalculateTotalCost();
+        float totalRevenue = CalculateTotalRevenue();
+        float totalProfit = CalculateTotalProfit();
         
         //Tables size is reduced to the original one to exclude fictional actors
         var jaggedTransportationTable = ConvertToJaggedArray(TransportationTable,
             _task.TransportCost.Length, _task.TransportCost[0].Length);
         
-        return new TpSolution(0, 0, 0, jaggedTransportationTable);
+        return new TpSolution(totalCost, totalRevenue, totalProfit, jaggedTransportationTable);
     }
 
     private void InitializeTpProject()
@@ -114,6 +118,60 @@ public class TpProject
                 }
             }
         }
+    }
+
+    private float CalculateTotalCost()
+    {
+        float cost = 0;
+
+        int rows = _task.TransportCost.Length;
+        int columns = _task.TransportCost[0].Length;
+        
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                cost += TransportationTable[i, j] * (_task.Suppliers[i].Cost + _task.TransportCost[i][j]);
+            }
+        }
+
+        return cost;
+    }
+    
+    private float CalculateTotalRevenue()
+    {
+        float revenue = 0;
+        
+        int rows = _task.TransportCost.Length;
+        int columns = _task.TransportCost[0].Length;
+        
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                revenue += TransportationTable[i, j] * _task.Recipients[j].Cost;
+            }
+        }
+
+        return revenue;
+    }
+    
+    private float CalculateTotalProfit()
+    {
+        float profit = 0;
+        
+        int rows = _task.TransportCost.Length;
+        int columns = _task.TransportCost[0].Length;
+        
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                profit += TransportationTable[i, j] * _profitTable[i, j];
+            }
+        }
+
+        return profit;
     }
 
     private static IEnumerable<(int, int)> CreateSortedIndicesArray(float[,] array)
