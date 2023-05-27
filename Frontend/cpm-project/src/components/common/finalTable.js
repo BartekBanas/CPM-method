@@ -20,7 +20,12 @@ const genRes = (rows = 2, columns = 2) => {
 };
 
 const FinalTable = ({ dataSource, columns, receivedData }) => {
-    const resp = genRes();
+    const totalCost = receivedData.totalCost;
+    const totalProfil = receivedData.totalProfit;
+    const totalRevenue = receivedData.totalRevenue;
+    const profitTable = receivedData.profitTable;
+    const transportationTable = receivedData.transportationTable;
+
 
     const newColumns = columns.map(column => {
         const newCol = { ...column };
@@ -29,26 +34,38 @@ const FinalTable = ({ dataSource, columns, receivedData }) => {
     });
 
     const newDataSource = dataSource.map((row, ix) => {
-        const resultRow = resp[ix];
+        const resultRow = profitTable[ix];
+        const resultRowT = transportationTable[ix];
         let newRow = { ...row };
+        let newRowT = { ...row };
+        resultRowT.forEach((value, ix) => {
+            newRowT['dynamic' + (ix + 1)] += value;
+        });
         resultRow.forEach((value, ix) => {
-            newRow['dynamic' + (ix + 1)] += ` [${value}]`;
+            newRow['dynamic' + (ix + 1)] = ` ${resultRowT[ix]} [${value}]`;
         });
         return newRow;
     });
 
     return (
-        <Space direction='vertical' size='middle' style={{}}>
+        <Space direction='vertical' size='middle' style={{}} align="center">
             <DynamicTableContent
                 dataSource={newDataSource}
                 columns={newColumns}
             />
-            <Card title="Legenda" style={{ width: 400, margin: 'auto' }}>
-                <p>() - Jednostkowe koszty zakupu dla dostawców lub ceny sprzedaży dla odbiorców</p>
-                <p>[] - Zmienne kryterialne</p>
-                <p>Liczby bez nawiasów to koszty transpotu</p>
-            </Card>
-        </Space>
+            <Space>
+                <Card title="Legenda" style={{ width: 400, margin: 'auto' }}>
+                    <p>() - Jednostkowe koszty zakupu dla dostawców lub ceny sprzedaży dla odbiorców</p>
+                    <p>[] - Zysk jednostkowy</p>
+                    <p>Liczby bez nawiasów to ilość towaru transportowanego</p>
+                </Card>
+                <Card title="Tabela Transportu" style={{ width: 400, margin: 'auto' }}>
+                    <p>Koszt całkowity = {totalCost}</p>
+                    <p>Zysk = {totalProfil}</p>
+                    <p>Przychód = {totalRevenue}</p>
+                </Card>
+            </Space>
+        </Space >
     );
 };
 

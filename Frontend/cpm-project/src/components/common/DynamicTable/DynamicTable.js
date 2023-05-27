@@ -177,8 +177,8 @@ const DynamicTable = ({ eventFormMP }) => {
 
     axios.post('https://localhost:44363/api/TP', { Suppliers, Recipients, TransportCost })
       .then(response => {
-        console.log(response)
         setReceivedData(response.data)
+        console.log(response.data)
         showDrawer();
       })
       .catch(error => { });
