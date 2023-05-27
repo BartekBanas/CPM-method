@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Button, Empty, Table, Space, Drawer } from 'antd';
+import { Button, Space, Drawer, notification, Radio, Card } from 'antd';
 import { DeleteTwoTone } from '@ant-design/icons';
-import EditableCell from './EditableCell';
-import EditableRow from './EditableRow';
 import { isEmpty } from 'lodash';
 import axios from 'axios';
 
 import './DynamicTable.css';
+import DynamicTableContent from './DynamicTableContent';
 import FinalTable from '../finalTable';
 
 const newColumnProps = {
@@ -16,63 +15,15 @@ const newColumnProps = {
   editable: true
 };
 
-const DynamicTableContent = ({ dataSource, columns, handleCellSave, handleAddRow, handleAddCol }) => {
-  const components = {
-    body: {
-      row: EditableRow,
-      cell: EditableCell
-    }
-  };
-
-  // for setting onCell - passing props per cell of this column
-  const mappedCols = columns.map((col) => {
-    if (!col.editable) {
-      return {
-        ...col,
-        onCell: (record) => ({
-          record,
-          rowScope: col.rowScope
-        })
-      };
-    }
-
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        editable: col.editable,
-        dataIndex: col.dataIndex,
-        title: col.title,
-        handleSave: handleCellSave
-      })
-    };
-  });
-
-  return (
-    <div>
-      <Table
-        locale={{ emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Wypełnij formularz" /> }}
-        components={components}
-        rowClassName={() => "editable-row"}
-        bordered
-        sticky
-        dataSource={dataSource}
-        columns={mappedCols}
-        style={{ maxWidth: '80%', margin: 'auto' }}
-        pagination={false}
-        scroll={{ x: true }}
-      />
-    </div>
-  );
-};
-
-
 const DynamicTable = ({ eventFormMP }) => {
   const [dataSource, setDataSource] = useState([]);
   const [dataSourceS, setDataSourceS] = useState([]);
   const [dataSourceD, setDataSourceD] = useState([]);
   const [count, setCount] = useState(null);
   const [open, setOpen] = useState(false);
+  const [currency, setCurrency] = useState('PLN');
+
+  const [receivedData, setReceivedData] = useState({});
 
   const showDrawer = () => {
     setOpen(true);
@@ -194,12 +145,11 @@ const DynamicTable = ({ eventFormMP }) => {
     });
   };
 
-  const [receivedData, setReceivedData] = useState({});
-
   const sendData = (event) => {
     event.preventDefault();
 
     if (isEmpty(dataSource || eventFormMP)) {
+      notification.warning({ message: 'Warning', description: 'Wypełnij forma' });
       return;
     }
 
@@ -228,25 +178,28 @@ const DynamicTable = ({ eventFormMP }) => {
 
     axios.post('https://localhost:44363/api/TP', { Suppliers, Recipients, TransportCost })
       .then(response => {
-        console.log(response)
         setReceivedData(response.data)
+        console.log(response.data)
         showDrawer();
       })
-      .catch(error => {
-        if (error.response) {
-          console.log(error.response)
-          showDrawer();
-        }
-      })
+      .catch(error => { });
   }
-
-
 
   return (
     <h1>
-      <Button type="primary" onClick={sendData} style={{ marginBottom: 16 }}>
-        Zatwierdź
-      </Button>
+      <Space direction="vertical">
+        <Card title="Waluta">
+          <Radio.Group value={currency} onChange={(e) => setCurrency(e.target.value)}>
+            <Radio.Button type="primary" value={'PLN'}>PLN</Radio.Button>
+            <Radio.Button type="primary" value={'$'}>$</Radio.Button>
+            <Radio.Button type="primary" value={'€'}>€</Radio.Button>
+            <Radio.Button type="primary" value={'£'}>£</Radio.Button>
+          </Radio.Group>
+        </Card>
+        <Button type="primary" onClick={sendData} style={{ marginBottom: 16 }}>
+          Zatwierdź
+        </Button>
+      </Space>
       <Drawer
         title="Wyniki"
         size="large"
@@ -256,7 +209,7 @@ const DynamicTable = ({ eventFormMP }) => {
         onClose={onClose}
         open={open}
       >
-        <FinalTable receivedData={receivedData} />
+        <FinalTable dataSource={dataSource} columns={columns} receivedData={receivedData} currency={currency} />
       </Drawer>
       <DynamicTableContent
         dataSource={dataSource}
@@ -265,7 +218,7 @@ const DynamicTable = ({ eventFormMP }) => {
         handleAddRow={handleAddRow}
         handleAddCol={handleAddCol}
       />
-    </h1>
+    </h1 >
   );
 };
 export { DynamicTable as default };
