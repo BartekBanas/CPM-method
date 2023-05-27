@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Space, Drawer, notification } from 'antd';
+import { Button, Space, Drawer, notification, Radio, Card } from 'antd';
 import { DeleteTwoTone } from '@ant-design/icons';
 import { isEmpty } from 'lodash';
 import axios from 'axios';
@@ -21,6 +21,7 @@ const DynamicTable = ({ eventFormMP }) => {
   const [dataSourceD, setDataSourceD] = useState([]);
   const [count, setCount] = useState(null);
   const [open, setOpen] = useState(false);
+  const [currency, setCurrency] = useState('PLN');
 
   const [receivedData, setReceivedData] = useState({});
 
@@ -186,9 +187,19 @@ const DynamicTable = ({ eventFormMP }) => {
 
   return (
     <h1>
-      <Button type="primary" onClick={sendData} style={{ marginBottom: 16 }}>
-        Zatwierdź
-      </Button>
+      <Space direction="vertical">
+        <Card title="Waluta">
+          <Radio.Group value={currency} onChange={(e) => setCurrency(e.target.value)}>
+            <Radio.Button type="primary" value={'PLN'}>PLN</Radio.Button>
+            <Radio.Button type="primary" value={'$'}>$</Radio.Button>
+            <Radio.Button type="primary" value={'€'}>€</Radio.Button>
+            <Radio.Button type="primary" value={'£'}>£</Radio.Button>
+          </Radio.Group>
+        </Card>
+        <Button type="primary" onClick={sendData} style={{ marginBottom: 16 }}>
+          Zatwierdź
+        </Button>
+      </Space>
       <Drawer
         title="Wyniki"
         size="large"
@@ -198,7 +209,7 @@ const DynamicTable = ({ eventFormMP }) => {
         onClose={onClose}
         open={open}
       >
-        <FinalTable dataSource={dataSource} columns={columns} receivedData={receivedData} />
+        <FinalTable dataSource={dataSource} columns={columns} receivedData={receivedData} currency={currency} />
       </Drawer>
       <DynamicTableContent
         dataSource={dataSource}
@@ -207,7 +218,7 @@ const DynamicTable = ({ eventFormMP }) => {
         handleAddRow={handleAddRow}
         handleAddCol={handleAddCol}
       />
-    </h1>
+    </h1 >
   );
 };
 export { DynamicTable as default };

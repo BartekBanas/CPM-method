@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, Radio, Space, Divider } from 'antd';
+import React from 'react';
+import { Radio, Space } from 'antd';
 
 function Switcher({ setMethod, method }) {
     return (

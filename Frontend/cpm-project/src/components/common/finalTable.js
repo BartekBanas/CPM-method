@@ -2,24 +2,7 @@ import React from "react";
 import { Card, Space } from 'antd';
 import DynamicTableContent from "./DynamicTable/DynamicTableContent";
 
-
-const genRes = (rows = 2, columns = 2) => {
-    const array = [];
-
-    for (let i = 0; i < rows; i++) {
-        const row = [];
-        for (let j = 0; j < columns; j++) {
-            // Generate a random value between 0 and 1
-            const randomValue = Math.round(Math.random() * 5);
-            row.push(randomValue);
-        }
-        array.push(row);
-    }
-
-    return array;
-};
-
-const FinalTable = ({ dataSource, columns, receivedData }) => {
+const FinalTable = ({ dataSource, columns, receivedData, currency }) => {
     const totalCost = receivedData.totalCost;
     const totalProfil = receivedData.totalProfit;
     const totalRevenue = receivedData.totalRevenue;
@@ -30,6 +13,16 @@ const FinalTable = ({ dataSource, columns, receivedData }) => {
     const newColumns = columns.map(column => {
         const newCol = { ...column };
         newCol.editable = false;
+        if (newCol.render) {
+            newCol.render = (text, record) => {
+                return (
+                    <Space>
+                        Dostawca {record.key} ({text})
+                    </Space>
+                );
+            };
+        }
+
         return newCol;
     });
 
@@ -42,7 +35,7 @@ const FinalTable = ({ dataSource, columns, receivedData }) => {
             newRowT['dynamic' + (ix + 1)] += value;
         });
         resultRow.forEach((value, ix) => {
-            newRow['dynamic' + (ix + 1)] = ` ${resultRowT[ix]} [${value}]`;
+            newRow['dynamic' + (ix + 1)] = `${resultRowT[ix]} [${value} ${currency}]`;
         });
         return newRow;
     });
@@ -60,9 +53,9 @@ const FinalTable = ({ dataSource, columns, receivedData }) => {
                     <p>Liczby bez nawiasów to ilość towaru transportowanego</p>
                 </Card>
                 <Card title="Tabela Transportu" style={{ width: 400, margin: 'auto' }}>
-                    <p>Koszt całkowity = {totalCost}</p>
-                    <p>Zysk = {totalProfil}</p>
-                    <p>Przychód = {totalRevenue}</p>
+                    <p>Koszt całkowity = {totalCost} {currency}</p>
+                    <p>Zysk = {totalProfil} {currency}</p>
+                    <p>Przychód = {totalRevenue} {currency}</p>
                 </Card>
             </Space>
         </Space >

@@ -25,7 +25,7 @@ function DataEntryForNewTask({ setEventForm, setEventFormMP, method }) {
                     form={form}
                     onFinish={handleFinished}
                 >
-                    <Space direction="vertical" size={16}>
+                    <Space direction="vertical">
                         <Card title="Nowe zdarzenie" style={{ width: 400 }}>
                             <Form.Item name="name" label="Nazwa" rules={[{ required: true }]}>
                                 <Input id='iName' />
