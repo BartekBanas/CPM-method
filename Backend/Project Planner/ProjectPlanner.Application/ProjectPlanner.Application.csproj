@@ -8,17 +8,12 @@
         <PackageVersion>1.0.0</PackageVersion>
         <Authors>Bartłomiej Banaś</Authors>
         <PackageProjectUrl>https://github.com/BartekBanas/Project-Planner</PackageProjectUrl>
+        <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="Errors\obj\Errors.csproj.nuget.dgspec.json" />
-      <_ContentIncludedByDefault Remove="Errors\obj\project.assets.json" />
-      <_ContentIncludedByDefault Remove="Errors\obj\project.packagespec.json" />
     </ItemGroup>
 
     <ItemGroup>
