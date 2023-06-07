@@ -9,7 +9,11 @@ public class TpProject
     
     public TpProject(TpTask task)
     {
-        _task = task;
+        _task = new TpTaskBuilder()
+            .WithSuppliers(task.Suppliers)
+            .WithRecipients(task.Recipients)
+            .WithTransportCost(task.TransportCost)
+            .Build();
     }
 
     public TpSolution CreateSolution()
