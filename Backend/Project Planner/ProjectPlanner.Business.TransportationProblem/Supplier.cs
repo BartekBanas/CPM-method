@@ -26,4 +26,14 @@ public class Supplier
         Cost = cost;
         IsFictional = isFictional;
     }
+    
+    public Supplier DeepCopy()
+    {
+        return new Supplier
+        {
+            Supply = Supply,
+            Cost = Cost,
+            IsFictional = IsFictional
+        };
+    }
 }
