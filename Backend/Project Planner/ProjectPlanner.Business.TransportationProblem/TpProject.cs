@@ -2,7 +2,7 @@
 
 public class TpProject
 {
-    private TpTask _task;
+    private readonly TpTask _task;
     private float[,] TransportationTable { get; set; } = null!;
 
     private float[,] _profitTable = null!;

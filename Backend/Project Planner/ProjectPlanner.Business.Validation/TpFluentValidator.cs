@@ -7,19 +7,19 @@ public class TpFluentValidator : AbstractValidator<TpTask>
 {
     public TpFluentValidator()
     {
-        RuleFor(tpTask => tpTask.Suppliers)
+        RuleFor(task => task.Suppliers)
             .NotNull().WithMessage("Suppliers cannot be null")
             .Must(suppliers => suppliers.Count > 0).WithMessage("There must be at least one supplier");
 
-        RuleFor(tpTask => tpTask.Recipients)
+        RuleFor(task => task.Recipients)
             .NotNull().WithMessage("Recipients cannot be null")
             .Must(recipients => recipients.Count > 0).WithMessage("There must be at least one recipient");
 
-        RuleFor(tpTask => tpTask.TransportCost)
+        RuleFor(task => task.TransportCost)
             .NotNull().WithMessage("Transport Cost cannot be null");
 
         RuleFor(task => task).Custom(ValidateTasksConsistency);
-        RuleFor(tpTask => tpTask.Suppliers).Custom(ValidateSuppliers);
+        RuleFor(task => task.Suppliers).Custom(ValidateSuppliers);
         RuleFor(task => task.Recipients).Custom(ValidateRecipients);
         RuleFor(task => task).Custom(ValidateTransportationCosts);
     }
