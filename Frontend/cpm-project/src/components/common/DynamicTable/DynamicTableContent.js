@@ -37,7 +37,7 @@ const DynamicTableContent = ({ dataSource, columns, handleCellSave }) => {
     return (
         <div>
             <Table
-                locale={{ emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Wypełnij formularz" /> }}
+                locale={{ emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Fill in form" /> }}
                 components={components}
                 rowClassName={() => "editable-row"}
                 bordered

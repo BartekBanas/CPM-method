@@ -1,4 +1,4 @@
-import { Button, Empty, Form, Input, Popconfirm, Table, Modal, Drawer } from 'antd';
+import { Button, Form, Input, Popconfirm, Table, Modal, Drawer } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { isEmpty } from 'lodash';
 import axios from 'axios';
@@ -49,7 +49,7 @@ const EditableCell = ({
                 ...values,
             });
         } catch (errInfo) {
-            console.log('Zapis nieudany', errInfo);
+            console.log('Save failed', errInfo);
         }
     };
     let childNode = children;
@@ -63,7 +63,7 @@ const EditableCell = ({
                 rules={[
                     {
                         required: true,
-                        message: `${title} jest wymagane!`,
+                        message: `${title} is required!`,
                     },
                 ]}
             >
@@ -118,39 +118,39 @@ const TableWithInfo = ({ eventForm, method }) => {
     };
     const defaultColumns = [
         {
-            title: 'Nazwa',
+            title: 'Name',
             dataIndex: 'name',
             editable: true,
         },
         {
-            title: 'Czas',
+            title: 'Time',
             dataIndex: 'time',
             editable: true,
         },
         {
-            title: 'Następstwo Zdarzeń',
+            title: 'Future Events',
             colSpan: 2,
             dataIndex: 'futureEvents',
             editable: true,
         },
         {
-            title: 'Następstwo Zdarzeń 2',
+            title: 'Future Events 2',
             colSpan: 0,
             dataIndex: 'futureEvents2',
             editable: true,
         },
         {
-            title: 'Opcje',
+            title: 'Options',
             dataIndex: 'options',
             render: (_, record) =>
                 dataSource.length >= 1 ? (
                     <Popconfirm
-                        title="Na pewno chcesz usunąć?"
+                        title="Are you sure you want to delete it?"
                         onConfirm={() => handleDelete(record.key)}
-                        okText="Tak"
-                        cancelText="Nie"
+                        okText="Yes"
+                        cancelText="No"
                     >
-                        <a>Usuń</a>
+                        <a>Delete</a>
                     </Popconfirm>
                 ) : null,
         },
@@ -199,7 +199,7 @@ const TableWithInfo = ({ eventForm, method }) => {
     }
 
     useEffect(() => {
-        console.log('Zmiana danych:', receivedData);
+        console.log('Data change:', receivedData);
     }, [receivedData]);
 
     const sendData = (event) => {
@@ -262,7 +262,7 @@ const TableWithInfo = ({ eventForm, method }) => {
                 {/* Renderowanie komunikatu błędu tylko jeśli error jest ustawiony */}
                 {error !== null && (
                     <Modal
-                        title="Błąd"
+                        title="Error"
                         visible={modalVisible}
                         onOk={handleModalOk}
                         onCancel={handleModalOk}
@@ -272,7 +272,7 @@ const TableWithInfo = ({ eventForm, method }) => {
                     </Modal>
                 )}
                 <Button type="primary" onClick={sendData} style={{ marginBottom: 16 }}>
-                    Zatwierdź
+                    Confirm
                 </Button>
                 <Drawer
                     title="Graf"

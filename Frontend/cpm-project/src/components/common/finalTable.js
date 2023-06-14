@@ -12,12 +12,13 @@ const FinalTable = ({ dataSource, columns, receivedData, currency }) => {
 
     const newColumns = columns.map(column => {
         const newCol = { ...column };
+        newCol.showDeleteButton = 'none';
         newCol.editable = false;
         if (newCol.render) {
             newCol.render = (text, record) => {
                 return (
                     <Space>
-                        Dostawca {record.key} ({text})
+                        Supplier {record.key} ({text})
                     </Space>
                 );
             };
@@ -25,6 +26,7 @@ const FinalTable = ({ dataSource, columns, receivedData, currency }) => {
 
         return newCol;
     });
+
 
     const newDataSource = dataSource.map((row, ix) => {
         const resultRow = profitTable[ix];
@@ -48,14 +50,14 @@ const FinalTable = ({ dataSource, columns, receivedData, currency }) => {
             />
             <Space>
                 <Card title="Legenda" style={{ width: 400, margin: 'auto' }}>
-                    <p>() - Jednostkowe koszty zakupu dla dostawców lub ceny sprzedaży dla odbiorców</p>
-                    <p>[] - Zysk jednostkowy</p>
-                    <p>Liczby bez nawiasów to ilość towaru transportowanego</p>
+                    <p>() - Unit purchase costs for suppliers or sales prices for recipients</p>
+                    <p>[] - Unit profit</p>
+                    <p>Numbers without brackets are the amount of goods transported</p>
                 </Card>
                 <Card title="Tabela Transportu" style={{ width: 400, margin: 'auto' }}>
-                    <p>Koszt całkowity = {totalCost} {currency}</p>
-                    <p>Zysk = {totalProfil} {currency}</p>
-                    <p>Przychód = {totalRevenue} {currency}</p>
+                    <p>Total cost = {totalCost} {currency}</p>
+                    <p>Total profit = {totalProfil} {currency}</p>
+                    <p>Total reveune = {totalRevenue} {currency}</p>
                 </Card>
             </Space>
         </Space >

@@ -12,7 +12,8 @@ const newColumnProps = {
   title: '',
   dataIndex: "new",
   width: 170,
-  editable: true
+  editable: true,
+  showDeleteButton: 'block'
 };
 
 const DynamicTable = ({ eventFormMP }) => {
@@ -63,7 +64,7 @@ const DynamicTable = ({ eventFormMP }) => {
       render: (text, record) => {
         return (
           <Space>
-            Dostawca {record.key} ({text})
+            Supplier {record.key} ({text})
             <DeleteTwoTone onClick={() => handleDeleteRow(record.key)} />
           </Space>
         )
@@ -102,8 +103,8 @@ const DynamicTable = ({ eventFormMP }) => {
           title: () => {
             return (
               <Space>
-                Odbiorca {id} ({demand})
-                <DeleteTwoTone onClick={() => handleDeleteCol(dataIndex)} />
+                Recipient {id} ({demand})
+                <DeleteTwoTone className='delete-button' style={{ display: columns.showDeleteButton ? 'none' : 'block' }} onClick={() => handleDeleteCol(dataIndex)} />
               </Space>
             );
           },
@@ -149,7 +150,7 @@ const DynamicTable = ({ eventFormMP }) => {
     event.preventDefault();
 
     if (isEmpty(dataSource || eventFormMP)) {
-      notification.warning({ message: 'Warning', description: 'Wypełnij forma' });
+      notification.warning({ message: 'Warning', description: 'Fill in the form first' });
       return;
     }
 
@@ -188,7 +189,7 @@ const DynamicTable = ({ eventFormMP }) => {
   return (
     <h1>
       <Space direction="vertical">
-        <Card title="Waluta">
+        <Card title="Currency">
           <Radio.Group value={currency} onChange={(e) => setCurrency(e.target.value)}>
             <Radio.Button type="primary" value={'PLN'}>PLN</Radio.Button>
             <Radio.Button type="primary" value={'$'}>$</Radio.Button>
@@ -197,7 +198,7 @@ const DynamicTable = ({ eventFormMP }) => {
           </Radio.Group>
         </Card>
         <Button type="primary" onClick={sendData} style={{ marginBottom: 16 }}>
-          Zatwierdź
+          Confirm
         </Button>
       </Space>
       <Drawer

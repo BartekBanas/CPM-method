@@ -15,7 +15,7 @@ function DataEntryForNewTask({ setEventForm, setEventFormMP, method }) {
         else setEventFormMP(values);
     }
 
-    const [entryType, setEnrtyType] = useState('Dostawca');
+    const [entryType, setEnrtyType] = useState('Supplier');
 
     if (method === "CPM") {
         return (
@@ -26,14 +26,14 @@ function DataEntryForNewTask({ setEventForm, setEventFormMP, method }) {
                     onFinish={handleFinished}
                 >
                     <Space direction="vertical">
-                        <Card title="Nowe zdarzenie" style={{ width: 400 }}>
-                            <Form.Item name="name" label="Nazwa" rules={[{ required: true }]}>
+                        <Card title="New event" style={{ width: 400 }}>
+                            <Form.Item name="name" label="Name" rules={[{ required: true }]}>
                                 <Input id='iName' />
                             </Form.Item>
-                            <Form.Item name="time" label="Czas" rules={[{ required: true }]}>
+                            <Form.Item name="time" label="Time" rules={[{ required: true }]}>
                                 <Input id='iTime' type="number" min={0} />
                             </Form.Item>
-                            <Form.Item label="Nastepstwo Zdarzeń" required>
+                            <Form.Item label="Future events" required>
                                 <Form.Item
                                     name="futureEvents"
                                     rules={[{ required: true }]}
@@ -54,7 +54,7 @@ function DataEntryForNewTask({ setEventForm, setEventFormMP, method }) {
                             </Form.Item>
                             <Form.Item>
                                 <Button type="primary" htmlType="submit" style={{ display: 'inline-block', margin: '0 5%' }}>
-                                    Prześlij
+                                    Send
                                 </Button>
                                 <Button htmlType="button" onClick={onReset} style={{ display: 'inline-block', margin: '0 5%' }}>
                                     Reset
@@ -73,21 +73,21 @@ function DataEntryForNewTask({ setEventForm, setEventFormMP, method }) {
                 onFinish={handleFinished}
             >
                 <Space direction="vertical" size={16}>
-                    <Card title="Dodaj" style={{ width: 400 }}>
+                    <Card title="Add" style={{ width: 400 }}>
                         <Form.Item>
                             <Radio.Group value={entryType} onChange={(e) => setEnrtyType(e.target.value)}>
-                                <Radio.Button type="primary" value={'Dostawca'}>Dostawca</Radio.Button>
-                                <Radio.Button type="primary" value={'Odbiorca'}>Odbiorca</Radio.Button>
+                                <Radio.Button type="primary" value={'Supplier'}>Supplier</Radio.Button>
+                                <Radio.Button type="primary" value={'Recipient'}>Recipient</Radio.Button>
                             </Radio.Group>
                         </Form.Item>
-                        <Form.Item name={entryType === 'Dostawca' ? 'supply' : 'demand'} label={entryType === 'Dostawca' ? 'Podaż' : 'Popyt'} rules={[{ required: true }]}>
-                            <Input id={entryType === 'Dostawca' ? 'iSupply' : 'iDemand'} />
+                        <Form.Item name={entryType === 'Supplier' ? 'supply' : 'demand'} label={entryType === 'Supplier' ? 'Supply' : 'Demand'} rules={[{ required: true }]}>
+                            <Input id={entryType === 'Supplier' ? 'iSupply' : 'iDemand'} />
                         </Form.Item>
-                        <Form.Item name="cost" label="Cena" rules={[{ required: true }]}>
+                        <Form.Item name="cost" label="Cost" rules={[{ required: true }]}>
                             <Input id='iCost' type="number" min={0} />
                         </Form.Item>
                         <Button type="primary" htmlType="submit" style={{ display: 'inline-block', margin: '0 5%' }}>
-                            Prześlij
+                            Send
                         </Button>
                         <Button htmlType="button" onClick={onReset} style={{ display: 'inline-block', margin: '0 5%' }}>
                             Reset
