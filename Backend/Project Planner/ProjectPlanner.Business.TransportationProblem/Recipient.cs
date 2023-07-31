@@ -26,4 +26,14 @@ public class Recipient
         Cost = cost;
         IsFictional = isFictional;
     }
+    
+    public Recipient DeepCopy()
+    {
+        return new Recipient
+        {
+            Demand = Demand,
+            Cost = Cost,
+            IsFictional = IsFictional
+        };
+    }
 }

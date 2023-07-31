@@ -27,7 +27,11 @@ public class TpAlgorithmTests
             new float[] { 12, 9, 19 }
         };
 
-        TpTask tpTask = new TpTask(suppliers, recipients, transportCost);
+        TpTask tpTask = new TpTaskBuilder()
+            .WithSuppliers(suppliers)
+            .WithRecipients(recipients)
+            .WithTransportCost(transportCost)
+            .Build();
         
         float[][] expectedTable = new float[][]
         {
@@ -75,7 +79,11 @@ public class TpAlgorithmTests
             new float[] { 12, 9, 19 }
         };
 
-        TpTask tpTask = new TpTask(suppliers, recipients, transportCost);
+        TpTask tpTask = new TpTaskBuilder()
+            .WithSuppliers(suppliers)
+            .WithRecipients(recipients)
+            .WithTransportCost(transportCost)
+            .Build();
         
         float[][] expectedTable = new float[][]
         {
@@ -123,7 +131,12 @@ public class TpAlgorithmTests
             new float[] { 12, 9, 19 }
         };
 
-        TpTask tpTask = new TpTask(suppliers, recipients, transportCost);
+        TpTask tpTask = new TpTaskBuilder()
+            .WithSuppliers(suppliers)
+            .WithRecipients(recipients)
+            .WithTransportCost(transportCost)
+            .Build();
+        
         TpProject project = new TpProject(tpTask);
         
         // Act
@@ -158,7 +171,12 @@ public class TpAlgorithmTests
             new float[] { 12, 9, 19 }
         };
 
-        TpTask tpTask = new TpTask(suppliers, recipients, transportCost);
+        TpTask tpTask = new TpTaskBuilder()
+            .WithSuppliers(suppliers)
+            .WithRecipients(recipients)
+            .WithTransportCost(transportCost)
+            .Build();
+        
         TpProject project = new TpProject(tpTask);
         
         // Act
@@ -193,7 +211,12 @@ public class TpAlgorithmTests
             new float[] { 12, 9, 19 }
         };
 
-        TpTask tpTask = new TpTask(suppliers, recipients, transportCost);
+        TpTask tpTask = new TpTaskBuilder()
+            .WithSuppliers(suppliers)
+            .WithRecipients(recipients)
+            .WithTransportCost(transportCost)
+            .Build();
+        
         TpProject project = new TpProject(tpTask);
         
         // Act

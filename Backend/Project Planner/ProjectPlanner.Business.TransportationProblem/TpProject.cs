@@ -2,14 +2,18 @@
 
 public class TpProject
 {
-    private TpTask _task;
+    private readonly TpTask _task;
     private float[,] TransportationTable { get; set; } = null!;
 
     private float[,] _profitTable = null!;
     
     public TpProject(TpTask task)
     {
-        _task = task;
+        _task = new TpTaskBuilder()
+            .WithSuppliers(task.Suppliers)
+            .WithRecipients(task.Recipients)
+            .WithTransportCost(task.TransportCost)
+            .Build();
     }
 
     public TpSolution CreateSolution()
